@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="garden">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physics Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+    }
+    .hero-desc {
+      font-size: 1.5rem;
+    }
+    .question {
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+    .option {
+      font-size: 1.5rem;
+      padding: 0.5rem 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero bg-base-200 py-12">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="hero-title mb-5">Physics Quiz</h1>
+        <p class="hero-desc mb-5">Test your knowledge on plants, space, and Newton's laws.</p>
+        <p class="mb-5">Audience: ICSE Grade 5 students</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <div id="questions">
+      <!-- Questions will be dynamically added here -->
+    </div>
+
+    <div class="flex justify-center mt-8">
+      <button id="evaluateBtn" class="btn btn-primary">Evaluate &amp; Show Results</button>
+    </div>
+
+    <div id="results" class="mt-8 hidden">
+      <!-- Results will be dynamically added here -->
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the process by which plants make their food?",
+        options: ["Photosynthesis", "Respiration", "Transpiration", "Digestion"],
+        answer: "UGhvdG9zeW50aGVzaXM="
+      },
+      {
+        question: "Which planet in our solar system is known as the 'Red Planet'?",
+        options: ["Earth", "Mars", "Jupiter", "Venus"],
+        answer: "TWFycw=="
+      },
+      // Add 8 more questions here...
+    ];
+
+    const questionContainer = document.getElementById("questions");
+    const resultsContainer = document.getElementById("results");
+    const evaluateBtn = document.getElementById("evaluateBtn");
+
+    let selectedOptions = [];
+
+    function renderQuestions() {
+      questionContainer.innerHTML = "";
+      questions.forEach((question, index) => {
+        const questionDiv = document.createElement("div");
+        questionDiv.className = "mb-8";
+
+        const questionText = document.createElement("p");
+        questionText.className = "question mb-4";
+        questionText.textContent = `${index + 1}. ${question.question}`;
+
+        const optionsContainer = document.createElement("div");
+        optionsContainer.className = "grid grid-cols-2 gap-4";
+
+        question.options.forEach((option, optionIndex) => {
+          const optionBtn = document.createElement("button");
+          optionBtn.className = "option btn btn-outline";
+          optionBtn.textContent = option;
+          optionBtn.addEventListener("click", () => selectOption(index, optionIndex));
+          optionBtn.addEventListener("mouseover", () => hoverOption(optionBtn));
+          optionBtn.addEventListener("mouseout", () => unhoverOption(optionBtn));
+          optionsContainer.appendChild(optionBtn);
+        });
+
+        questionDiv.appendChild(questionText);
+        questionDiv.appendChild(optionsContainer);
+        questionContainer.appendChild(questionDiv);
+      });
+    }
+
+    function selectOption(questionIndex, optionIndex) {
+      selectedOptions[questionIndex] = optionIndex;
+      const options = questionContainer.querySelectorAll(`div:nth-child(${questionIndex + 1}) button`);
+      options.forEach((option, index) => {
+        option.classList.remove("btn-outline", "border-blue-500");
+        if (index === optionIndex) {
+          option.classList.add("border-blue-500");
+        } else {
+          option.classList.remove("border-blue-500");
+        }
+      });
+    }
+
+    function hoverOption(option) {
+      option.classList.remove("btn-outline");
+      option.classList.add("btn-primary");
+    }
+
+    function unhoverOption(option) {
+      option.classList.remove("btn-primary");
+      option.classList.add("btn-outline");
+    }
+
+    function evaluateAnswers() {
+      resultsContainer.innerHTML = "";
+      let score = 0;
+      questions.forEach((question, index) => {
+        const resultDiv = document.createElement("div");
+        resultDiv.className = "mb-4";
+
+        const questionText = document.createElement("p");
+        questionText.className = "question mb-2";
+        questionText.textContent = `${index + 1}. ${question.question}`;
+
+        const optionsContainer = document.createElement("div");
+        optionsContainer.className = "grid grid-cols-2 gap-4";
+
+        question.options.forEach((option, optionIndex) => {
+          const optionBtn = document.createElement("button");
+          optionBtn.className = "option btn btn-outline";
+          optionBtn.textContent = option;
+          optionBtn.disabled = true;
+
+          if (optionIndex === selectedOptions[index]) {
+            optionBtn.classList.add("border-blue-500");
+          }
+
+          if (atob(question.answer) === option) {
+            if (optionIndex === selectedOptions[index]) {
+              optionBtn.classList.add("btn-success");
+              score++;
+            } else {
+              optionBtn.classList.add("btn-error");
+            }
+          }
+
+          optionsContainer.appendChild(optionBtn);
+        });
+
+        const feedback = document.createElement("p");
+        feedback.className = "mt-2";
+        if (atob(question.answer) === question.options[selectedOptions[index]]) {
+          feedback.innerHTML = '<span class="text-success">&#10004; Correct</span>';
+        } else {
+          feedback.innerHTML = '<span class="text-error">&#10008; Incorrect</span>';
+        }
+
+        resultDiv.appendChild(questionText);
+        resultDiv.appendChild(optionsContainer);
+        resultDiv.appendChild(feedback);
+        resultsContainer.appendChild(resultDiv);
+      });
+
+      const scoreDisplay = document.createElement("p");
+      scoreDisplay.className = "text-xl font-bold mt-8";
+      scoreDisplay.textContent = `Total Score: ${score} out of ${questions.length}`;
+      resultsContainer.appendChild(scoreDisplay);
+
+      const resetBtn = document.createElement("button");
+      resetBtn.className = "btn btn-primary mt-4";
+      resetBtn.textContent = "Reset & Start Again";
+      resetBtn.addEventListener("click", resetQuiz);
+      resultsContainer.appendChild(resetBtn);
+
+      evaluateBtn.disabled = true;
+      resultsContainer.classList.remove("hidden");
+    }
+
+    function resetQuiz() {
+      selectedOptions = [];
+      resultsContainer.innerHTML = "";
+      resultsContainer.classList.add("hidden");
+      evaluateBtn.disabled = false;
+      renderQuestions();
+    }
+
+    evaluateBtn.addEventListener("click", () => {
+      evaluateBtn.classList.add("loading");
+      setTimeout(() => {
+        evaluateBtn.classList.remove("loading");
+        evaluateAnswers();
+      }, 3000);
+    });
+
+    renderQuestions();
+  </script>
+</body>
+</html>
