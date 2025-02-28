@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET Exam Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option {
+            margin-bottom: 10px;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NEET Exam Quiz</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <h3>1. What does NEET stand for?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q1-option1" name="q1" value="a">
+                        <label for="q1-option1">National Eligibility Entrance Test</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1-option2" name="q1" value="b">
+                        <label for="q1-option2">National Engineering Entrance Test</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1-option3" name="q1" value="c">
+                        <label for="q1-option3">National Education Exam Test</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1-option4" name="q1" value="d">
+                        <label for="q1-option4">None of the above</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add the remaining 9 questions here -->
+
+            <button type="button" onclick="calculateScore()">Check Answers</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const correctAnswers = ["a", "b", "c", "d", "a", "b", "c", "d", "a", "b"];
+
+        function calculateScore() {
+            let score = 0;
+            const questions = document.querySelectorAll(".question");
+
+            questions.forEach((question, index) => {
+                const selectedOption = question.querySelector("input[type='radio']:checked");
+                if (selectedOption && selectedOption.value === correctAnswers[index]) {
+                    score++;
+                }
+            });
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.textContent = `Your score: ${score} out of ${questions.length}`;
+        }
+    </script>
+</body>
+</html>
