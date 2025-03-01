@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology NEET Exam Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.5.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        .hero {
+            background-color: #e6edf5;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            color: #6b21a8;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.4rem;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .question-section {
+            background-color: #e6edf5;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1000px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .option {
+            background-color: #f8fafc;
+            color: #1a202c;
+            padding: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .option:hover {
+            background-color: #e2e8f0;
+        }
+        .selected {
+            border: 3px solid #3b82f6;
+        }
+        .correct {
+            background-color: #10b981;
+            color: white;
+        }
+        .incorrect {
+            background-color: #ef4444;
+            color: white;
+        }
+        .result-message {
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: none;
+        }
+        .correct-message {
+            color: #10b981;
+        }
+        .incorrect-message {
+            color: #ef4444;
+        }
+        .evaluate-btn {
+            background-color: #6b21a8;
+            color: white;
+            font-size: 1.5rem;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            margin: 2rem auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        .evaluate-btn:hover {
+            background-color: #7c3aed;
+        }
+        .score-display {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 2rem auto;
+            display: none;
+            color: #1a202c;
+        }
+        .score-value {
+            font-weight: 700;
+            color: #6b21a8;
+        }
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Biology for NEET Exams</h1>
+        <p>Test your knowledge in Biology with this comprehensive quiz based on NEET exam patterns. Perfect for students aged 15-25 preparing for medical entrance exams.</p>
+    </div>
+
+    <div class="question-section" id="q1">
+        <div class="question">1. Which of the following is NOT a function of the kidney?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. Osmoregulation</div>
+            <div class="option" data-option="B">B. Production of bile</div>
+            <div class="option" data-option="C">C. Blood pressure regulation</div>
+            <div class="option" data-option="D">D. Excretion of nitrogenous waste</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Bile is produced by the liver, not the kidney.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Bile is produced by the liver, not the kidney.
+        </div>
+    </div>
+
+    <div class="question-section" id="q2">
+        <div class="question">2. The concept of 'Survival of the fittest' was proposed by:</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. Charles Darwin</div>
+            <div class="option" data-option="B">B. Gregor Mendel</div>
+            <div class="option" data-option="C">C. Herbert Spencer</div>
+            <div class="option" data-option="D">D. Lamarck</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Herbert Spencer coined the phrase "survival of the fittest" after reading Darwin's work.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Herbert Spencer coined the phrase "survival of the fittest" after reading Darwin's work.
+        </div>
+    </div>
+
+    <div class="question-section" id="q3">
+        <div class="question">3. Mitochondria are known as the powerhouse of the cell because:</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. They synthesize proteins</div>
+            <div class="option" data-option="B">B. They generate ATP</div>
+            <div class="option" data-option="C">C. They contain DNA</div>
+            <div class="option" data-option="D">D. They regulate cell division</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Mitochondria generate ATP through cellular respiration.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Mitochondria generate ATP through cellular respiration.
+        </div>
+    </div>
+
+    <div class="question-section" id="q4">
+        <div class="question">4. Which of the following is a water-soluble vitamin?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. Vitamin A</div>
+            <div class="option" data-option="B">B. Vitamin D</div>
+            <div class="option" data-option="C">C. Vitamin E</div>
+            <div class="option" data-option="D">D. Vitamin C</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Vitamin C is water-soluble while A, D, and E are fat-soluble.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Vitamin C is water-soluble while A, D, and E are fat-soluble.
+        </div>
+    </div>
+
+    <div class="question-section" id="q5">
+        <div class="question">5. Which of the following structures is found in plant cells but not in animal cells?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. Ribosome</div>
+            <div class="option" data-option="B">B. Cell wall</div>
+            <div class="option" data-option="C">C. Mitochondria</div>
+            <div class="option" data-option="D">D. Endoplasmic reticulum</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Cell walls are specific to plant cells.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Cell walls are specific to plant cells.
+        </div>
+    </div>
+
+    <div class="question-section" id="q6">
+        <div class="question">6. Which blood group is considered the universal donor?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. Type A</div>
+            <div class="option" data-option="B">B. Type B</div>
+            <div class="option" data-option="C">C. Type AB</div>
+            <div class="option" data-option="D">D. Type O</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Type O is the universal donor.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Type O is the universal donor.
+        </div>
+    </div>
+
+    <div class="question-section" id="q7">
+        <div class="question">7. The enzyme that catalyzes the first step of DNA replication by unwinding the DNA helix is:</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. DNA polymerase</div>
+            <div class="option" data-option="B">B. Helicase</div>
+            <div class="option" data-option="C">C. Ligase</div>
+            <div class="option" data-option="D">D. Topoisomerase</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Helicase unwinds the DNA helix during replication.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Helicase unwinds the DNA helix during replication.
+        </div>
+    </div>
+
+    <div class="question-section" id="q8">
+        <div class="question">8. Which of the following is responsible for oxygen transport in human blood?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. Hemoglobin</div>
+            <div class="option" data-option="B">B. Plasma</div>
+            <div class="option" data-option="C">C. White blood cells</div>
+            <div class="option" data-option="D">D. Platelets</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Hemoglobin in red blood cells transports oxygen.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Hemoglobin in red blood cells transports oxygen.
+        </div>
+    </div>
+
+    <div class="question-section" id="q9">
+        <div class="question">9. Which of the following diseases is caused by a virus?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. Typhoid</div>
+            <div class="option" data-option="B">B. Tuberculosis</div>
+            <div class="option" data-option="C">C. Malaria</div>
+            <div class="option" data-option="D">D. Hepatitis B</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Hepatitis B is caused by a virus.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Hepatitis B is caused by a virus.
+        </div>
+    </div>
+
+    <div class="question-section" id="q10">
+        <div class="question">10. Which of the following is the site of protein synthesis in a cell?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A. Nucleus</div>
+            <div class="option" data-option="B">B. Ribosome</div>
+            <div class="option" data-option="C">C. Mitochondria</div>
+            <div class="option" data-option="D">D. Golgi apparatus</div>
+        </div>
+        <div class="result-message correct-message">
+            <span>✓</span> Correct! Ribosomes are the sites of protein synthesis.
+        </div>
+        <div class="result-message incorrect-message">
+            <span>✗</span> Incorrect! Ribosomes are the sites of protein synthesis.
+        </div>
+    </div>
+
+    <div class="score-display" id="scoreDisplay">
+        Your score: <span class="score-value">0</span> out of 10
+    </div>
+
+    <button class="evaluate-btn" id="evaluateBtn">Evaluate & Show Results</button>
+
+    <script>
+        // Encoded correct answers (Base64)
+        const encodedAnswers = {
+            q1: "Qg==", // B
+            q2: "Qw==", // C
+            q3: "Qg==", // B
+            q4: "RA==", // D
+            q5: "Qg==", // B
+            q6: "RA==", // D
+            q7: "Qg==", // B
+            q8: "QQ==", // A
+            q9: "RA==", // D
+            q10: "Qg==" // B
+        };
+
+        // Keep track of user selections
+        const userAnswers = {};
+        let quizEvaluated = false;
+
+        // Add click event to options
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                if (quizEvaluated) return;
+                
+                const questionId = this.closest('.question-section').id;
+                const optionValue = this.getAttribute('data-option');
+                
+                // Remove selected class from all options in this question
+                this.closest('.options-grid').querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to this option
+                this.classList.add('selected');
+                
+                // Store user's answer
+                userAnswers[questionId] = optionValue;
+            });
+        });
+
+        // Base64 decode function
+        function decodeBase64(str) {
+            return atob(str);
+        }
+
+        // Evaluate button click
+        document.getElementById('evaluateBtn').addEventListener('click', function() {
+            if (quizEvaluated) {
+                // Reset quiz
+                userAnswers = {};
+                quizEvaluated = false;
+                
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                document.querySelectorAll('.result-message').forEach(msg => {
+                    msg.style.display = 'none';
+                });
+                
+                document.getElementById('scoreDisplay').style.display = 'none';
+                this.textContent = 'Evaluate & Show Results';
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                return;
+            }
+            
+            // Show loading animation
+            this.textContent = 'Evaluating...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                let score = 0;
+                
+                // Check each question
+                for (let i = 1; i <= 10; i++) {
+                    const questionId = `q${i}`;
+                    const correctAnswer = decodeBase64(encodedAnswers[questionId]);
+                    const userAnswer = userAnswers[questionId] || '';
+                    const questionSection = document.getElementById(questionId);
+                    
+                    // Get all options in this question
+                    const options = questionSection.querySelectorAll('.option');
+                    
+                    // Find the correct option and user selected option
+                    let correctOption = null;
+                    let selectedOption = null;
+                    
+                    options.forEach(option => {
+                        const optionValue = option.getAttribute('data-option');
+                        if (optionValue === correctAnswer) {
+                            correctOption = option;
+                        }
+                        if (optionValue === userAnswer) {
+                            selectedOption = option;
+                        }
+                    });
+                    
+                    // Mark correct answer
+                    if (correctOption) {
+                        correctOption.classList.add('correct');
+                    }
+                    
+                    // If user selected an answer
+                    if (selectedOption) {
+                        // Check if correct
+                        if (userAnswer === correctAnswer) {
+                            score++;
+                            questionSection.querySelector('.correct-message').style.display = 'block';
+                        } else {
+                            selectedOption.classList.add('incorrect');
+                            questionSection.querySelector('.incorrect-message').style.display = 'block';
+                        }
+                    } else {
+                        // No answer selected
+                        questionSection.querySelector('.incorrect-message').style.display = 'block';
+                    }
+                }
+                
+                // Update score display
+                document.querySelector('#scoreDisplay .score-value').textContent = score;
+                document.getElementById('scoreDisplay').style.display = 'block';
+                
+                // Update button
+                this.textContent = 'Reset & Start Again';
+                this.disabled = false;
+                
+                // Mark quiz as evaluated
+                quizEvaluated = true;
+                
+            }, 3000); // 3 seconds delay
+        });
+    </script>
+</body>
+</html>
