@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar System Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+    }
+    .question {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .option {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero min-h-screen bg-base-200">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold">Solar System Quiz</h1>
+        <p class="py-6">Test your knowledge of the solar system concepts covered in textbook chapters for students aged 15-25 years.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-10">
+    <div class="question">1. Which planet in our solar system is known as the "Red Planet"?</div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="option btn btn-ghost" onclick="selectOption(this)">Earth</div>
+      <div class="option btn btn-ghost" onclick="selectOption(this)">Venus</div>
+      <div class="option btn btn-ghost" onclick="selectOption(this)">Mars</div>
+      <div class="option btn btn-ghost" onclick="selectOption(this)">Jupiter</div>
+    </div>
+  </div>
+
+  <!-- 8 more question sections here -->
+
+  <div class="p-10 flex justify-center">
+    <button class="btn btn-primary" onclick="evaluateAnswers()">Evaluate & Show Results</button>
+  </div>
+
+  <script>
+    const questions = [
+      // Question 1
+      {
+        question: "Which planet in our solar system is known as the \"Red Planet\"?",
+        options: ["Earth", "Venus", "Mars", "Jupiter"],
+        answer: "Mars"
+      },
+      // 9 more question objects here
+    ];
+
+    let selectedAnswers = [];
+
+    function selectOption(option) {
+      const questionIndex = Array.from(option.parentNode.parentNode.children).indexOf(option.parentNode) - 1;
+      selectedAnswers[questionIndex] = option.textContent;
+      Array.from(option.parentNode.children).forEach(opt => opt.classList.remove('btn-primary'));
+      option.classList.add('btn-primary');
+    }
+
+    function evaluateAnswers() {
+      setTimeout(() => {
+        questions.forEach((question, index) => {
+          const options = Array.from(document.querySelectorAll(`.p-10:nth-child(${index + 2}) .option`));
+          const selectedOption = options.find(opt => opt.textContent === selectedAnswers[index]);
+          const correctOption = options.find(opt => opt.textContent === question.answer);
+
+          options.forEach(opt => {
+            opt.classList.remove('btn-primary');
+            if (opt === correctOption) {
+              opt.classList.add('bg-success');
+            } else if (opt === selectedOption) {
+              opt.classList.add('border-primary', 'border-4');
+              if (opt !== correctOption) {
+                opt.classList.add('bg-error');
+              }
+            }
+          });
+
+          const messageDiv = document.createElement('div');
+          messageDiv.classList.add('mt-4');
+          if (selectedOption === correctOption) {
+            messageDiv.innerHTML = '<span class="text-success">&#10004; Your answer was correct</span>';
+          } else {
+            messageDiv.innerHTML = '<span class="text-error">&#10008; Your answer was wrong</span>';
+          }
+          option.parentNode.appendChild(messageDiv);
+        });
+
+        const score = selectedAnswers.filter((answer, index) => answer === questions[index].answer).length;
+        const scoreDiv = document.createElement('div');
+        scoreDiv.classList.add('stat');
+        scoreDiv.innerHTML = `
+          <div class="stat-figure text-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </div>
+          <div class="stat-value">${score} / ${questions.length}</div>
+          <div class="stat-title">Your Score</div>
+        `;
+        document.querySelector('.flex.justify-center').appendChild(scoreDiv);
+        document.querySelector('.btn-primary').textContent = 'Reset & Start Again';
+        document.querySelector('.btn-primary').onclick = () => location.reload();
+        Array.from(document.querySelectorAll('.option')).forEach(opt => opt.onclick = null);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
