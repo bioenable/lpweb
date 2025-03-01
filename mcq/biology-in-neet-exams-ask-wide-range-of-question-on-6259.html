@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET Biology Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.5.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            font-size: 20px;
+        }
+        .hero-title {
+            font-size: 4rem;
+            color: #8b5cf6;
+            font-weight: 800;
+        }
+        .question-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .option-button {
+            font-size: 1.2rem;
+            padding: 15px;
+            cursor: pointer;
+            background-color: #e2e8f0;
+            color: #1e293b;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 3px solid transparent;
+        }
+        .option-button:hover {
+            background-color: #cbd5e1;
+        }
+        .option-selected {
+            border: 3px solid #3b82f6;
+        }
+        .question-container {
+            margin-bottom: 60px;
+            padding: 30px;
+            background-color: #e6edf3;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .correct-answer {
+            background-color: #86efac !important;
+        }
+        .wrong-answer {
+            background-color: #fca5a5 !important;
+        }
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 20px;
+            display: none;
+        }
+        .correct-message {
+            color: #16a34a;
+        }
+        .wrong-message {
+            color: #dc2626;
+        }
+        .evaluate-btn {
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 15px 30px;
+            border-radius: 8px;
+            background-color: #8b5cf6;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .evaluate-btn:hover {
+            background-color: #7c3aed;
+        }
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="hero min-h-screen bg-base-200 rounded-lg mb-10 flex items-center justify-center" style="background-color: #e6edf3;">
+            <div class="hero-content text-center">
+                <div class="max-w-3xl">
+                    <h1 class="hero-title mb-5">NEET Biology Quiz</h1>
+                    <p class="text-2xl mb-5">Test your knowledge on biology topics commonly asked in NEET exams. This quiz covers various aspects from cell biology to human physiology, ecology, and genetics.</p>
+                    <p class="text-xl">Perfect practice for medical entrance aspirants in the age group of 15-25 years.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 1 -->
+        <div id="q1" class="question-container" data-answer="b2v0ZUE=" data-answered="false">
+            <h2 class="question-title mb-6">1. Which of the following organelles is known as the "powerhouse of the cell"?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q1', 'A')">A. Golgi Apparatus</div>
+                <div class="option-button" onclick="selectOption('q1', 'B')">B. Mitochondria</div>
+                <div class="option-button" onclick="selectOption('q1', 'C')">C. Endoplasmic Reticulum</div>
+                <div class="option-button" onclick="selectOption('q1', 'D')">D. Lysosome</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! Mitochondria are known as the powerhouse of the cell as they produce ATP.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct answer is Mitochondria, known for producing ATP through cellular respiration.
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div id="q2" class="question-container" data-answer="b2v0ZUM=" data-answered="false">
+            <h2 class="question-title mb-6">2. Which of the following is NOT a function of the liver?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q2', 'A')">A. Detoxification</div>
+                <div class="option-button" onclick="selectOption('q2', 'B')">B. Production of bile</div>
+                <div class="option-button" onclick="selectOption('q2', 'C')">C. Production of insulin</div>
+                <div class="option-button" onclick="selectOption('q2', 'D')">D. Glycogen storage</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! Insulin is produced by the beta cells of the pancreas, not the liver.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct answer is Production of insulin, which is a function of the pancreas, not the liver.
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div id="q3" class="question-container" data-answer="b2v0ZUQ=" data-answered="false">
+            <h2 class="question-title mb-6">3. Which of the following structures helps in gaseous exchange in plants?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q3', 'A')">A. Root hairs</div>
+                <div class="option-button" onclick="selectOption('q3', 'B')">B. Phloem</div>
+                <div class="option-button" onclick="selectOption('q3', 'C')">C. Xylem</div>
+                <div class="option-button" onclick="selectOption('q3', 'D')">D. Stomata</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! Stomata are pores on the leaf surface that control gas exchange in plants.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct answer is Stomata, which are specialized structures on plant leaves for gas exchange.
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div id="q4" class="question-container" data-answer="b2v0ZUI=" data-answered="false">
+            <h2 class="question-title mb-6">4. Which of the following is the correct sequence of events in the cardiac cycle?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q4', 'A')">A. Systole of atria → Diastole of ventricles → Systole of ventricles</div>
+                <div class="option-button" onclick="selectOption('q4', 'B')">B. Systole of atria → Systole of ventricles → Diastole of atria and ventricles</div>
+                <div class="option-button" onclick="selectOption('q4', 'C')">C. Diastole of ventricles → Systole of atria → Systole of ventricles</div>
+                <div class="option-button" onclick="selectOption('q4', 'D')">D. Systole of ventricles → Diastole of atria → Systole of atria</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! The cardiac cycle follows this specific sequence of events.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct sequence is: Systole of atria → Systole of ventricles → Diastole of atria and ventricles.
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div id="q5" class="question-container" data-answer="b2v0ZUE=" data-answered="false">
+            <h2 class="question-title mb-6">5. DNA replication follows which mechanism?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q5', 'A')">A. Semi-conservative</div>
+                <div class="option-button" onclick="selectOption('q5', 'B')">B. Conservative</div>
+                <div class="option-button" onclick="selectOption('q5', 'C')">C. Dispersive</div>
+                <div class="option-button" onclick="selectOption('q5', 'D')">D. Parallel</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! DNA replication follows the semi-conservative mechanism as demonstrated by Meselson and Stahl.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct answer is Semi-conservative, where each new DNA molecule contains one original strand and one newly synthesized strand.
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div id="q6" class="question-container" data-answer="b2v0ZUM=" data-answered="false">
+            <h2 class="question-title mb-6">6. Which of the following is a water-soluble vitamin?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q6', 'A')">A. Vitamin A</div>
+                <div class="option-button" onclick="selectOption('q6', 'B')">B. Vitamin D</div>
+                <div class="option-button" onclick="selectOption('q6', 'C')">C. Vitamin C</div>
+                <div class="option-button" onclick="selectOption('q6', 'D')">D. Vitamin K</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! Vitamin C (ascorbic acid) is water-soluble and not stored in the body.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct answer is Vitamin C, which is water-soluble, while vitamins A, D, and K are fat-soluble.
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div id="q7" class="question-container" data-answer="b2v0ZUI=" data-answered="false">
+            <h2 class="question-title mb-6">7. Which of the following hormones is produced by the thyroid gland?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q7', 'A')">A. Insulin</div>
+                <div class="option-button" onclick="selectOption('q7', 'B')">B. Thyroxine</div>
+                <div class="option-button" onclick="selectOption('q7', 'C')">C. Adrenaline</div>
+                <div class="option-button" onclick="selectOption('q7', 'D')">D. Testosterone</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! Thyroxine (T4) is produced by the thyroid gland and regulates metabolism.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct answer is Thyroxine, a hormone produced by the thyroid gland that regulates metabolic rate.
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div id="q8" class="question-container" data-answer="b2v0ZUQ=" data-answered="false">
+            <h2 class="question-title mb-6">8. In humans, fertilization normally takes place in the:</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q8', 'A')">A. Uterus</div>
+                <div class="option-button" onclick="selectOption('q8', 'B')">B. Ovary</div>
+                <div class="option-button" onclick="selectOption('q8', 'C')">C. Vagina</div>
+                <div class="option-button" onclick="selectOption('q8', 'D')">D. Fallopian tube</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! Fertilization in humans typically occurs in the ampullary-isthmic junction of the fallopian tube.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct answer is Fallopian tube, where the egg and sperm typically meet for fertilization.
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div id="q9" class="question-container" data-answer="b2v0ZUM=" data-answered="false">
+            <h2 class="question-title mb-6">9. The process by which plants lose water in the form of water vapor is called:</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q9', 'A')">A. Photosynthesis</div>
+                <div class="option-button" onclick="selectOption('q9', 'B')">B. Respiration</div>
+                <div class="option-button" onclick="selectOption('q9', 'C')">C. Transpiration</div>
+                <div class="option-button" onclick="selectOption('q9', 'D')">D. Guttation</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! Transpiration is the process where plants lose water through their stomata.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct answer is Transpiration, the process of water loss from plant leaves through stomata.
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div id="q10" class="question-container" data-answer="b2v0ZUE=" data-answered="false">
+            <h2 class="question-title mb-6">10. Which of the following is NOT a type of RNA?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option-button" onclick="selectOption('q10', 'A')">A. Deoxyribonucleic acid (DNA)</div>
+                <div class="option-button" onclick="selectOption('q10', 'B')">B. Messenger RNA (mRNA)</div>
+                <div class="option-button" onclick="selectOption('q10', 'C')">C. Transfer RNA (tRNA)</div>
+                <div class="option-button" onclick="selectOption('q10', 'D')">D. Ribosomal RNA (rRNA)</div>
+            </div>
+            <div class="result-message correct-message">
+                <span>✓</span> Correct! DNA (Deoxyribonucleic acid) is not a type of RNA.
+            </div>
+            <div class="result-message wrong-message">
+                <span>✗</span> Wrong! The correct answer is Deoxyribonucleic acid (DNA), which is a different nucleic acid from RNA.
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="flex flex-col items-center justify-center my-10 p-8 bg-base-200 rounded-lg" style="background-color: #e6edf3;">
+            <div id="score-display" class="score-display">
+                Your score: <span id="score">0</span> out of 10
+            </div>
+            <button id="evaluate-btn" class="evaluate-btn" onclick="evaluateQuiz()">
+                Evaluate & Show Results
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Store selected answers
+        const userAnswers = {};
+        let quizEvaluated = false;
+
+        // Function to select an option
+        function selectOption(questionId, option) {
+            if (quizEvaluated) return;
+            
+            const questionElement = document.getElementById(questionId);
+            const optionButtons = questionElement.querySelectorAll('.option-button');
+            
+            // Remove selection from all options
+            optionButtons.forEach(button => {
+                button.classList.remove('option-selected');
+            });
+            
+            // Add selection to clicked option
+            const selectedOption = Array.from(optionButtons)
+                .find(button => button.textContent.charAt(0) === option);
+            
+            if (selectedOption) {
+                selectedOption.classList.add('option-selected');
+                userAnswers[questionId] = option;
+                questionElement.setAttribute('data-answered', 'true');
+            }
+        }
+
+        // Function to evaluate quiz
+        function evaluateQuiz() {
+            if (quizEvaluated) return;
+            
+            const evaluateBtn = document.getElementById('evaluate-btn');
+            evaluateBtn.classList.add('pulse-animation');
+            evaluateBtn.textContent = 'Evaluating...';
+            
+            setTimeout(() => {
+                evaluateBtn.classList.remove('pulse-animation');
+                quizEvaluated = true;
+                
+                let score = 0;
+                
+                // For each question, check if the answer is correct
+                for (let i = 1; i <= 10; i++) {
+                    const questionId = `q${i}`;
+                    const questionElement = document.getElementById(questionId);
+                    const correctAnswerEncoded = questionElement.getAttribute('data-answer');
+                    const correctAnswer = atob(correctAnswerEncoded).charAt(4); // Decode base64
+                    const userAnswer = userAnswers[questionId] || '';
+                    
+                    const optionButtons = questionElement.querySelectorAll('.option-button');
+                    
+                    // Find the selected option button and correct option button
+                    const selectedOptionIndex = userAnswer.charCodeAt(0) - 65; // Convert A to 0, B to 1, etc.
+                    const correctOptionIndex = correctAnswer.charCodeAt(0) - 65;
+                    
+                    if (selectedOptionIndex >= 0 && selectedOptionIndex < optionButtons.length) {
+                        optionButtons[selectedOptionIndex].classList.add('option-selected');
+                        
+                        if (userAnswer === correctAnswer) {
+                            // Correct answer
+                            optionButtons[selectedOptionIndex].classList.add('correct-answer');
+                            questionElement.querySelector('.correct-message').style.display = 'block';
+                            score++;
+                        } else {
+                            // Wrong answer
+                            optionButtons[selectedOptionIndex].classList.add('wrong-answer');
+                            optionButtons[correctOptionIndex].classList.add('correct-answer');
+                            questionElement.querySelector('.wrong-message').style.display = 'block';
+                        }
+                    } else {
+                        // No answer selected
+                        optionButtons[correctOptionIndex].classList.add('correct-answer');
+                        questionElement.querySelector('.wrong-message').style.display = 'block';
+                    }
+                }
+                
+                // Update score display
+                document.getElementById('score').textContent = score;
+                document.getElementById('score-display').style.display = 'block';
+                
+                // Change evaluate button to reset button
+                evaluateBtn.textContent = 'Reset & Start Again';
+                evaluateBtn.onclick = resetQuiz;
+                
+            }, 3000); // 3 seconds delay for animation
+        }
+
+        // Function to reset quiz
+        function resetQuiz() {
+            quizEvaluated = false;
+            
+            // Reset user answers
+            Object.keys(userAnswers).forEach(key => {
+                delete userAnswers[key];
+            });
+            
+            // Reset all questions
+            for (let i = 1; i <= 10; i++) {
+                const questionId = `q${i}`;
+                const questionElement = document.getElementById(questionId);
+                
+                // Reset option buttons
+                const optionButtons = questionElement.querySelectorAll('.option-button');
+                optionButtons.forEach(button => {
+                    button.classList.remove('option-selected', 'correct-answer', 'wrong-answer');
+                });
+                
+                // Hide result messages
+                questionElement.querySelector('.correct-message').style.display = 'none';
+                questionElement.querySelector('.wrong-message').style.display = 'none';
+                
+                // Reset data-answered attribute
+                questionElement.setAttribute('data-answered', 'false');
+            }
+            
+            // Reset score display
+            document.getElementById('score-display').style.display = 'none';
+            
+            // Reset evaluate button
+            const evaluateBtn = document.getElementById('evaluate-btn');
+            evaluateBtn.textContent = 'Evaluate & Show Results';
+            evaluateBtn.onclick = evaluateQuiz;
+        }
+    </script>
+</body>
+</html>
