@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET Biology Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.2/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 0;
+            margin: 0;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .hero {
+            background-color: #e6eef5;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            color: #6a0dad;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #333;
+        }
+        .question-section {
+            background-color: #e6eef5;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem auto;
+            max-width: 900px;
+        }
+        .question {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            height: 100%;
+        }
+        .option:hover {
+            background-color: #e2e8f0;
+        }
+        .selected {
+            border: 4px solid #3b82f6;
+        }
+        .correct {
+            background-color: #10b981;
+            color: white;
+        }
+        .incorrect {
+            background-color: #ef4444;
+            color: white;
+        }
+        .result-message {
+            margin-top: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: none;
+        }
+        .correct-message {
+            color: #10b981;
+        }
+        .incorrect-message {
+            color: #ef4444;
+        }
+        .eval-button-container {
+            text-align: center;
+            margin: 4rem auto;
+            max-width: 900px;
+        }
+        .eval-button {
+            background-color: #6a0dad;
+            color: white;
+            font-size: 1.7rem;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .eval-button:hover {
+            background-color: #4b0082;
+        }
+        .score-container {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 2rem auto;
+            display: none;
+        }
+        .score-number {
+            color: #6a0dad;
+            font-size: 3.5rem;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>NEET Biology Quiz</h1>
+        <p>Prepare for your medical entrance exams with this comprehensive Biology quiz designed to test your knowledge of key concepts covered in NEET examinations.</p>
+    </div>
+
+    <div class="question-section" id="q1">
+        <div class="question">1. Which of the following organelles is known as the "power house" of the cell?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q1-a">Golgi apparatus</div>
+            <div class="option" data-id="q1-b">Endoplasmic reticulum</div>
+            <div class="option" data-id="q1-c">Mitochondria</div>
+            <div class="option" data-id="q1-d">Lysosomes</div>
+        </div>
+        <div class="result-message correct-message" id="q1-correct">
+            <span>✓</span> Correct! Mitochondria are known as the powerhouse of the cell.
+        </div>
+        <div class="result-message incorrect-message" id="q1-incorrect">
+            <span>✗</span> Incorrect! The correct answer is Mitochondria.
+        </div>
+    </div>
+
+    <div class="question-section" id="q2">
+        <div class="question">2. Which of the following is NOT a part of the human digestive system?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q2-a">Liver</div>
+            <div class="option" data-id="q2-b">Thymus</div>
+            <div class="option" data-id="q2-c">Pancreas</div>
+            <div class="option" data-id="q2-d">Gall bladder</div>
+        </div>
+        <div class="result-message correct-message" id="q2-correct">
+            <span>✓</span> Correct! Thymus is part of the lymphatic system, not the digestive system.
+        </div>
+        <div class="result-message incorrect-message" id="q2-incorrect">
+            <span>✗</span> Incorrect! The correct answer is Thymus.
+        </div>
+    </div>
+
+    <div class="question-section" id="q3">
+        <div class="question">3. Which of the following hormones is produced by the thyroid gland?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q3-a">Insulin</div>
+            <div class="option" data-id="q3-b">Testosterone</div>
+            <div class="option" data-id="q3-c">Thyroxine</div>
+            <div class="option" data-id="q3-d">Adrenaline</div>
+        </div>
+        <div class="result-message correct-message" id="q3-correct">
+            <span>✓</span> Correct! Thyroxine is produced by the thyroid gland.
+        </div>
+        <div class="result-message incorrect-message" id="q3-incorrect">
+            <span>✗</span> Incorrect! The correct answer is Thyroxine.
+        </div>
+    </div>
+
+    <div class="question-section" id="q4">
+        <div class="question">4. Which of the following diseases is caused by a virus?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q4-a">Tuberculosis</div>
+            <div class="option" data-id="q4-b">Malaria</div>
+            <div class="option" data-id="q4-c">Dengue fever</div>
+            <div class="option" data-id="q4-d">Cholera</div>
+        </div>
+        <div class="result-message correct-message" id="q4-correct">
+            <span>✓</span> Correct! Dengue fever is caused by a virus transmitted by mosquitoes.
+        </div>
+        <div class="result-message incorrect-message" id="q4-incorrect">
+            <span>✗</span> Incorrect! The correct answer is Dengue fever.
+        </div>
+    </div>
+
+    <div class="question-section" id="q5">
+        <div class="question">5. Which of the following is the correct sequence of the phases of mitosis?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q5-a">Prophase, Metaphase, Anaphase, Telophase</div>
+            <div class="option" data-id="q5-b">Prophase, Anaphase, Metaphase, Telophase</div>
+            <div class="option" data-id="q5-c">Metaphase, Prophase, Anaphase, Telophase</div>
+            <div class="option" data-id="q5-d">Metaphase, Anaphase, Prophase, Telophase</div>
+        </div>
+        <div class="result-message correct-message" id="q5-correct">
+            <span>✓</span> Correct! The correct sequence is Prophase, Metaphase, Anaphase, Telophase.
+        </div>
+        <div class="result-message incorrect-message" id="q5-incorrect">
+            <span>✗</span> Incorrect! The correct answer is Prophase, Metaphase, Anaphase, Telophase.
+        </div>
+    </div>
+
+    <div class="question-section" id="q6">
+        <div class="question">6. Which of the following blood vessels carries oxygenated blood?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q6-a">Pulmonary artery</div>
+            <div class="option" data-id="q6-b">Pulmonary vein</div>
+            <div class="option" data-id="q6-c">Superior vena cava</div>
+            <div class="option" data-id="q6-d">Inferior vena cava</div>
+        </div>
+        <div class="result-message correct-message" id="q6-correct">
+            <span>✓</span> Correct! Pulmonary vein carries oxygenated blood from lungs to the heart.
+        </div>
+        <div class="result-message incorrect-message" id="q6-incorrect">
+            <span>✗</span> Incorrect! The correct answer is Pulmonary vein.
+        </div>
+    </div>
+
+    <div class="question-section" id="q7">
+        <div class="question">7. Which of the following best describes the function of nephrons in the human body?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q7-a">They are responsible for blood cell production</div>
+            <div class="option" data-id="q7-b">They filter blood and form urine</div>
+            <div class="option" data-id="q7-c">They help in digestion of proteins</div>
+            <div class="option" data-id="q7-d">They transmit nerve impulses</div>
+        </div>
+        <div class="result-message correct-message" id="q7-correct">
+            <span>✓</span> Correct! Nephrons filter blood and form urine in the kidneys.
+        </div>
+        <div class="result-message incorrect-message" id="q7-incorrect">
+            <span>✗</span> Incorrect! The correct answer is They filter blood and form urine.
+        </div>
+    </div>
+
+    <div class="question-section" id="q8">
+        <div class="question">8. Which of the following is the site of protein synthesis in a cell?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q8-a">Ribosomes</div>
+            <div class="option" data-id="q8-b">Mitochondria</div>
+            <div class="option" data-id="q8-c">Chloroplast</div>
+            <div class="option" data-id="q8-d">Golgi apparatus</div>
+        </div>
+        <div class="result-message correct-message" id="q8-correct">
+            <span>✓</span> Correct! Ribosomes are the sites of protein synthesis in a cell.
+        </div>
+        <div class="result-message incorrect-message" id="q8-incorrect">
+            <span>✗</span> Incorrect! The correct answer is Ribosomes.
+        </div>
+    </div>
+
+    <div class="question-section" id="q9">
+        <div class="question">9. Which of the following is the primary causative agent of malaria?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q9-a">Plasmodium</div>
+            <div class="option" data-id="q9-b">Trypanosoma</div>
+            <div class="option" data-id="q9-c">Leishmania</div>
+            <div class="option" data-id="q9-d">Entamoeba</div>
+        </div>
+        <div class="result-message correct-message" id="q9-correct">
+            <span>✓</span> Correct! Plasmodium is the parasite that causes malaria.
+        </div>
+        <div class="result-message incorrect-message" id="q9-incorrect">
+            <span>✗</span> Incorrect! The correct answer is Plasmodium.
+        </div>
+    </div>
+
+    <div class="question-section" id="q10">
+        <div class="question">10. Which of the following is NOT a function of the liver?</div>
+        <div class="options-grid">
+            <div class="option" data-id="q10-a">Production of bile</div>
+            <div class="option" data-id="q10-b">Storage of glycogen</div>
+            <div class="option" data-id="q10-c">Detoxification of harmful substances</div>
+            <div class="option" data-id="q10-d">Production of insulin</div>
+        </div>
+        <div class="result-message correct-message" id="q10-correct">
+            <span>✓</span> Correct! Insulin is produced by the pancreas, not the liver.
+        </div>
+        <div class="result-message incorrect-message" id="q10-incorrect">
+            <span>✗</span> Incorrect! The correct answer is Production of insulin.
+        </div>
+    </div>
+
+    <div class="score-container" id="score-display">
+        Your score: <span class="score-number" id="score">0</span> out of 10
+    </div>
+
+    <div class="eval-button-container">
+        <button class="eval-button" id="eval-button">Evaluate & Show Results</button>
+        <button class="eval-button hidden" id="reset-button">Reset & Start Again</button>
+    </div>
+
+    <script>
+        // Encode correct answers
+        const correctAnswers = {
+            q1: btoa('q1-c'),
+            q2: btoa('q2-b'),
+            q3: btoa('q3-c'),
+            q4: btoa('q4-c'),
+            q5: btoa('q5-a'),
+            q6: btoa('q6-b'),
+            q7: btoa('q7-b'),
+            q8: btoa('q8-a'),
+            q9: btoa('q9-a'),
+            q10: btoa('q10-d')
+        };
+
+        // Store user selections
+        const userSelections = {};
+
+        // Add click event listeners to options
+        const options = document.querySelectorAll('.option');
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const dataId = this.getAttribute('data-id');
+                const questionId = dataId.split('-')[0];
+                
+                // Remove selection from other options in the same question
+                document.querySelectorAll(`[data-id^="${questionId}"]`).forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selection to clicked option
+                this.classList.add('selected');
+                
+                // Store user selection
+                userSelections[questionId] = dataId;
+            });
+        });
+
+        // Evaluate button functionality
+        document.getElementById('eval-button').addEventListener('click', function() {
+            // Disable option selection
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Hide evaluate button and show loading animation
+            this.style.display = 'none';
+            
+            // Delayed evaluation to show animation
+            setTimeout(() => {
+                evaluateQuiz();
+                
+                // Show reset button
+                document.getElementById('reset-button').classList.remove('hidden');
+                
+                // Show score
+                document.getElementById('score-display').style.display = 'block';
+            }, 3000);
+        });
+
+        // Reset button functionality
+        document.getElementById('reset-button').addEventListener('click', function() {
+            // Reset all selections
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.style.pointerEvents = 'auto';
+            });
+            
+            // Hide all result messages
+            document.querySelectorAll('.result-message').forEach(msg => {
+                msg.style.display = 'none';
+            });
+            
+            // Reset user selections
+            Object.keys(userSelections).forEach(key => {
+                delete userSelections[key];
+            });
+            
+            // Hide reset button and show evaluate button
+            this.classList.add('hidden');
+            document.getElementById('eval-button').style.display = 'block';
+            
+            // Hide score
+            document.getElementById('score-display').style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+
+        // Evaluate quiz function
+        function evaluateQuiz() {
+            let score = 0;
+            
+            // Check each question
+            for (let i = 1; i <= 10; i++) {
+                const questionId = `q${i}`;
+                const userSelection = userSelections[questionId];
+                const correctAnswer = atob(correctAnswers[questionId]);
+                
+                // If user selected an answer
+                if (userSelection) {
+                    const userOption = document.querySelector(`[data-id="${userSelection}"]`);
+                    const correctOption = document.querySelector(`[data-id="${correctAnswer}"]`);
+                    
+                    // Mark correct option
+                    correctOption.classList.add('correct');
+                    
+                    // Check if user's answer is correct
+                    if (userSelection === correctAnswer) {
+                        score++;
+                        document.getElementById(`${questionId}-correct`).style.display = 'block';
+                    } else {
+                        userOption.classList.add('incorrect');
+                        document.getElementById(`${questionId}-incorrect`).style.display = 'block';
+                    }
+                } else {
+                    // If no selection, just show correct answer
+                    const correctOption = document.querySelector(`[data-id="${correctAnswer}"]`);
+                    correctOption.classList.add('correct');
+                    document.getElementById(`${questionId}-incorrect`).style.display = 'block';
+                }
+            }
+            
+            // Update score
+            document.getElementById('score').textContent = score;
+        }
+    </script>
+</body>
+</html>
