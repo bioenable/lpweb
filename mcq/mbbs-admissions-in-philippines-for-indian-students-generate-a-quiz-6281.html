@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBBS in Philippines Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 0;
+            margin: 0;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .question-section {
+            background-color: #e9eef5;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .hero {
+            background: linear-gradient(135deg, #e9eef5 0%, #d5e0ed 100%);
+            padding: 3rem 2rem;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 1.5rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .option:hover {
+            transform: translateY(-2px);
+        }
+        .disabled {
+            pointer-events: none;
+            opacity: 0.9;
+        }
+        .question-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        .result-message {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        #score-display {
+            display: none;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .tick {
+            color: #10b981;
+            font-size: 2rem;
+        }
+        .cross {
+            color: #ef4444;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 pb-12">
+        <div class="hero">
+            <h1 class="text-6xl font-bold text-purple-700 mb-6">MBBS in Philippines Quiz</h1>
+            <p class="text-2xl text-gray-800">Test your knowledge about MBBS admissions in the Philippines for Indian students. Learn about admission requirements, university options, and key facts that can help aspiring medical students understand this popular alternative path.</p>
+        </div>
+
+        <div class="question-section" id="q1">
+            <p class="question-text">1. Approximately how many Indian students are currently pursuing MBBS in the Philippines?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. 2,000 - 3,000 students</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. 5,000 - 7,000 students</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. 10,000 - 15,000 students</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. 20,000 - 25,000 students</div>
+            </div>
+            <div class="result-message" id="result1">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="question-section" id="q2">
+            <p class="question-text">2. What is the minimum NEET score required for MBBS admission in the Philippines?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. No NEET score required</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. At least 150 marks in NEET</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. Qualifying score (Currently 137 marks)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. Minimum 300 marks in NEET</div>
+            </div>
+            <div class="result-message" id="result2">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="question-section" id="q3">
+            <p class="question-text">3. What is the typical duration of an MBBS program in the Philippines?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. 4 years</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. 4.5 years</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. 5.5 years</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. 6 years</div>
+            </div>
+            <div class="result-message" id="result3">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="question-section" id="q4">
+            <p class="question-text">4. Which exam must Indian students pass after completing their MBBS in the Philippines to practice in India?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. FMGE (Foreign Medical Graduate Examination)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. NEXT (National Exit Test)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. NMAT (National Medical Admission Test)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. USMLE (United States Medical Licensing Examination)</div>
+            </div>
+            <div class="result-message" id="result4">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="question-section" id="q5">
+            <p class="question-text">5. What is the approximate average annual tuition fee for MBBS in the Philippines?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. ₹1-2 Lakhs per year</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. ₹3-5 Lakhs per year</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. ₹8-12 Lakhs per year</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. ₹15-20 Lakhs per year</div>
+            </div>
+            <div class="result-message" id="result5">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="question-section" id="q6">
+            <p class="question-text">6. Which accreditation body recognizes medical universities in the Philippines?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. CHED (Commission on Higher Education)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. WHO (World Health Organization)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. NMC (National Medical Commission)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. MCI (Medical Council of India)</div>
+            </div>
+            <div class="result-message" id="result6">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="question-section" id="q7">
+            <p class="question-text">7. What is the medium of instruction for MBBS courses in the Philippines?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. Filipino</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. English</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. Spanish</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. Bilingual (English and Filipino)</div>
+            </div>
+            <div class="result-message" id="result7">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="question-section" id="q8">
+            <p class="question-text">8. What is the minimum academic requirement for Indian students to apply for MBBS in the Philippines?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. 50% in PCB (Physics, Chemistry, Biology)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. 60% in PCB (Physics, Chemistry, Biology)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. 70% in PCB (Physics, Chemistry, Biology)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. No specific percentage required</div>
+            </div>
+            <div class="result-message" id="result8">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="question-section" id="q9">
+            <p class="question-text">9. Which Philippine city has the highest concentration of medical universities popular among Indian students?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. Manila</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. Davao</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. Cebu</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. Bacolod</div>
+            </div>
+            <div class="result-message" id="result9">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="question-section" id="q10">
+            <p class="question-text">10. What additional entrance test do some Philippine medical universities require?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="A">A. TOEFL or IELTS</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="B">B. MCAT (Medical College Admission Test)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="C">C. NMAT (National Medical Admission Test)</div>
+                <div class="option bg-gray-100 rounded-lg border border-gray-300" data-option="D">D. No additional test required</div>
+            </div>
+            <div class="result-message" id="result10">
+                <span class="indicator"></span>
+                <span class="message"></span>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <div id="score-display" class="stats bg-blue-50 shadow mx-auto max-w-xl">
+                <div class="stat">
+                    <div class="stat-title text-3xl">Your Score:</div>
+                    <div class="stat-value text-5xl text-purple-600"><span id="correct-count">0</span> out of 10</div>
+                </div>
+            </div>
+            <button id="evaluate-btn" class="btn btn-primary btn-lg text-2xl px-12 py-4 mt-6 bg-purple-600 hover:bg-purple-700 border-none text-white">Evaluate & Show Results</button>
+            <button id="reset-btn" class="btn btn-secondary btn-lg text-2xl px-12 py-4 mt-6 bg-gray-600 hover:bg-gray-700 border-none text-white hidden">Reset & Start Again</button>
+        </div>
+    </div>
+
+    <script>
+        // Base64 encoded correct answers
+        const encodedAnswers = {
+            q1: "Qg==", // B
+            q2: "Qw==", // C
+            q3: "Qw==", // C
+            q4: "QQ==", // A
+            q5: "Qg==", // B
+            q6: "QQ==", // A
+            q7: "Qg==", // B
+            q8: "QQ==", // A
+            q9: "QQ==", // A
+            q10: "Qw==" // C
+        };
+
+        // Store user answers
+        const userAnswers = {};
+        let isEvaluated = false;
+
+        // Option click handler
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                if (isEvaluated) return;
+                
+                const questionId = this.closest('.question-section').id;
+                const selectedOption = this.getAttribute('data-option');
+                
+                // Remove selected state from siblings
+                this.closest('.grid').querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('bg-blue-200', 'border-blue-500', 'border-2');
+                    opt.classList.add('bg-gray-100', 'border-gray-300');
+                });
+                
+                // Apply selected state
+                this.classList.remove('bg-gray-100', 'border-gray-300');
+                this.classList.add('bg-blue-200', 'border-blue-500', 'border-2');
+                
+                // Store answer
+                userAnswers[questionId] = selectedOption;
+            });
+        });
+
+        // Evaluate button
+        document.getElementById('evaluate-btn').addEventListener('click', function() {
+            if (isEvaluated) return;
+            
+            this.classList.add('loading');
+            
+            setTimeout(() => {
+                evaluateQuiz();
+                this.classList.remove('loading');
+                this.classList.add('hidden');
+                document.getElementById('reset-btn').classList.remove('hidden');
+            }, 3000);
+        });
+
+        // Reset button
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            resetQuiz();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Evaluate quiz function
+        function evaluateQuiz() {
+            isEvaluated = true;
+            let correctCount = 0;
+            
+            // Make all options non-clickable
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.add('disabled');
+            });
+            
+            // Check each question
+            for (let i = 1; i <= 10; i++) {
+                const questionId = `q${i}`;
+                const resultElement = document.getElementById(`result${i}`);
+                const userAnswer = userAnswers[questionId] || null;
+                const correctAnswer = atob(encodedAnswers[questionId]);
+                
+                // Show result message
+                resultElement.style.display = 'flex';
+                
+                if (!userAnswer) {
+                    // No answer selected
+                    resultElement.querySelector('.indicator').innerHTML = '<span class="cross">❌</span>';
+                    resultElement.querySelector('.message').textContent = 'No answer selected!';
+                    continue;
+                }
+                
+                // Mark correct answer in green
+                const correctOption = document.querySelector(`#${questionId} [data-option="${correctAnswer}"]`);
+                correctOption.classList.remove('bg-gray-100', 'border-gray-300');
+                correctOption.classList.add('bg-green-200');
+                
+                if (userAnswer === correctAnswer) {
+                    // Correct answer
+                    correctCount++;
+                    resultElement.querySelector('.indicator').innerHTML = '<span class="tick">✓</span>';
+                    resultElement.querySelector('.message').textContent = 'Your answer is correct!';
+                } else {
+                    // Incorrect answer
+                    const selectedOption = document.querySelector(`#${questionId} [data-option="${userAnswer}"]`);
+                    selectedOption.classList.remove('bg-blue-200', 'bg-gray-100', 'border-gray-300');
+                    selectedOption.classList.add('bg-red-200', 'border-blue-500', 'border-2');
+                    
+                    resultElement.querySelector('.indicator').innerHTML = '<span class="cross">❌</span>';
+                    resultElement.querySelector('.message').textContent = 'Your answer is incorrect!';
+                }
+            }
+            
+            // Display score
+            document.getElementById('correct-count').textContent = correctCount;
+            document.getElementById('score-display').style.display = 'block';
+        }
+
+        // Reset quiz function
+        function resetQuiz() {
+            isEvaluated = false;
+            
+            // Clear user answers
+            Object.keys(userAnswers).forEach(key => {
+                delete userAnswers[key];
+            });
+            
+            // Reset all options
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('bg-blue-200', 'bg-green-200', 'bg-red-200', 'border-blue-500', 'border-2', 'disabled');
+                option.classList.add('bg-gray-100', 'border-gray-300');
+            });
+            
+            // Hide result messages
+            document.querySelectorAll('.result-message').forEach(message => {
+                message.style.display = 'none';
+            });
+            
+            // Hide score display
+            document.getElementById('score-display').style.display = 'none';
+            
+            // Show evaluate button, hide reset button
+            document.getElementById('evaluate-btn').classList.remove('hidden');
+            document.getElementById('reset-btn').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
