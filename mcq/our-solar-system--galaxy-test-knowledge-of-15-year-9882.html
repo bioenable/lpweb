@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System & Galaxy Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.5.0/dist/full.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+        }
+        .option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1.3rem;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+        }
+        .option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .hero-description {
+            font-size: 1.5rem;
+        }
+        .result-message {
+            font-size: 1.4rem;
+            font-weight: 600;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .stats-value {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .correct {
+            background-color: #4ade80 !important;
+        }
+        .incorrect {
+            background-color: #f87171 !important;
+        }
+        .selected {
+            border: 4px solid #3b82f6 !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="hero bg-base-200 rounded-xl mb-10 p-10">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="hero-title text-primary mb-5">Solar System & Galaxy Quiz</h1>
+                    <p class="hero-description mb-5">Test your knowledge about our solar system and galaxy. This quiz is designed for 15-year-old students to assess understanding of basic astronomical concepts from your textbook.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">1. Which planet is known as the "Red Planet"?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="TWFycw==" onclick="selectOption(this, 1)">Venus</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="TWFycw==" onclick="selectOption(this, 1)">Mars</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="TWFycw==" onclick="selectOption(this, 1)">Jupiter</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="TWFycw==" onclick="selectOption(this, 1)">Mercury</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">2. Which is the largest planet in our solar system?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="SnVwaXRlcg==" onclick="selectOption(this, 2)">Saturn</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="SnVwaXRlcg==" onclick="selectOption(this, 2)">Neptune</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="SnVwaXRlcg==" onclick="selectOption(this, 2)">Jupiter</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="SnVwaXRlcg==" onclick="selectOption(this, 2)">Uranus</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">3. What is the name of our galaxy?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="TWlsa3kgV2F5" onclick="selectOption(this, 3)">Andromeda</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="TWlsa3kgV2F5" onclick="selectOption(this, 3)">Milky Way</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="TWlsa3kgV2F5" onclick="selectOption(this, 3)">Triangulum</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="TWlsa3kgV2F5" onclick="selectOption(this, 3)">Whirlpool</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">4. Which planet has the most moons in our solar system?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="U2F0dXJu" onclick="selectOption(this, 4)">Jupiter</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="U2F0dXJu" onclick="selectOption(this, 4)">Saturn</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="U2F0dXJu" onclick="selectOption(this, 4)">Uranus</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="U2F0dXJu" onclick="selectOption(this, 4)">Neptune</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">5. What is the hottest planet in our solar system?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="VmVudXM=" onclick="selectOption(this, 5)">Mercury</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="VmVudXM=" onclick="selectOption(this, 5)">Venus</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="VmVudXM=" onclick="selectOption(this, 5)">Mars</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="VmVudXM=" onclick="selectOption(this, 5)">Jupiter</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">6. What is the main component of the Sun?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="SHlkcm9nZW4=" onclick="selectOption(this, 6)">Hydrogen</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="SHlkcm9nZW4=" onclick="selectOption(this, 6)">Helium</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="SHlkcm9nZW4=" onclick="selectOption(this, 6)">Oxygen</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="SHlkcm9nZW4=" onclick="selectOption(this, 6)">Carbon</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">7. What is the name of the dwarf planet that was once considered the ninth planet?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="UGx1dG8=" onclick="selectOption(this, 7)">Ceres</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="UGx1dG8=" onclick="selectOption(this, 7)">Eris</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="UGx1dG8=" onclick="selectOption(this, 7)">Pluto</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="UGx1dG8=" onclick="selectOption(this, 7)">Makemake</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">8. Which planet is known for its beautiful rings?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="U2F0dXJu" onclick="selectOption(this, 8)">Jupiter</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="U2F0dXJu" onclick="selectOption(this, 8)">Saturn</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="U2F0dXJu" onclick="selectOption(this, 8)">Uranus</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="U2F0dXJu" onclick="selectOption(this, 8)">Neptune</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">9. What causes the phases of the Moon as seen from Earth?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="UG9zaXRpb24gb2YgdGhlIE1vb24gcmVsYXRpdmUgdG8gdGhlIEVhcnRoIGFuZCBTdW4=" onclick="selectOption(this, 9)">Earth's shadow on the Moon</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="UG9zaXRpb24gb2YgdGhlIE1vb24gcmVsYXRpdmUgdG8gdGhlIEVhcnRoIGFuZCBTdW4=" onclick="selectOption(this, 9)">Position of the Moon relative to the Earth and Sun</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="UG9zaXRpb24gb2YgdGhlIE1vb24gcmVsYXRpdmUgdG8gdGhlIEVhcnRoIGFuZCBTdW4=" onclick="selectOption(this, 9)">Moon's rotation speed</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="UG9zaXRpb24gb2YgdGhlIE1vb24gcmVsYXRpdmUgdG8gdGhlIEVhcnRoIGFuZCBTdW4=" onclick="selectOption(this, 9)">Clouds on the Moon's surface</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body">
+                <h2 class="question mb-5">10. How many planets in our solar system have rings?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option bg-gray-200 rounded-lg" data-answer="NA==" onclick="selectOption(this, 10)">1</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="NA==" onclick="selectOption(this, 10)">2</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="NA==" onclick="selectOption(this, 10)">3</div>
+                    <div class="option bg-gray-200 rounded-lg" data-answer="NA==" onclick="selectOption(this, 10)">4</div>
+                </div>
+                <div class="result-message mt-4 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card-body text-center">
+                <button id="evaluate-btn" class="btn btn-primary btn-lg text-2xl" onclick="evaluateQuiz()">Evaluate & Show Results</button>
+                <button id="reset-btn" class="btn btn-secondary btn-lg text-2xl hidden" onclick="resetQuiz()">Reset & Start Again</button>
+                <div class="stats shadow mt-5 hidden" id="score-stats">
+                    <div class="stat">
+                        <div class="stat-title text-2xl">Your Score</div>
+                        <div class="stat-value stats-value text-primary" id="score">0 out of 10</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const userAnswers = {};
+        const correctAnswers = {};
+        
+        function selectOption(option, questionNumber) {
+            // Get all options for this question
+            const parentDiv = option.parentElement;
+            const options = parentDiv.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            option.classList.add('selected');
+            
+            // Store user's answer
+            userAnswers[questionNumber] = option.textContent;
+        }
+        
+        function evaluateQuiz() {
+            // Disable further selections
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.onclick = null;
+                option.style.cursor = 'default';
+            });
+            
+            // Show loading animation
+            document.getElementById('evaluate-btn').innerHTML = '<span class="loading loading-spinner loading-lg"></span>';
+            
+            setTimeout(() => {
+                let score = 0;
+                
+                // Check each question
+                for (let i = 1; i <= 10; i++) {
+                    const questionDiv = document.querySelector(`.card:nth-child(${i + 1})`);
+                    const options = questionDiv.querySelectorAll('.option');
+                    const resultMessage = questionDiv.querySelector('.result-message');
+                    
+                    // Get correct answer from base64
+                    const correctAnswerBase64 = options[0].getAttribute('data-answer');
+                    const correctAnswer = atob(correctAnswerBase64);
+                    
+                    let userSelectedOption = null;
+                    let correctOptionElement = null;
+                    
+                    // Find the selected option and the correct option
+                    options.forEach(option => {
+                        if (option.textContent === correctAnswer) {
+                            correctOptionElement = option;
+                        }
+                        
+                        if (option.classList.contains('selected')) {
+                            userSelectedOption = option;
+                        }
+                    });
+                    
+                    // Mark correct answer
+                    if (correctOptionElement) {
+                        correctOptionElement.classList.add('correct');
+                    }
+                    
+                    // Show result message
+                    resultMessage.classList.remove('hidden');
+                    
+                    if (userSelectedOption) {
+                        userSelectedOption.classList.add('selected');
+                        
+                        if (userSelectedOption.textContent === correctAnswer) {
+                            resultMessage.innerHTML = '✅ Your answer is correct!';
+                            resultMessage.classList.add('text-success');
+                            score++;
+                        } else {
+                            userSelectedOption.classList.add('incorrect');
+                            resultMessage.innerHTML = '❌ Your answer is incorrect!';
+                            resultMessage.classList.add('text-error');
+                        }
+                    } else {
+                        resultMessage.innerHTML = '❌ You did not answer this question!';
+                        resultMessage.classList.add('text-error');
+                    }
+                }
+                
+                // Update score
+                document.getElementById('score').textContent = `${score} out of 10`;
+                document.getElementById('score-stats').classList.remove('hidden');
+                
+                // Change buttons
+                document.getElementById('evaluate-btn').classList.add('hidden');
+                document.getElementById('reset-btn').classList.remove('hidden');
+                
+            }, 3000); // 3 seconds animation
+        }
+        
+        function resetQuiz() {
+            // Reset everything
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.style.cursor = 'pointer';
+                
+                // Restore click functionality
+                const questionNumber = option.closest('.card-body').querySelector('.question').textContent.split('.')[0];
+                option.onclick = function() { selectOption(this, questionNumber); };
+            });
+            
+            // Hide result messages
+            const resultMessages = document.querySelectorAll('.result-message');
+            resultMessages.forEach(message => {
+                message.classList.add('hidden');
+                message.classList.remove('text-success', 'text-error');
+                message.textContent = '';
+            });
+            
+            // Reset buttons and score
+            document.getElementById('evaluate-btn').classList.remove('hidden');
+            document.getElementById('evaluate-btn').textContent = 'Evaluate & Show Results';
+            document.getElementById('reset-btn').classList.add('hidden');
+            document.getElementById('score-stats').classList.add('hidden');
+            
+            // Clear stored answers
+            Object.keys(userAnswers).forEach(key => delete userAnswers[key]);
+        }
+    </script>
+</body>
+</html>
