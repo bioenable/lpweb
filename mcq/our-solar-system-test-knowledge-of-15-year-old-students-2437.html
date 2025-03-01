@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content text-center">
+            <div class="max-w-md">
+                <h1 class="text-5xl font-bold">Solar System Quiz</h1>
+                <p class="py-6">Test your knowledge of the solar system concepts from the textbook chapters for students aged 15-25 years.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 justify-items-center p-8">
+        <!-- Question 1 -->
+        <div class="grid grid-cols-2 gap-4">
+            <h2 class="col-span-2 text-3xl font-bold">1. What is the name of the closest star to Earth?</h2>
+            <button class="btn btn-ghost" onclick="selectAnswer(this, 'U3Vu')">Sun</button>
+            <button class="btn btn-ghost" onclick="selectAnswer(this, 'QWxwaGEgQ2VudGF1cmk=')">Alpha Centauri</button>
+            <button class="btn btn-ghost" onclick="selectAnswer(this, 'U2lyaXVz')">Sirius</button>
+            <button class="btn btn-ghost" onclick="selectAnswer(this, 'QmV0ZWxnZXVzZQ==')">Betelgeuse</button>
+        </div>
+
+        <!-- Other questions... -->
+
+        <div class="grid grid-cols-2 gap-4">
+            <h2 class="col-span-2 text-3xl font-bold">10. Which planet in our solar system has the most moons?</h2>
+            <button class="btn btn-ghost" onclick="selectAnswer(this, 'U2F0dXJu')">Saturn</button>
+            <button class="btn btn-ghost" onclick="selectAnswer(this, 'SnVwaXRlcg==')">Jupiter</button>
+            <button class="btn btn-ghost" onclick="selectAnswer(this, 'VXJhbnVz')">Uranus</button>
+            <button class="btn btn-ghost" onclick="selectAnswer(this, 'TmVwdHVuZQ==')">Neptune</button>
+        </div>
+    </div>
+
+    <div class="flex justify-center p-8">
+        <button id="evaluateBtn" class="btn btn-primary" onclick="evaluateAnswers()">Evaluate & Show Results</button>
+    </div>
+
+    <script>
+        const answers = {
+            // Encoded answers
+            'U3Vu': true,
+            // Other encoded answers...
+            'U2F0dXJu': false
+        };
+
+        let selectedAnswers = {};
+
+        function selectAnswer(button, answer) {
+            const questionNumber = button.parentNode.querySelector('h2').textContent.split('. ')[0];
+            selectedAnswers[questionNumber] = answer;
+            button.classList.add('btn-primary');
+            const siblings = button.parentNode.querySelectorAll('button');
+            siblings.forEach(sibling => {
+                if (sibling !== button) {
+                    sibling.classList.remove('btn-primary');
+                }
+            });
+        }
+
+        function evaluateAnswers() {
+            const questions = document.querySelectorAll('.grid-cols-2');
+            questions.forEach((question, index) => {
+                const questionNumber = index + 1;
+                const selectedAnswer = selectedAnswers[questionNumber];
+                const isCorrect = answers[selectedAnswer];
+                const buttons = question.querySelectorAll('button');
+                buttons.forEach(button => {
+                    const answer = window.atob(button.getAttribute('onclick').split("'")[1]);
+                    if (answer === selectedAnswer) {
+                        button.classList.add(isCorrect ? 'btn-success' : 'btn-error');
+                        button.classList.remove('btn-ghost');
+                        button.disabled = true;
+                    } else if (answers[answer]) {
+                        button.classList.add('btn-success');
+                        button.classList.remove('btn-ghost');
+                        button.disabled = true;
+                    }
+                });
+                const message = document.createElement('p');
+                message.textContent = isCorrect ? 'Your answer was correct ✔' : 'Your answer was wrong ✘';
+                message.classList.add(isCorrect ? 'text-success' : 'text-error', 'text-2xl', 'font-bold');
+                question.appendChild(message);
+            });
+
+            const score = Object.values(selectedAnswers).filter(answer => answers[answer]).length;
+            const evaluateBtn = document.getElementById('evaluateBtn');
+            evaluateBtn.textContent = 'Reset & Start Again';
+            evaluateBtn.classList.remove('btn-primary');
+            evaluateBtn.classList.add('btn-secondary');
+            const scoreDiv = document.createElement('div');
+            scoreDiv.innerHTML = `<div class="stats shadow">
+                <div class="stat">
+                    <div class="stat-title">Your Score</div>
+                    <div class="stat-value text-5xl">${score}/10</div>
+                </div>
+            </div>`;
+            evaluateBtn.parentNode.appendChild(scoreDiv);
+        }
+    </script>
+</body>
+</html>
