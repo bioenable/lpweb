@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11th Grade Physics Challenge Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 0;
+            margin: 0;
+        }
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .question-container {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #e6eef5;
+        }
+        .option {
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .option:hover {
+            background-color: #e2e8f0;
+        }
+        .selected {
+            border: 3px solid #3b82f6; /* blue border */
+        }
+        .correct {
+            background-color: #10b981 !important; /* green background */
+            color: white;
+        }
+        .incorrect {
+            background-color: #ef4444 !important; /* red background */
+            color: white;
+        }
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            color: #8b5cf6;
+            font-weight: 700;
+        }
+        .result-message {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: none;
+        }
+        .tick {
+            color: #10b981;
+        }
+        .cross {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero bg-gradient-to-r from-slate-100 to-slate-200 py-16">
+        <div class="container mx-auto px-4">
+            <h1 class="hero-title text-center mb-4">11th Grade Physics Challenge</h1>
+            <p class="text-xl text-center max-w-3xl mx-auto text-gray-700">
+                Test your advanced physics knowledge with this challenging quiz designed for 11th grade students. Each question tackles complex physics concepts and problem-solving. Can you achieve a perfect score?
+            </p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-10">
+        <div id="quiz-container">
+            <!-- Question 1 -->
+            <div class="question-container shadow-md" id="q1">
+                <p class="question-text">A particle moves along the x-axis according to x(t) = 3t³ - 6t² + 2t + 5. What is the acceleration of the particle at t = 2 seconds?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q1', 'A')">A) 12 m/s²</div>
+                    <div class="option" data-option="B" onclick="selectOption('q1', 'B')">B) 18 m/s²</div>
+                    <div class="option" data-option="C" onclick="selectOption('q1', 'C')">C) 6 m/s²</div>
+                    <div class="option" data-option="D" onclick="selectOption('q1', 'D')">D) 24 m/s²</div>
+                </div>
+                <div class="result-message" id="q1-result"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-container shadow-md" id="q2">
+                <p class="question-text">Two objects with masses m₁ = 5 kg and m₂ = 3 kg are connected by a light inextensible string passing over a frictionless pulley. If the system is released from rest, what is the acceleration of the masses?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q2', 'A')">A) 9.8 m/s²</div>
+                    <div class="option" data-option="B" onclick="selectOption('q2', 'B')">B) 3.27 m/s²</div>
+                    <div class="option" data-option="C" onclick="selectOption('q2', 'C')">C) 4.9 m/s²</div>
+                    <div class="option" data-option="D" onclick="selectOption('q2', 'D')">D) 2.45 m/s²</div>
+                </div>
+                <div class="result-message" id="q2-result"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-container shadow-md" id="q3">
+                <p class="question-text">A projectile is launched with an initial velocity of 50 m/s at an angle of 30° above the horizontal from a height of 20 meters. What is its maximum height above the ground?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q3', 'A')">A) 51.25 m</div>
+                    <div class="option" data-option="B" onclick="selectOption('q3', 'B')">B) 31.25 m</div>
+                    <div class="option" data-option="C" onclick="selectOption('q3', 'C')">C) 62.5 m</div>
+                    <div class="option" data-option="D" onclick="selectOption('q3', 'D')">D) 42.5 m</div>
+                </div>
+                <div class="result-message" id="q3-result"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-container shadow-md" id="q4">
+                <p class="question-text">A 2 kg block slides down a frictionless inclined plane with angle θ = 30°. What is the acceleration of the block?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q4', 'A')">A) 4.9 m/s²</div>
+                    <div class="option" data-option="B" onclick="selectOption('q4', 'B')">B) 9.8 m/s²</div>
+                    <div class="option" data-option="C" onclick="selectOption('q4', 'C')">C) 8.5 m/s²</div>
+                    <div class="option" data-option="D" onclick="selectOption('q4', 'D')">D) 5.6 m/s²</div>
+                </div>
+                <div class="result-message" id="q4-result"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-container shadow-md" id="q5">
+                <p class="question-text">A pendulum with a length of 0.5 m oscillates with small amplitude. What is its period on the surface of the Moon, where gravity is 1/6th that of Earth?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q5', 'A')">A) 0.74 s</div>
+                    <div class="option" data-option="B" onclick="selectOption('q5', 'B')">B) 1.42 s</div>
+                    <div class="option" data-option="C" onclick="selectOption('q5', 'C')">C) 2.45 s</div>
+                    <div class="option" data-option="D" onclick="selectOption('q5', 'D')">D) 3.47 s</div>
+                </div>
+                <div class="result-message" id="q5-result"></div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-container shadow-md" id="q6">
+                <p class="question-text">Two capacitors with capacitances C₁ = 6 μF and C₂ = 3 μF are connected in series to a 12V battery. What is the charge stored on capacitor C₁?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q6', 'A')">A) 72 μC</div>
+                    <div class="option" data-option="B" onclick="selectOption('q6', 'B')">B) 24 μC</div>
+                    <div class="option" data-option="C" onclick="selectOption('q6', 'C')">C) 36 μC</div>
+                    <div class="option" data-option="D" onclick="selectOption('q6', 'D')">D) 48 μC</div>
+                </div>
+                <div class="result-message" id="q6-result"></div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-container shadow-md" id="q7">
+                <p class="question-text">A horizontal circular platform is rotating at 20 revolutions per minute. A 2 kg object is placed at a distance of 0.5 m from the center. What is the centripetal force acting on the object?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q7', 'A')">A) 10.93 N</div>
+                    <div class="option" data-option="B" onclick="selectOption('q7', 'B')">B) 5.47 N</div>
+                    <div class="option" data-option="C" onclick="selectOption('q7', 'C')">C) 2.19 N</div>
+                    <div class="option" data-option="D" onclick="selectOption('q7', 'D')">D) 21.86 N</div>
+                </div>
+                <div class="result-message" id="q7-result"></div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-container shadow-md" id="q8">
+                <p class="question-text">A gas expands from volume V₁ = 2 L to V₂ = 5 L against a constant external pressure of 100 kPa. What is the work done by the gas?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q8', 'A')">A) 700 J</div>
+                    <div class="option" data-option="B" onclick="selectOption('q8', 'B')">B) 300 J</div>
+                    <div class="option" data-option="C" onclick="selectOption('q8', 'C')">C) 500 J</div>
+                    <div class="option" data-option="D" onclick="selectOption('q8', 'D')">D) 200 J</div>
+                </div>
+                <div class="result-message" id="q8-result"></div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-container shadow-md" id="q9">
+                <p class="question-text">A charged particle with q = 2 × 10⁻⁶ C moves with velocity v = 5 × 10⁴ m/s perpendicular to a magnetic field with magnitude B = 0.2 T. What is the magnitude of the magnetic force acting on the particle?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q9', 'A')">A) 0.02 N</div>
+                    <div class="option" data-option="B" onclick="selectOption('q9', 'B')">B) 2 N</div>
+                    <div class="option" data-option="C" onclick="selectOption('q9', 'C')">C) 0.2 N</div>
+                    <div class="option" data-option="D" onclick="selectOption('q9', 'D')">D) 20 N</div>
+                </div>
+                <div class="result-message" id="q9-result"></div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-container shadow-md" id="q10">
+                <p class="question-text">Two blocks of masses m₁ = 2 kg and m₂ = 3 kg are connected by a light string passing over a frictionless pulley. If the coefficient of kinetic friction between m₁ and the surface is 0.4, what is the acceleration of the system?</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option" data-option="A" onclick="selectOption('q10', 'A')">A) 3.27 m/s²</div>
+                    <div class="option" data-option="B" onclick="selectOption('q10', 'B')">B) 2.18 m/s²</div>
+                    <div class="option" data-option="C" onclick="selectOption('q10', 'C')">C) 1.96 m/s²</div>
+                    <div class="option" data-option="D" onclick="selectOption('q10', 'D')">D) 4.9 m/s²</div>
+                </div>
+                <div class="result-message" id="q10-result"></div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="question-container shadow-md text-center" id="results-section">
+                <div id="score-display" class="hidden stats shadow my-4 mx-auto">
+                    <div class="stat">
+                        <div class="stat-title">Your Score</div>
+                        <div class="stat-value text-4xl" id="score-value">0/10</div>
+                        <div class="stat-desc">Test your knowledge again!</div>
+                    </div>
+                </div>
+                <button id="evaluate-btn" onclick="evaluateQuiz()" class="btn btn-primary btn-lg mt-4">Evaluate & Show Results</button>
+                <button id="reset-btn" onclick="resetQuiz()" class="btn btn-secondary btn-lg mt-4 hidden">Reset & Start Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base64 encoded correct answers
+        const encodedAnswers = {
+            'q1': 'Qw==', // C
+            'q2': 'Qg==', // B
+            'q3': 'QQ==', // A
+            'q4': 'QQ==', // A
+            'q5': 'Qw==', // C
+            'q6': 'Qg==', // B
+            'q7': 'QQ==', // A
+            'q8': 'Qw==', // C
+            'q9': 'Qg==', // B
+            'q10': 'Qw==' // C
+        };
+        
+        // Store user selections
+        const userSelections = {};
+
+        // Function to select an option
+        function selectOption(questionId, option) {
+            // Prevent selection if quiz is already evaluated
+            if (document.getElementById('evaluate-btn').classList.contains('hidden')) {
+                return;
+            }
+            
+            // Remove selection from all options in this question
+            const options = document.querySelectorAll(`#${questionId} .option`);
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to clicked option
+            const selectedOption = document.querySelector(`#${questionId} .option[data-option="${option}"]`);
+            selectedOption.classList.add('selected');
+            
+            // Store user selection
+            userSelections[questionId] = option;
+        }
+
+        // Function to decode base64
+        function decodeBase64(str) {
+            return atob(str);
+        }
+
+        // Function to evaluate the quiz
+        function evaluateQuiz() {
+            // Show loading animation
+            document.getElementById('evaluate-btn').innerHTML = '<span class="loading loading-spinner loading-md"></span> Evaluating...';
+            
+            setTimeout(() => {
+                let score = 0;
+                
+                // Check each question
+                for (let i = 1; i <= 10; i++) {
+                    const questionId = `q${i}`;
+                    const correctAnswer = decodeBase64(encodedAnswers[questionId]);
+                    const userAnswer = userSelections[questionId];
+                    
+                    // Get result message element
+                    const resultElement = document.getElementById(`${questionId}-result`);
+                    resultElement.style.display = 'block';
+                    
+                    if (userAnswer) {
+                        // Get selected option element
+                        const selectedOption = document.querySelector(`#${questionId} .option[data-option="${userAnswer}"]`);
+                        
+                        // Get correct option element
+                        const correctOption = document.querySelector(`#${questionId} .option[data-option="${correctAnswer}"]`);
+                        
+                        if (userAnswer === correctAnswer) {
+                            // Correct answer
+                            selectedOption.classList.add('correct', 'selected');
+                            resultElement.innerHTML = '<span class="tick">✓</span> Correct answer!';
+                            score++;
+                        } else {
+                            // Incorrect answer
+                            selectedOption.classList.add('incorrect', 'selected');
+                            correctOption.classList.add('correct');
+                            resultElement.innerHTML = '<span class="cross">✗</span> Wrong answer. The correct answer is ' + correctAnswer + '.';
+                        }
+                    } else {
+                        // No answer selected
+                        const correctOption = document.querySelector(`#${questionId} .option[data-option="${correctAnswer}"]`);
+                        correctOption.classList.add('correct');
+                        resultElement.innerHTML = '<span class="cross">✗</span> No answer selected. The correct answer is ' + correctAnswer + '.';
+                    }
+                }
+                
+                // Update score display
+                document.getElementById('score-value').textContent = `${score}/10`;
+                document.getElementById('score-display').classList.remove('hidden');
+                
+                // Hide evaluate button and show reset button
+                document.getElementById('evaluate-btn').classList.add('hidden');
+                document.getElementById('reset-btn').classList.remove('hidden');
+                
+            }, 3000); // 3 second delay for animation
+        }
+
+        // Function to reset the quiz
+        function resetQuiz() {
+            // Clear user selections
+            for (let key in userSelections) {
+                delete userSelections[key];
+            }
+            
+            // Reset all options
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Hide result messages
+            const resultMessages = document.querySelectorAll('.result-message');
+            resultMessages.forEach(msg => {
+                msg.style.display = 'none';
+                msg.innerHTML = '';
+            });
+            
+            // Hide score display
+            document.getElementById('score-display').classList.add('hidden');
+            
+            // Show evaluate button and hide reset button
+            document.getElementById('evaluate-btn').classList.remove('hidden');
+            document.getElementById('reset-btn').classList.add('hidden');
+            document.getElementById('evaluate-btn').innerHTML = 'Evaluate & Show Results';
+        }
+    </script>
+</body>
+</html>
