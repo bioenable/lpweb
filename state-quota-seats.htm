@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Quota Seats</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    
+    <!-- Preline UI CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/preline/2.0.3/preline.min.css">
+</head>
+<body>
+<!-- ========== HEADER ========== -->
+<header class="bg-white border-b border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full">
+    <nav class="relative max-w-[85rem] w-full md:flex md:items-center md:justify-between md:gap-3 mx-auto px-4 sm:px-6 lg:px-8 py-2">
+      <!-- Logo w/ Collapse Button -->
+      <div class="flex items-center justify-between">
+        <a class="flex-none font-semibold text-xl text-black focus:outline-hidden focus:opacity-80" href="https://www.launchpadi.com" aria-label="Brand">LAUNCHPADi</a>
+  
+        <!-- Collapse Button -->
+        <div class="md:hidden">
+          <button type="button" class="hs-collapse-toggle relative size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" id="hs-header-classic-collapse" aria-expanded="false" aria-controls="hs-header-classic" aria-label="Toggle navigation" data-hs-collapse="#hs-header-classic">
+            <svg class="hs-collapse-open:hidden size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+            <svg class="hs-collapse-open:block shrink-0 hidden size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+        </div>
+        <!-- End Collapse Button -->
+      </div>
+      <!-- End Logo w/ Collapse Button -->
+  
+      <!-- Collapse -->
+      <div id="hs-header-classic" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block" aria-labelledby="hs-header-classic-collapse">
+        <div class="overflow-hidden overflow-y-auto max-h-[75vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
+          <div class="py-2 md:py-0 flex flex-col md:flex-row md:items-center md:justify-end gap-0.5 md:gap-1">
+
+            <a class="p-2 flex items-center text-sm text-blue-600 focus:outline-hidden focus:text-blue-600" href="index.htm" aria-current="page">
+              <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Home
+            </a>
+            <a class="p-2 flex items-center text-sm text-blue-600 focus:outline-hidden focus:text-blue-600" href="neet-counselling.htm" aria-current="page">
+              <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              NEET Counselling
+            </a>
+  
+            <a class="p-2 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500" href="mbbs-abroad.htm">
+              <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              MBBS Abroad
+            </a>
+  
+            <a class="p-2 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500" href="mbbs-university-fees.htm">
+              <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01"/><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M22 13a18.15 18.15 0 0 1-20 0"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+              MBBS University Fees
+            </a>
+  
+            <a class="p-2 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500" href="contact-us.htm">
+              <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+              Contact us
+            </a>
+  
+
+          </div>
+        </div>
+      </div>
+      
+      <!-- End Collapse -->
+
+
+      <div class="flex items-center xl:gap-x-3 relative z-10 before:hidden lg:before:block before:w-px before:h-4 before:bg-gray-300 dark:before:bg-neutral-700">
+        <div class="lg:ms-1 flex xl:gap-x-4">
+            <!-- Youtube -->
+            <a href="https://www.youtube.com/@Launchpadi" target="_blank" class="[&>svg]:h-7 [&>svg]:w-7 [&>svg]:fill-[#ff0000]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                    <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+                    <path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z" />
+                </svg>
+            </a>
+            
+            <!-- Instagram -->
+            <a href="https://www.youtube.com/@Launchpadi" target="_blank" class="[&>svg]:h-7 [&>svg]:w-7 [&>svg]:fill-[#c13584]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+                </svg>
+            </a>
+        </div>
+    </div>
+    
+
+    </nav>
+  </header>
+
+
+<!-- Hero -->
+<div class="relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] before:bg-no-repeat before:bg-top before:bg-cover before:size-full before:-z-1 before:transform before:-translate-x-1/2">
+    <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
+
+  
+      <!-- Title -->
+      <div class="mt-5 max-w-2xl text-center mx-auto">
+        <h1 class="block font-bold text-purple-800 text-4xl md:text-5xl lg:text-6xl">
+          LAUNCHPADi
+        </h1>
+      </div>
+      <!-- End Title -->
+
+      <div class="mt-5 max-w-3xl text-center mx-auto">
+        <p class="text-lg text-gray-800">Admissions Intelligence</p>
+      </div>
+  
+
+    </div>
+  </div>
+  <!-- End Hero -->
+
+  <!-- ========== END HEADER ========== -->
+
+
+
+  <!-- Blog Article -->
+
+<div class="max-w-[85rem] px-4 pt-6 lg:pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
+    <div class="max-w-[85rem]">
+        <div class="space-y-5 md:space-y-8">
+            <div class="space-y-8">
+    <h1 class="text-3xl font-bold md:text-4xl lg:text-5xl">Understanding State Quota Seats in India</h1>
+    <p class="text-lg text-gray-800">State Quota seats play a vital role in India's education system, particularly in medical admissions, by providing opportunities for students to pursue higher education within their home state. This article explores the details of State Quota seats, their significance, and how they differ from All India Quota seats.</p>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Introduction to State Quota Seats</h3>
+    <p class="text-lg text-gray-800">State Quota seats are reserved for students who meet the residency requirements of a specific state or Union Territory. This quota constitutes 85% of the seats in government medical colleges and 100% of seats in private medical colleges. It allows students to compete locally for admission, often leveraging domicile reservations and state-specific benefits.</p>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Key Features of State Quota Seats</h3>
+    <p class="text-lg text-gray-800">The State Quota is managed by state authorities, and the counselling process includes registration, document verification, choice filling, and seat allocation based on NEET UG scores. Each state sets its eligibility criteria and reservation policies before counselling begins.</p>
+    <ul class="list-disc list-outside space-y-5 ps-5 text-lg text-gray-800">
+        <li class="ps-2">**Seat Distribution**: 85% of government medical college seats and 100% of private medical college seats are reserved under State Quota.</li>
+        <li class="ps-2">**Eligibility Criteria**: Only students who meet the residency requirements of the state can apply for these seats.</li>
+        <li class="ps-2">**Competition Levels**: Generally lower competition compared to All India Quota seats, as it focuses on local students.</li>
+        <li class="ps-2">**Reservation Policies**: Follows state-specific reservation rules, which can vary significantly across states.</li>
+    </ul>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Differences from All India Quota Seats</h3>
+    <p class="text-lg text-gray-800">Unlike State Quota seats, All India Quota seats are open to students from any state and involve a centralized counselling process managed by the Directorate General of Health Services (DGHS). AIQ constitutes 15% of seats in government medical and dental colleges across India.</p>
+    <p class="text-lg text-gray-800">While State Quota seats prioritize local residents and have more flexible eligibility criteria, AIQ seats attract students from across the country, making the competition more intense.</p>
+</div>
+<div class="space-y-8">
+    <h1 class="text-3xl font-bold md:text-4xl lg:text-5xl">State Quota Seats</h1>
+    <p class="text-lg text-gray-800">Navigating the state quota counselling process can be complex, especially with varying norms and procedures across different states. This guide provides essential tips and insights to help you successfully secure a seat in your preferred college through the state quota counselling process for <strong>State Quota Seats</strong>.</p>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Understanding State Quota Counselling for State Quota Seats</h3>
+    <p class="text-lg text-gray-800">State quota counselling involves the allocation of 85% of government medical college seats and 100% of private medical college seats within a state. While some states allow students from other states to participate (Open States), others restrict participation to their own residents (Closed States). This system ensures that local students have priority access to medical education opportunities within their state.</p>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Key Steps in State Quota Counselling for State Quota Seats</h3>
+    <p class="text-lg text-gray-800">To successfully navigate the state quota counselling process for <strong>State Quota Seats</strong>, follow these key steps:</p>
+    <ul class="list-disc list-outside space-y-5 ps-5 text-lg text-gray-800">
+        <li class="ps-2">**Registration**: The first step is to register on the respective state's counselling website. Ensure you have all necessary documents, such as NEET scorecard, domicile certificate, and category certificates if applicable.</li>
+        <li class="ps-2">**Choice Filling**: Carefully select your preferred colleges and courses. Prioritize these choices based on factors like location, fees, and reputation to maximize your chances of securing a seat in a desired institution.</li>
+        <li class="ps-2">**Seat Allotment**: Seats are allocated based on your NEET rank and the choices you filled. If satisfied with the allotment, proceed to the next step; otherwise, participate in subsequent rounds to explore better options.</li>
+        <li class="ps-2">**Reporting**: Once a seat is allotted, report to the college within the specified timeframe with required documents to confirm your admission.</li>
+    </ul>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Tips for Success in State Quota Counselling</h3>
+    <p class="text-lg text-gray-800">To successfully secure a seat through the state quota counselling process for <strong>State Quota Seats</strong>, consider the following tips:</p>
+    <ul class="list-disc list-outside space-y-5 ps-5 text-lg text-gray-800">
+        <li class="ps-2">**Stay Informed**: Keep track of important dates and announcements on the state counselling website. Early awareness can help you avoid missing deadlines.</li>
+        <li class="ps-2">**Research Colleges**: Thoroughly research potential colleges, considering factors such as location, fees, infrastructure, and reputation. This will help you make informed decisions during choice filling.</li>
+        <li class="ps-2">**Prioritize Choices**: Fill in your college preferences in order of priority. Ensure that your most desired options are at the top of your list.</li>
+        <li class="ps-2">**Participate in Multiple Rounds**: If seats remain vacant or you wish to upgrade your allotment, participate in subsequent rounds like the mop-up and stray vacancy rounds.</li>
+    </ul>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Managing State-Specific Differences in State Quota Counselling</h3>
+    <p class="text-lg text-gray-800">Each state has its unique counselling norms, reservation policies, and timelines for the <strong>State Quota Seats</strong>. It is crucial to understand these differences to navigate the process effectively:</p>
+    <ul class="list-disc list-outside space-y-5 ps-5 text-lg text-gray-800">
+        <li class="ps-2">**Closed vs. Open States**: Some states restrict participation to their residents (Closed States), while others allow students from other states (Open States). Ensure you are eligible based on your domicile status.</li>
+        <li class="ps-2">**Reservation Policies**: Each state may have different reservation categories and percentages, which can affect seat availability and allocation for <strong>State Quota Seats</strong>.</li>
+        <li class="ps-2">**Counselling Schedules**: Keep track of counselling dates specific to your state, as these may vary significantly.</li>
+    </ul>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Utilizing Support Services for State Quota Counselling</h3>
+    <p class="text-lg text-gray-800">Navigating the complexities of state quota counselling for <strong>State Quota Seats</strong> can be overwhelming. Consider seeking help from counselling services that specialize in guiding students through the process:</p>
+    <ul class="list-disc list-outside space-y-5 ps-5 text-lg text-gray-800">
+        <li class="ps-2">**Expert Guidance**: Specialists can provide in-depth knowledge about state-specific norms, procedures, and cut-offs, helping you make informed decisions.</li>
+        <li class="ps-2">**Document Assessment and Registration Support**: Ensure all documents are in order and registration is completed correctly, avoiding any potential issues.</li>
+        <li class="ps-2">**Choice Filling Strategies**: Receive personalized advice on how to prioritize your college choices effectively to secure a seat in your preferred institution.</li>
+    </ul>
+</div>
+<div class="space-y-8">
+    <h1 class="text-3xl font-bold md:text-4xl lg:text-5xl">State Quota Seats</h1>
+    <p class="text-lg text-gray-800">The Indian reservation system plays a crucial role in promoting social equality by allocating a certain percentage of seats in educational institutions and government jobs to historically marginalized groups. This system varies significantly across different states, reflecting unique socio-economic and political contexts. In this article, we will delve into a comparative analysis of reservation policies across various states, highlighting their distinct features and implications for **State Quota Seats**.</p>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Introduction to Reservation Policies</h3>
+    <p class="text-lg text-gray-800">Reservation policies in India are designed to provide opportunities to socially and economically backward classes. The system is not uniform across states; each state has developed its own policies based on local needs and demographics. While the central government sets a general framework, states often adjust these policies to address regional disparities and historical injustices.</p>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">State-Wise Reservation Policies</h3>
+    <p class="text-lg text-gray-800">Different states in India have distinct reservation policies that reflect their unique socio-political environments. For instance, Tamil Nadu has one of the highest reservation quotas, accounting for nearly 69% of seats, while other states like Maharashtra and Rajasthan adhere to the 50% ceiling set by the Supreme Court. Here are some key examples of state-wise reservation policies and their implications for **State Quota Seats**:</p>
+    <ul class="list-disc list-outside space-y-5 ps-5 text-lg text-gray-800">
+        <li class="ps-2">**Tamil Nadu**: Known for its high reservation quota, Tamil Nadu allocates seats for Scheduled Castes (18%), Scheduled Tribes (1%), and Other Backward Classes (50%), exceeding the national 50% limit but protected under the Constitution.</li>
+        <li class="ps-2">**Maharashtra**: Maharashtra's reservation policies have seen significant changes, including the inclusion of the Maratha community under the Socially and Educationally Backward Classes (SEBC) category, though this was later struck down by the Supreme Court.</li>
+        <li class="ps-2">**Rajasthan**: Apart from standard quotas for SCs and STs, Rajasthan provides a 5% reservation for Gujjars and other Special Backward Classes and a 10% reservation for Economically Weaker Sections (EWS).</li>
+        <li class="ps-2">**Karnataka**: Known for its structured reservation system, Karnataka divides OBCs into multiple categories to ensure equitable distribution, with a total reservation of 50%.</li>
+    </ul>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Impact on State Quota Seats</h3>
+    <p class="text-lg text-gray-800">The variation in reservation policies across states significantly impacts the availability of **State Quota Seats**. States with higher reservation quotas often face debates about meritocracy and efficiency, while those adhering to the 50% limit may have fewer seats available for marginalized groups. The implementation of Economically Weaker Sections (EWS) quotas adds another layer, providing opportunities based on economic status rather than caste or tribe.</p>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Challenges and Controversies</h3>
+    <p class="text-lg text-gray-800">Despite the benefits of reservation policies for **State Quota Seats**, several challenges persist. Political manipulation of reservation policies often occurs, with promises of increased quotas being used as electoral strategies. Furthermore, debates over sub-categorization within OBC reservations and the inclusion of economically dominant caste groups in reservation benefits continue to be contentious issues.</p>
+</div>
+
+<div class="space-y-3">
+    <h3 class="text-2xl font-semibold">Conclusion</h3>
+    <p class="text-lg text-gray-800">In conclusion, the comparative analysis of reservation policies across different states highlights the complexity and diversity of the Indian reservation system. While these policies aim to promote social justice and equality by allocating **State Quota Seats**, they also face significant challenges and controversies. Understanding these variations is crucial for students and parents seeking to navigate the education and employment landscape in India.</p>
+</div>
+            <div>
+                <span class="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800">State Quota Seats</span><span class="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800">NEET UG</span><span class="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800">Medical Admissions</span><span class="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800">All India Quota Seats</span><span class="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800">Reservation Policies</span><span class="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800">Education in India</span><span class="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800">Counselling Process</span><span class="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800">NEET Counselling</span><span class="m-1 inline-flex items-center gap-1.5 py-2 px-3 rounded-full text-sm bg-gray-100 text-gray-800">Medical Education System.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="max-w-[85rem] px-4 pt-10 pb-12 sm:px-6 lg:px-8 mx-auto">
+            <div class="max-w-[85rem]">
+                <div class="space-y-5 md:space-y-8">
+                    <div class="space-y-3">
+                        <h2 class="text-3xl font-bold md:text-4xl">More articles for you</h2>
+                        <ul class="list-disc list-outside space-y-5 ps-5 text-lg text-gray-800">
+                            <li class="ps-2"><a href="neet-cutoff-marks.htm" class="text-blue-600 hover:text-blue-700 hover:underline">Neet Cutoff Marks</a></li>
+<li class="ps-2"><a href="mbbs-fee-structure.htm" class="text-blue-600 hover:text-blue-700 hover:underline">Mbbs Fee Structure</a></li>
+<li class="ps-2"><a href="mbbs-abroad.htm" class="text-blue-600 hover:text-blue-700 hover:underline">Mbbs Abroad</a></li>
+<li class="ps-2"><a href="mbbs-in-philippines.htm" class="text-blue-600 hover:text-blue-700 hover:underline">Mbbs In Philippines</a></li>
+<li class="ps-2"><a href="mbbs-in-canada.htm" class="text-blue-600 hover:text-blue-700 hover:underline">Mbbs In Canada</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<!-- End Blog Article -->
+
+
+  
+
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-gray-200 mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
+    <!-- Grid -->
+    <div class="grid grid-cols-5 gap-6 mb-10">
+        <div>
+            <h4 class="text-xs font-semibold text-gray-900 uppercase">MBBS Abroad</h4>
+            <div class="mt-3 grid space-y-3 text-sm">
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-in-georgia.htm">MBBS in Georgia</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-in-philippines.htm">MBBS in Philippines</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-in-russia.htm">MBBS in Russia</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-in-china.htm">MBBS in China</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-in-poland.htm">MBBS in Poland</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-in-belarus.htm">MBBS in Belarus</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-in-usa.htm">MBBS in USA</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-in-canada.htm">MBBS in Canada</a></p>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="text-xs font-semibold text-gray-900 uppercase">NEET Counselling</h4>
+            <div class="mt-3 grid space-y-3 text-sm">
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="neet-counselling.htm">NEET Counselling</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="neet-seat-allocation.htm">NEET Seat Allocation</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="medical-college-admission.htm">Medical College Admission</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="neet-rank-prediction.htm">NEET Rank Prediction</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-college-list.htm">MBBS College List</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="neet-cutoff-marks.htm">NEET Cutoff Marks</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="neet-counselling-process.htm">NEET Counselling Process</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="state-wise-neet-counselling.htm">State-wise NEET Counselling</a></p>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="text-xs font-semibold text-gray-900 uppercase">MBBS in India</h4>
+            <div class="mt-3 grid space-y-3 text-sm">
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="top-10-medical-colleges-in-india.htm">Top 10 Medical Colleges in India</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-admission-process.htm">MBBS Admission Process</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-eligibility-criteria.htm">MBBS Eligibility Criteria</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="government-medical-colleges.htm">Government Medical Colleges</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-fee-structure.htm">MBBS Fee Structure</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="neet-exam-preparation.htm">NEET Exam Preparation</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="medical-career-guidance.htm">Medical Career Guidance</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="state-quota-seats.htm">State Quota Seats</a></p>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="text-xs font-semibold text-gray-900 uppercase">MBBS Fees</h4>
+            <div class="mt-3 grid space-y-3 text-sm">
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-fees-in-russia.htm">MBBS Fees in Russia</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-fees-in-philippines.htm">MBBS Fees in Philippines</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-fees-in-georgia.htm">MBBS Fees in Georgia</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-fees-in-china.htm">MBBS Fees in China</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-fees-comparison.htm">MBBS Fees Comparison</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="affordable-mbbs-abroad.htm">Affordable MBBS Abroad</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-scholarship-options.htm">MBBS Scholarship Options</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="education-loan-for-mbbs.htm">Education Loan for MBBS</a></p>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="text-xs font-semibold text-gray-900 uppercase">MBBS Education</h4>
+            <div class="mt-3 grid space-y-3 text-sm">
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="medical-education-pathway.htm">Medical Education Pathway</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-internship-details.htm">MBBS Internship Details</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="medical-pg-entrance-exams.htm">Medical PG Entrance Exams</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="specialization-after-mbbs.htm">Specialization After MBBS</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="foreign-medical-graduate-exam.htm">Foreign Medical Graduate Exam</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="clinical-rotation-opportunities.htm">Clinical Rotation Opportunities</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="medical-research-opportunities.htm">Medical Research Opportunities</a></p>
+                <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 focus:outline-hidden focus:text-gray-800" href="mbbs-career-counseling.htm">MBBS Career Counseling</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of the footer remains the same as in the previous response -->
+    <div class="pt-5 mt-5 border-t border-gray-200">
+        <!-- Language Dropdown, Terms, Social Icons content -->
+    </div>
+        <!-- Bottom Footer Section -->
+        <div class="pt-5 mt-5 border-t border-gray-200">
+            <div class="text-center text-sm text-gray-600">
+                © 2024 LAUNCHPADi | Lpad Intelligence Pvt Ltd. All Rights Reserved.
+            </div>
+        </div>
+</footer>
+<!-- ========== END FOOTER ========== -->
+</body>
+</html>
