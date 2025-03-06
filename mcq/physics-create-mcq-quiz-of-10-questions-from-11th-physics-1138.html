@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Physics Quiz - 11th Grade</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 0;
+            margin: 0;
+        }
+        .hero {
+            background-color: #e5e9f0;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #8a2be2;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .question-section {
+            background-color: #e5e9f0;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2.5rem auto;
+            max-width: 900px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #cbd5e1;
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+        .option:hover {
+            background-color: #e2e8f0;
+        }
+        .option.selected {
+            border: 4px solid #3b82f6;
+        }
+        .option.correct {
+            background-color: #10b981;
+            color: white;
+        }
+        .option.incorrect {
+            background-color: #ef4444;
+            color: white;
+        }
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            text-align: center;
+            opacity: 0;
+            height: 0;
+            transition: opacity 0.5s ease, height 0.5s ease;
+        }
+        .result-message.visible {
+            opacity: 1;
+            height: auto;
+            padding: 1rem 0;
+        }
+        .correct-message {
+            color: #10b981;
+        }
+        .incorrect-message {
+            color: #ef4444;
+        }
+        .evaluate-btn {
+            background-color: #8a2be2;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            margin: 2rem auto;
+            display: block;
+        }
+        .evaluate-btn:hover {
+            background-color: #7722cc;
+        }
+        .score-display {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 2rem auto;
+            opacity: 0;
+            height: 0;
+            transition: opacity 0.5s ease, height 0.5s ease;
+        }
+        .score-display.visible {
+            opacity: 1;
+            height: auto;
+            padding: 1rem 0;
+        }
+        .score-value {
+            font-weight: 700;
+            color: #8a2be2;
+        }
+        .checkmark {
+            color: #10b981;
+            margin-left: 0.5rem;
+        }
+        .crossmark {
+            color: #ef4444;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Advanced Physics Challenge</h1>
+        <p>Test your knowledge of 11th-grade physics concepts with this challenging quiz. This assessment covers mechanics, thermodynamics, waves, and more at an advanced difficulty level.</p>
+    </div>
+
+    <div class="question-section" id="q1">
+        <div class="question">1. A particle's position is given by x(t) = 4t³ - 6t² + 3t - 5. What is its acceleration at t = 2 seconds?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">12 m/s²</div>
+            <div class="option" data-option="B">24 m/s²</div>
+            <div class="option" data-option="C">36 m/s²</div>
+            <div class="option" data-option="D">48 m/s²</div>
+        </div>
+        <div class="result-message" id="result1">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="q2">
+        <div class="question">2. What is the escape velocity from a planet with twice Earth's mass and half its radius?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">√2 times Earth's escape velocity</div>
+            <div class="option" data-option="B">2 times Earth's escape velocity</div>
+            <div class="option" data-option="C">2√2 times Earth's escape velocity</div>
+            <div class="option" data-option="D">4 times Earth's escape velocity</div>
+        </div>
+        <div class="result-message" id="result2">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="q3">
+        <div class="question">3. A ball is thrown vertically upward with a velocity of 19.6 m/s. Ignoring air resistance, what is its maximum height? (g = 9.8 m/s²)</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">9.8 m</div>
+            <div class="option" data-option="B">19.6 m</div>
+            <div class="option" data-option="C">39.2 m</div>
+            <div class="option" data-option="D">98 m</div>
+        </div>
+        <div class="result-message" id="result3">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="q4">
+        <div class="question">4. Two identical conducting spheres carry charges of +8q and -2q. If they are brought into contact and then separated, what will be the final charge on each sphere?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">+3q</div>
+            <div class="option" data-option="B">+4q</div>
+            <div class="option" data-option="C">+2q</div>
+            <div class="option" data-option="D">+3q and -3q</div>
+        </div>
+        <div class="result-message" id="result4">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="q5">
+        <div class="question">5. In a Young's double-slit experiment, if the distance between the slits is halved and the distance to the screen is doubled, how does the fringe width change?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">Remains unchanged</div>
+            <div class="option" data-option="B">Increases by a factor of 2</div>
+            <div class="option" data-option="C">Increases by a factor of 4</div>
+            <div class="option" data-option="D">Decreases by a factor of 2</div>
+        </div>
+        <div class="result-message" id="result5">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="q6">
+        <div class="question">6. A particle undergoes simple harmonic motion with amplitude A and time period T. At what distance from the equilibrium position is the kinetic energy equal to the potential energy?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">A/√2</div>
+            <div class="option" data-option="B">A/2</div>
+            <div class="option" data-option="C">A/4</div>
+            <div class="option" data-option="D">A</div>
+        </div>
+        <div class="result-message" id="result6">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="q7">
+        <div class="question">7. A gas expands adiabatically from (V₁, P₁) to (2V₁, P₂). If γ = Cp/Cv = 1.4, what is the ratio P₁/P₂?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">1.4</div>
+            <div class="option" data-option="B">2.0</div>
+            <div class="option" data-option="C">2.64</div>
+            <div class="option" data-option="D">2.8</div>
+        </div>
+        <div class="result-message" id="result7">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="q8">
+        <div class="question">8. In a Carnot engine operating between temperatures T₁ and T₂, the efficiency is 40%. If T₂ = 300K, what is T₁?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">420K</div>
+            <div class="option" data-option="B">450K</div>
+            <div class="option" data-option="C">500K</div>
+            <div class="option" data-option="D">750K</div>
+        </div>
+        <div class="result-message" id="result8">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="q9">
+        <div class="question">9. A mass m is attached to a spring with spring constant k and oscillates on a frictionless surface. If both the mass and spring constant are quadrupled, how will the period of oscillation change?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">It will remain the same</div>
+            <div class="option" data-option="B">It will double</div>
+            <div class="option" data-option="C">It will halve</div>
+            <div class="option" data-option="D">It will become four times</div>
+        </div>
+        <div class="result-message" id="result9">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="q10">
+        <div class="question">10. A vehicle starts from rest and moves with a constant acceleration of 2 m/s². What is the ratio of distances covered in the 4th second to that covered in the 2nd second?</div>
+        <div class="options-grid">
+            <div class="option" data-option="A">4:2</div>
+            <div class="option" data-option="B">7:3</div>
+            <div class="option" data-option="C">2:1</div>
+            <div class="option" data-option="D">3:1</div>
+        </div>
+        <div class="result-message" id="result10">
+            <span class="result-text"></span>
+        </div>
+    </div>
+
+    <div class="question-section" id="evaluation">
+        <div class="score-display" id="score-display">
+            Your score: <span class="score-value">0</span> out of 10
+        </div>
+        <button class="evaluate-btn" id="evaluate-btn">Evaluate & Show Results</button>
+    </div>
+
+    <script>
+        // Encode correct answers
+        const correctAnswers = {
+            q1: "QnRvQTI0IG0vcwo=", // "B" - 24 m/s²
+            q2: "Q3RvQTJc",  // "C" - 2√2 times Earth's escape velocity
+            q3: "QnRvQTE5LjYgbQ==", // "B" - 19.6 m
+            q4: "QXRvQSszc", // "A" - +3q
+            q5: "Q3RvQTQ=", // "C" - Increases by a factor of 4
+            q6: "QXRvQUEvXFxzcXJ0ezJ9", // "A" - A/√2
+            q7: "Q3RvQTIuNjQ=", // "C" - 2.64
+            q8: "RHRvQTc1MEs=", // "D" - 750K
+            q9: "QXRvQXNhbWU=", // "A" - It will remain the same
+            q10: "QnRvQTc6Mw==" // "B" - 7:3
+        };
+
+        const questions = document.querySelectorAll('.question-section');
+        const evalBtn = document.getElementById('evaluate-btn');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreValue = document.querySelector('.score-value');
+        let selectedAnswers = {};
+        let evaluated = false;
+
+        // Add event listener to options
+        questions.forEach(question => {
+            if (question.id === 'evaluation') return;
+            
+            const options = question.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    if (evaluated) return;
+                    
+                    // Remove selected class from all options in this question
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    option.classList.add('selected');
+                    
+                    // Store selected answer
+                    selectedAnswers[question.id] = option.dataset.option;
+                });
+            });
+        });
+
+        // Add event listener to evaluate button
+        evalBtn.addEventListener('click', () => {
+            if (evaluated) {
+                // Reset the quiz
+                resetQuiz();
+                return;
+            }
+            
+            // Show loading animation
+            evalBtn.textContent = 'Evaluating...';
+            evalBtn.style.backgroundColor = '#6b46c1';
+            
+            setTimeout(() => {
+                evaluateQuiz();
+                evalBtn.textContent = 'Reset & Start Again';
+                evalBtn.style.backgroundColor = '#3b82f6';
+                evaluated = true;
+            }, 3000);
+        });
+
+        function evaluateQuiz() {
+            let score = 0;
+            
+            questions.forEach(question => {
+                if (question.id === 'evaluation') return;
+                
+                const questionId = question.id;
+                const resultMessage = document.getElementById('result' + questionId.substring(1));
+                const resultText = resultMessage.querySelector('.result-text');
+                const options = question.querySelectorAll('.option');
+                const selectedOption = question.querySelector('.option.selected');
+                
+                // Decode correct answer
+                const encodedAnswer = correctAnswers[questionId];
+                const decodedAnswer = atob(encodedAnswer).substring(0, 1);
+                
+                // Find correct option element
+                let correctOption;
+                options.forEach(option => {
+                    if (option.dataset.option === decodedAnswer) {
+                        correctOption = option;
+                    }
+                });
+                
+                // Mark correct answer
+                correctOption.classList.add('correct');
+                
+                if (selectedOption) {
+                    // Check if selected answer is correct
+                    if (selectedOption.dataset.option === decodedAnswer) {
+                        resultText.innerHTML = 'Your answer is correct! <span class="checkmark">✓</span>';
+                        resultMessage.classList.add('correct-message', 'visible');
+                        score++;
+                    } else {
+                        selectedOption.classList.add('incorrect');
+                        resultText.innerHTML = 'Your answer is incorrect. <span class="crossmark">✗</span>';
+                        resultMessage.classList.add('incorrect-message', 'visible');
+                    }
+                } else {
+                    resultText.innerHTML = 'You did not select an answer. <span class="crossmark">✗</span>';
+                    resultMessage.classList.add('incorrect-message', 'visible');
+                }
+            });
+            
+            // Show score
+            scoreValue.textContent = score;
+            scoreDisplay.classList.add('visible');
+        }
+
+        function resetQuiz() {
+            // Reset all questions and options
+            questions.forEach(question => {
+                if (question.id === 'evaluation') return;
+                
+                const options = question.querySelectorAll('.option');
+                const resultMessage = document.getElementById('result' + question.id.substring(1));
+                
+                options.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                resultMessage.classList.remove('visible', 'correct-message', 'incorrect-message');
+            });
+            
+            // Reset button and score
+            evalBtn.textContent = 'Evaluate & Show Results';
+            evalBtn.style.backgroundColor = '#8a2be2';
+            scoreDisplay.classList.remove('visible');
+            
+            // Reset variables
+            selectedAnswers = {};
+            evaluated = false;
+        }
+    </script>
+</body>
+</html>
