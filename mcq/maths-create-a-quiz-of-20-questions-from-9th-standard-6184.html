@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9th Grade Mathematics Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 20px;
+        }
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .question-section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            border-radius: 1rem;
+            background-color: #e6eef5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #222;
+            font-weight: 600;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .option {
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 1.4rem;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .option.selected {
+            border: 3px solid #3b82f6;
+            background-color: #dbeafe;
+        }
+        .result {
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
+            display: none;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            color: #6d28d9;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .correct {
+            background-color: #d1fae5 !important;
+        }
+        .incorrect {
+            background-color: #fee2e2 !important;
+        }
+        .score-display {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 2rem 0;
+            display: none;
+        }
+        .reset-button {
+            display: none;
+        }
+        .icon-check {
+            color: #22c55e;
+            margin-right: 0.5rem;
+        }
+        .icon-cross {
+            color: #ef4444;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 max-w-5xl">
+        <!-- Hero Section -->
+        <div class="hero bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-xl mb-12">
+            <div class="hero-content text-center">
+                <div class="max-w-3xl">
+                    <h1 class="hero-title">9th Grade Mathematics Quiz</h1>
+                    <p class="text-2xl mb-6 text-gray-700">Test your mathematical knowledge with these 10 moderate-level questions. Perfect for 9th-grade students preparing for exams or simply wanting to sharpen their math skills.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-section" id="q1">
+            <h2 class="question">1. Solve for x: 2(x - 3) - 4 = 3x + 5</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q1', this)">A) x = -5</div>
+                <div class="option" data-value="B" onclick="selectOption('q1', this)">B) x = -1</div>
+                <div class="option" data-value="C" onclick="selectOption('q1', this)">C) x = 15</div>
+                <div class="option" data-value="D" onclick="selectOption('q1', this)">D) x = -15</div>
+            </div>
+            <div class="result" id="result-q1"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-section" id="q2">
+            <h2 class="question">2. The factorization of x² - 9 is:</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q2', this)">A) (x - 3)(x - 3)</div>
+                <div class="option" data-value="B" onclick="selectOption('q2', this)">B) (x + 3)(x - 3)</div>
+                <div class="option" data-value="C" onclick="selectOption('q2', this)">C) (x + 9)(x - 1)</div>
+                <div class="option" data-value="D" onclick="selectOption('q2', this)">D) (x + 9)(x - 9)</div>
+            </div>
+            <div class="result" id="result-q2"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-section" id="q3">
+            <h2 class="question">3. In a triangle ABC, if angle A = 45° and angle B = 60°, what is angle C?</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q3', this)">A) 75°</div>
+                <div class="option" data-value="B" onclick="selectOption('q3', this)">B) 65°</div>
+                <div class="option" data-value="C" onclick="selectOption('q3', this)">C) 105°</div>
+                <div class="option" data-value="D" onclick="selectOption('q3', this)">D) 85°</div>
+            </div>
+            <div class="result" id="result-q3"></div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-section" id="q4">
+            <h2 class="question">4. The area of a circle with radius 7 cm is:</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q4', this)">A) 154 cm²</div>
+                <div class="option" data-value="B" onclick="selectOption('q4', this)">B) 49π cm²</div>
+                <div class="option" data-value="C" onclick="selectOption('q4', this)">C) 14π cm²</div>
+                <div class="option" data-value="D" onclick="selectOption('q4', this)">D) 21π cm²</div>
+            </div>
+            <div class="result" id="result-q4"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-section" id="q5">
+            <h2 class="question">5. If f(x) = 3x - 2, then f(4) equals:</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q5', this)">A) 10</div>
+                <div class="option" data-value="B" onclick="selectOption('q5', this)">B) 12</div>
+                <div class="option" data-value="C" onclick="selectOption('q5', this)">C) 14</div>
+                <div class="option" data-value="D" onclick="selectOption('q5', this)">D) 18</div>
+            </div>
+            <div class="result" id="result-q5"></div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-section" id="q6">
+            <h2 class="question">6. The volume of a cube with side length 5 cm is:</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q6', this)">A) 25 cm³</div>
+                <div class="option" data-value="B" onclick="selectOption('q6', this)">B) 75 cm³</div>
+                <div class="option" data-value="C" onclick="selectOption('q6', this)">C) 125 cm³</div>
+                <div class="option" data-value="D" onclick="selectOption('q6', this)">D) 625 cm³</div>
+            </div>
+            <div class="result" id="result-q6"></div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-section" id="q7">
+            <h2 class="question">7. The simplified form of (2a)³ is:</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q7', this)">A) 6a³</div>
+                <div class="option" data-value="B" onclick="selectOption('q7', this)">B) 8a³</div>
+                <div class="option" data-value="C" onclick="selectOption('q7', this)">C) 2a³</div>
+                <div class="option" data-value="D" onclick="selectOption('q7', this)">D) 6a²</div>
+            </div>
+            <div class="result" id="result-q7"></div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-section" id="q8">
+            <h2 class="question">8. Which of the following is a linear equation?</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q8', this)">A) y = x² + 3</div>
+                <div class="option" data-value="B" onclick="selectOption('q8', this)">B) y = 3x + 5</div>
+                <div class="option" data-value="C" onclick="selectOption('q8', this)">C) y = x³ - 2</div>
+                <div class="option" data-value="D" onclick="selectOption('q8', this)">D) y = 1/x</div>
+            </div>
+            <div class="result" id="result-q8"></div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-section" id="q9">
+            <h2 class="question">9. What is the square root of 196?</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q9', this)">A) 12</div>
+                <div class="option" data-value="B" onclick="selectOption('q9', this)">B) 14</div>
+                <div class="option" data-value="C" onclick="selectOption('q9', this)">C) 16</div>
+                <div class="option" data-value="D" onclick="selectOption('q9', this)">D) 18</div>
+            </div>
+            <div class="result" id="result-q9"></div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-section" id="q10">
+            <h2 class="question">10. In the coordinate plane, the point (3, -4) lies in which quadrant?</h2>
+            <div class="options-grid">
+                <div class="option" data-value="A" onclick="selectOption('q10', this)">A) First Quadrant</div>
+                <div class="option" data-value="B" onclick="selectOption('q10', this)">B) Second Quadrant</div>
+                <div class="option" data-value="C" onclick="selectOption('q10', this)">C) Third Quadrant</div>
+                <div class="option" data-value="D" onclick="selectOption('q10', this)">D) Fourth Quadrant</div>
+            </div>
+            <div class="result" id="result-q10"></div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="flex flex-col items-center mb-16">
+            <div class="score-display bg-blue-50 p-8 rounded-xl shadow-md w-full" id="score-display">
+                Your score: <span id="score">0</span> out of 10
+            </div>
+            <button id="evaluate-btn" class="btn btn-primary btn-lg text-xl px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg" onclick="evaluateQuiz()">
+                Evaluate & Show Results
+            </button>
+            <button id="reset-btn" class="btn btn-secondary btn-lg text-xl px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg reset-button" onclick="resetQuiz()">
+                Reset & Start Again
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Base64 encoded correct answers
+        const correctAnswers = {
+            'q1': 'RA==', // D
+            'q2': 'Qg==', // B
+            'q3': 'QQ==', // A
+            'q4': 'Qg==', // B
+            'q5': 'QQ==', // A
+            'q6': 'Qw==', // C
+            'q7': 'Qg==', // B
+            'q8': 'Qg==', // B
+            'q9': 'Qg==', // B
+            'q10': 'RA==' // D
+        };
+
+        const userAnswers = {};
+
+        function selectOption(questionId, optionElement) {
+            // Remove selected class from all options in this question
+            const allOptions = document.querySelectorAll(`#${questionId} .option`);
+            allOptions.forEach(option => option.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            optionElement.classList.add('selected');
+            
+            // Store user's answer
+            userAnswers[questionId] = optionElement.getAttribute('data-value');
+        }
+
+        function evaluateQuiz() {
+            // Show loading animation
+            document.getElementById('evaluate-btn').textContent = 'Evaluating...';
+            document.getElementById('evaluate-btn').disabled = true;
+            
+            setTimeout(() => {
+                let score = 0;
+                
+                // Check each answer and update UI
+                for (let i = 1; i <= 10; i++) {
+                    const questionId = `q${i}`;
+                    const userAnswer = userAnswers[questionId];
+                    const correctAnswer = atob(correctAnswers[questionId]);
+                    const resultElement = document.getElementById(`result-${questionId}`);
+                    
+                    // Get all options for this question
+                    const options = document.querySelectorAll(`#${questionId} .option`);
+                    
+                    // Find the correct option element
+                    let correctOptionElement;
+                    let selectedOptionElement;
+                    
+                    options.forEach(option => {
+                        // Disable clicking after evaluation
+                        option.onclick = null;
+                        option.style.cursor = 'default';
+                        
+                        if (option.getAttribute('data-value') === correctAnswer) {
+                            correctOptionElement = option;
+                            option.classList.add('correct');
+                        }
+                        
+                        if (userAnswer && option.getAttribute('data-value') === userAnswer) {
+                            selectedOptionElement = option;
+                            option.classList.add('selected');
+                        }
+                    });
+                    
+                    // Update result text
+                    resultElement.style.display = 'block';
+                    
+                    if (!userAnswer) {
+                        resultElement.innerHTML = '<span class="icon-cross">❌</span> No answer selected.';
+                        resultElement.style.color = '#ef4444';
+                    } else if (userAnswer === correctAnswer) {
+                        resultElement.innerHTML = '<span class="icon-check">✅</span> Correct answer!';
+                        resultElement.style.color = '#22c55e';
+                        score++;
+                        selectedOptionElement.classList.add('correct');
+                    } else {
+                        resultElement.innerHTML = '<span class="icon-cross">❌</span> Incorrect. The correct answer is option ' + correctAnswer + '.';
+                        resultElement.style.color = '#ef4444';
+                        selectedOptionElement.classList.add('incorrect');
+                    }
+                }
+                
+                // Display score
+                document.getElementById('score').textContent = score;
+                document.getElementById('score-display').style.display = 'block';
+                
+                // Hide evaluate button and show reset button
+                document.getElementById('evaluate-btn').style.display = 'none';
+                document.getElementById('reset-btn').style.display = 'block';
+                
+            }, 3000); // 3 seconds delay
+        }
+
+        function resetQuiz() {
+            // Clear all selected answers
+            const allOptions = document.querySelectorAll('.option');
+            allOptions.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                // Re-enable clicking
+                const questionId = option.closest('.question-section').id;
+                option.onclick = function() { selectOption(questionId, this); };
+                option.style.cursor = 'pointer';
+            });
+            
+            // Hide all results
+            const allResults = document.querySelectorAll('.result');
+            allResults.forEach(result => {
+                result.style.display = 'none';
+                result.textContent = '';
+            });
+            
+            // Reset user answers
+            Object.keys(userAnswers).forEach(key => delete userAnswers[key]);
+            
+            // Hide score and reset button, show evaluate button
+            document.getElementById('score-display').style.display = 'none';
+            document.getElementById('reset-btn').style.display = 'none';
+            document.getElementById('evaluate-btn').style.display = 'block';
+            document.getElementById('evaluate-btn').disabled = false;
+            document.getElementById('evaluate-btn').textContent = 'Evaluate & Show Results';
+        }
+    </script>
+</body>
+</html>
