@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE 12th Mathematics Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            font-size: 20px;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            color: #8a2be2;
+            font-weight: 700;
+        }
+        .question-text {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .option-btn {
+            font-size: 20px;
+            transition: all 0.3s ease;
+            background-color: #e2e8f0;
+            color: #333;
+            border: 2px solid transparent;
+        }
+        .option-btn:hover {
+            background-color: #cbd5e0;
+        }
+        .selected {
+            border: 3px solid #3182ce !important;
+        }
+        .correct {
+            background-color: #48bb78 !important;
+            color: white !important;
+        }
+        .incorrect {
+            background-color: #f56565 !important;
+            color: white !important;
+        }
+        .section-gap {
+            margin-bottom: 4rem;
+        }
+        .result-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="hero bg-gray-100 rounded-xl p-8 mb-12">
+            <div class="hero-content text-center">
+                <div class="max-w-3xl">
+                    <h1 class="hero-title mb-5">CBSE 12th Mathematics Quiz</h1>
+                    <p class="text-xl mb-2">Test your knowledge of Class 12 CBSE Mathematics concepts with this interactive quiz.</p>
+                    <p class="text-lg">Designed for students preparing for their board exams with easy-level questions covering key topics.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions -->
+        <div id="quiz-container">
+            <!-- Question 1 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q1">
+                <h2 class="question-text mb-4">1. If A and B are square matrices of the same order such that AB = BA, then:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="1" data-option="A">A. A and B are symmetric matrices</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="1" data-option="B">B. A and B are invertible matrices</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="1" data-option="C">C. A and B are said to commute</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="1" data-option="D">D. A and B are identity matrices</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q2">
+                <h2 class="question-text mb-4">2. The order of the differential equation formed by eliminating the arbitrary constants a and b from y = ae^x + be^(-x) is:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="2" data-option="A">A. 1</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="2" data-option="B">B. 2</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="2" data-option="C">C. 3</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="2" data-option="D">D. 4</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q3">
+                <h2 class="question-text mb-4">3. ∫(1/(1+x²))dx equals:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="3" data-option="A">A. tan⁻¹x + C</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="3" data-option="B">B. sin⁻¹x + C</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="3" data-option="C">C. cos⁻¹x + C</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="3" data-option="D">D. log(1+x²) + C</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q4">
+                <h2 class="question-text mb-4">4. The value of i^87 is (where i = √-1):</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="4" data-option="A">A. i</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="4" data-option="B">B. -i</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="4" data-option="C">C. 1</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="4" data-option="D">D. -1</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q5">
+                <h2 class="question-text mb-4">5. The area of the region bounded by the curve y = x² and the line y = 4 is:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="5" data-option="A">A. 16/3 square units</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="5" data-option="B">B. 8/3 square units</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="5" data-option="C">C. 4/3 square units</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="5" data-option="D">D. 32/3 square units</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q6">
+                <h2 class="question-text mb-4">6. If the vectors 2î - λĵ + k̂ and î + ĵ - k̂ are perpendicular, then the value of λ is:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="6" data-option="A">A. 1</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="6" data-option="B">B. -1</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="6" data-option="C">C. 3</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="6" data-option="D">D. -3</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q7">
+                <h2 class="question-text mb-4">7. The probability of getting a sum of 9 when two dice are thrown is:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="7" data-option="A">A. 1/9</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="7" data-option="B">B. 1/6</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="7" data-option="C">C. 1/12</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="7" data-option="D">D. 1/18</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q8">
+                <h2 class="question-text mb-4">8. The angle between the lines 3x - 4y + 7 = 0 and 12x + 5y - 3 = 0 is:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="8" data-option="A">A. 30°</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="8" data-option="B">B. 45°</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="8" data-option="C">C. 60°</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="8" data-option="D">D. 90°</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q9">
+                <h2 class="question-text mb-4">9. The value of the determinant |3 -2 4; 1 0 5; 0 1 -2| is:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="9" data-option="A">A. 1</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="9" data-option="B">B. -1</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="9" data-option="C">C. 10</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="9" data-option="D">D. -10</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-section bg-gray-100 rounded-xl p-6 section-gap" id="q10">
+                <h2 class="question-text mb-4">10. If f(x) = x³ - 3x² + 3x - 5, then f'(2) equals:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button class="option-btn p-4 rounded-lg" data-q="10" data-option="A">A. 0</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="10" data-option="B">B. 3</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="10" data-option="C">C. 6</button>
+                    <button class="option-btn p-4 rounded-lg" data-q="10" data-option="D">D. 9</button>
+                </div>
+                <div class="result mt-4 hidden"></div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section bg-gray-100 rounded-xl p-6 section-gap text-center" id="results">
+                <div id="score-display" class="hidden">
+                    <div class="stats shadow bg-white mx-auto">
+                        <div class="stat">
+                            <div class="stat-title text-xl font-bold">Your Score</div>
+                            <div class="stat-value text-4xl py-4" id="score">0 out of 10</div>
+                        </div>
+                    </div>
+                </div>
+                <button id="evaluate-btn" class="btn btn-primary bg-purple-700 hover:bg-purple-800 text-white text-xl px-8 py-3 mt-4">Evaluate & Show Results</button>
+                <button id="reset-btn" class="btn btn-secondary bg-gray-600 hover:bg-gray-700 text-white text-xl px-8 py-3 mt-4 hidden">Reset & Start Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Store answers in encoded format
+            const correctAnswers = {
+                "1": "Q==", // C
+                "2": "Qg==", // B
+                "3": "QQ==", // A
+                "4": "Qg==", // B
+                "5": "QQ==", // A
+                "6": "QQ==", // A
+                "7": "Qw==", // C
+                "8": "RQ==", // D
+                "9": "RA==", // D
+                "10": "Qw==" // C
+            };
+            
+            let userAnswers = {};
+            let quizEvaluated = false;
+            
+            // Handle option selection
+            const optionBtns = document.querySelectorAll('.option-btn');
+            optionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (quizEvaluated) return;
+                    
+                    const questionId = this.getAttribute('data-q');
+                    const selectedOption = this.getAttribute('data-option');
+                    
+                    // Remove selection from other options in the same question
+                    document.querySelectorAll(`.option-btn[data-q="${questionId}"]`).forEach(b => {
+                        b.classList.remove('selected');
+                    });
+                    
+                    // Mark this option as selected
+                    this.classList.add('selected');
+                    
+                    // Store user's answer
+                    userAnswers[questionId] = selectedOption;
+                });
+            });
+            
+            // Evaluate button click handler
+            document.getElementById('evaluate-btn').addEventListener('click', function() {
+                if (quizEvaluated) return;
+                
+                // Disable further selections
+                quizEvaluated = true;
+                
+                // Show loading animation
+                this.innerHTML = '<span class="loading loading-spinner loading-md"></span> Evaluating...';
+                
+                setTimeout(() => {
+                    evaluateQuiz();
+                    this.classList.add('hidden');
+                    document.getElementById('reset-btn').classList.remove('hidden');
+                }, 3000);
+            });
+            
+            // Reset button click handler
+            document.getElementById('reset-btn').addEventListener('click', function() {
+                resetQuiz();
+            });
+            
+            function evaluateQuiz() {
+                let score = 0;
+                
+                for (let i = 1; i <= 10; i++) {
+                    const questionId = i.toString();
+                    const userAnswer = userAnswers[questionId];
+                    const correctAnswer = atob(correctAnswers[questionId]);
+                    const resultDiv = document.querySelector(`#q${questionId} .result`);
+                    
+                    // If user answered this question
+                    if (userAnswer) {
+                        const userSelectedBtn = document.querySelector(`.option-btn[data-q="${questionId}"][data-option="${userAnswer}"]`);
+                        const correctBtn = document.querySelector(`.option-btn[data-q="${questionId}"][data-option="${correctAnswer}"]`);
+                        
+                        // Highlight correct answer
+                        correctBtn.classList.add('correct');
+                        
+                        // If user's answer is correct
+                        if (userAnswer === correctAnswer) {
+                            score++;
+                            resultDiv.innerHTML = '<span class="result-icon text-green-600">✓</span> Your answer is correct!';
+                            resultDiv.classList.add('text-green-600');
+                        } else {
+                            userSelectedBtn.classList.add('incorrect');
+                            resultDiv.innerHTML = '<span class="result-icon text-red-600">✗</span> Your answer is wrong!';
+                            resultDiv.classList.add('text-red-600');
+                        }
+                    } else {
+                        // User didn't answer
+                        const correctBtn = document.querySelector(`.option-btn[data-q="${questionId}"][data-option="${correctAnswer}"]`);
+                        correctBtn.classList.add('correct');
+                        resultDiv.innerHTML = '<span class="result-icon text-gray-600">⚠</span> You did not answer this question.';
+                        resultDiv.classList.add('text-gray-600');
+                    }
+                    
+                    resultDiv.classList.remove('hidden');
+                }
+                
+                // Display score
+                document.getElementById('score').textContent = `${score} out of 10`;
+                document.getElementById('score-display').classList.remove('hidden');
+            }
+            
+            function resetQuiz() {
+                // Reset user answers
+                userAnswers = {};
+                quizEvaluated = false;
+                
+                // Reset UI
+                optionBtns.forEach(btn => {
+                    btn.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                document.querySelectorAll('.result').forEach(div => {
+                    div.classList.add('hidden');
+                    div.innerHTML = '';
+                });
+                
+                document.getElementById('score-display').classList.add('hidden');
+                document.getElementById('evaluate-btn').classList.remove('hidden');
+                document.getElementById('evaluate-btn').innerHTML = 'Evaluate & Show Results';
+                document.getElementById('reset-btn').classList.add('hidden');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>
