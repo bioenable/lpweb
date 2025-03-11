@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Mathematics Challenge Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            font-size: 1.2rem;
+        }
+        .hero {
+            background-color: #e6edf5;
+            padding: 3rem 1rem;
+            margin-bottom: 3rem;
+            border-radius: 1rem;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #6e30c9;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .question-container {
+            background-color: #e6edf5;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+        }
+        .question {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .option {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        .selected {
+            border: 4px solid #3b82f6 !important;
+        }
+        .correct {
+            background-color: #d1fae5 !important;
+        }
+        .incorrect {
+            background-color: #fee2e2 !important;
+        }
+        .result-indicator {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: none;
+        }
+        .tick {
+            color: #059669;
+        }
+        .cross {
+            color: #dc2626;
+        }
+        .stats-container {
+            font-size: 2rem;
+            font-weight: 700;
+            display: none;
+            margin-bottom: 2rem;
+        }
+        #evaluateBtn, #resetBtn {
+            font-size: 1.5rem;
+            padding: 1rem 2rem;
+        }
+        #resetBtn {
+            display: none;
+        }
+        .katex-formula {
+            font-size: 1.3rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <div class="hero">
+            <h1>JEE Mathematics Challenge</h1>
+            <p class="text-xl">Test your mathematical prowess with these challenging questions inspired by JEE 2024 exams. Designed for 12th standard students preparing for competitive engineering entrance exams, this quiz will help you gauge your readiness for the JEE mathematics section.</p>
+        </div>
+
+        <div class="question-container" id="q1">
+            <div class="question">1. If α and β are the roots of x² - 5x + 1 = 0, then the value of α³ + β³ is:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">125</div>
+                <div class="option" data-option="B">123</div>
+                <div class="option" data-option="C">124</div>
+                <div class="option" data-option="D">122</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="MTIz"></div>
+        </div>
+
+        <div class="question-container" id="q2">
+            <div class="question">2. The area (in square units) of the region bounded by the curves y = |x| and y = x²-1 is:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">2/3</div>
+                <div class="option" data-option="B">4/3</div>
+                <div class="option" data-option="C">5/3</div>
+                <div class="option" data-option="D">8/3</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="OC8z"></div>
+        </div>
+
+        <div class="question-container" id="q3">
+            <div class="question">3. The number of values of k for which the vectors 2î - 3ĵ + k² and 4î - 6ĵ + 4k² are parallel is:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">1</div>
+                <div class="option" data-option="B">2</div>
+                <div class="option" data-option="C">3</div>
+                <div class="option" data-option="D">0</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="MQ=="></div>
+        </div>
+
+        <div class="question-container" id="q4">
+            <div class="question">4. The value of the integral ∫(0 to π/2) (sin⁴x + cos⁴x) dx is:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">π/4</div>
+                <div class="option" data-option="B">3π/8</div>
+                <div class="option" data-option="C">π/8</div>
+                <div class="option" data-option="D">π/2</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="M8+8Lzg="></div>
+        </div>
+
+        <div class="question-container" id="q5">
+            <div class="question">5. If log₃(log₂x) = 1, then the value of x is:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">2³</div>
+                <div class="option" data-option="B">3²</div>
+                <div class="option" data-option="C">2⁸</div>
+                <div class="option" data-option="D">2⁹</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="Mjg="></div>
+        </div>
+
+        <div class="question-container" id="q6">
+            <div class="question">6. The sum of the series 1 + 3 + 7 + 15 + 31 + ... to n terms is:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">2ⁿ - 1</div>
+                <div class="option" data-option="B">2ⁿ - n</div>
+                <div class="option" data-option="C">2ⁿ⁺¹ - n - 1</div>
+                <div class="option" data-option="D">2ⁿ⁺¹ - n - 2</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="Mm7igJnCuDEgLSBuIC0gMQ=="></div>
+        </div>
+
+        <div class="question-container" id="q7">
+            <div class="question">7. The number of solutions of the equation (x - 1)(x - 2)(x - 3)(x - 4) = 3 in the interval [1, 4] is:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">1</div>
+                <div class="option" data-option="B">2</div>
+                <div class="option" data-option="C">3</div>
+                <div class="option" data-option="D">0</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="Mg=="></div>
+        </div>
+
+        <div class="question-container" id="q8">
+            <div class="question">8. If A and B are square matrices of order 3 such that |A| = 4 and |B| = 5, then |2A·3B| equals:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">360</div>
+                <div class="option" data-option="B">720</div>
+                <div class="option" data-option="C">1080</div>
+                <div class="option" data-option="D">540</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="MTA4MA=="></div>
+        </div>
+
+        <div class="question-container" id="q9">
+            <div class="question">9. The number of different ways to arrange the letters of the word ENGINEERING is:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">27,720</div>
+                <div class="option" data-option="B">9,979,200</div>
+                <div class="option" data-option="C">831,600</div>
+                <div class="option" data-option="D">907,200</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="OTA3LDIwMA=="></div>
+        </div>
+
+        <div class="question-container" id="q10">
+            <div class="question">10. The value of lim(x→0) (sin(tan x) - tan(sin x))/x³ is:</div>
+            <div class="options-grid">
+                <div class="option" data-option="A">0</div>
+                <div class="option" data-option="B">1/3</div>
+                <div class="option" data-option="C">2/3</div>
+                <div class="option" data-option="D">1/6</div>
+            </div>
+            <div class="result-indicator">
+                <span class="tick">✓ Correct! Well done.</span>
+                <span class="cross">✗ Incorrect. Try again.</span>
+            </div>
+            <div class="answer-data" data-correct="MS82"></div>
+        </div>
+
+        <div class="flex flex-col items-center mb-12">
+            <div class="stats-container">
+                <div class="stat">
+                    <div class="stat-title">Your Score</div>
+                    <div class="stat-value text-primary"><span id="scoreValue">0</span> out of 10</div>
+                </div>
+            </div>
+            <button id="evaluateBtn" class="btn btn-primary btn-lg">Evaluate & Show Results</button>
+            <button id="resetBtn" class="btn btn-secondary btn-lg">Reset & Start Again</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render Math formulas
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+
+            const options = document.querySelectorAll('.option');
+            const evaluateBtn = document.getElementById('evaluateBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const statsContainer = document.querySelector('.stats-container');
+            const scoreValue = document.getElementById('scoreValue');
+
+            // Handle option selection
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.closest('.question-container');
+                    const allOptions = questionContainer.querySelectorAll('.option');
+                    
+                    allOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    this.classList.add('selected');
+                });
+            });
+
+            // Evaluate answers
+            evaluateBtn.addEventListener('click', function() {
+                let score = 0;
+                const questions = document.querySelectorAll('.question-container');
+                
+                // Disable further selections
+                options.forEach(option => {
+                    option.style.pointerEvents = 'none';
+                });
+                
+                // Show loading animation
+                evaluateBtn.classList.add('loading');
+                
+                setTimeout(() => {
+                    questions.forEach(question => {
+                        const selectedOption = question.querySelector('.option.selected');
+                        const correctAnswer = atob(question.querySelector('.answer-data').dataset.correct);
+                        const resultIndicator = question.querySelector('.result-indicator');
+                        
+                        resultIndicator.style.display = 'block';
+                        
+                        if (selectedOption) {
+                            if (selectedOption.textContent === correctAnswer) {
+                                selectedOption.classList.add('correct');
+                                resultIndicator.querySelector('.tick').style.display = 'block';
+                                resultIndicator.querySelector('.cross').style.display = 'none';
+                                score++;
+                            } else {
+                                selectedOption.classList.add('incorrect');
+                                resultIndicator.querySelector('.tick').style.display = 'none';
+                                resultIndicator.querySelector('.cross').style.display = 'block';
+                                
+                                // Highlight the correct answer
+                                question.querySelectorAll('.option').forEach(opt => {
+                                    if (opt.textContent === correctAnswer) {
+                                        opt.classList.add('correct');
+                                    }
+                                });
+                            }
+                        } else {
+                            resultIndicator.querySelector('.tick').style.display = 'none';
+                            resultIndicator.querySelector('.cross').style.display = 'block';
+                            
+                            // Highlight the correct answer
+                            question.querySelectorAll('.option').forEach(opt => {
+                                if (opt.textContent === correctAnswer) {
+                                    opt.classList.add('correct');
+                                }
+                            });
+                        }
+                    });
+                    
+                    // Update and show score
+                    scoreValue.textContent = score;
+                    statsContainer.style.display = 'block';
+                    
+                    // Hide evaluate button, show reset button
+                    evaluateBtn.style.display = 'none';
+                    resetBtn.style.display = 'block';
+                    
+                    // Remove loading state
+                    evaluateBtn.classList.remove('loading');
+                }, 3000);
+            });
+
+            // Reset quiz
+            resetBtn.addEventListener('click', function() {
+                // Enable selections
+                options.forEach(option => {
+                    option.style.pointerEvents = 'auto';
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Hide result indicators
+                document.querySelectorAll('.result-indicator').forEach(indicator => {
+                    indicator.style.display = 'none';
+                });
+                
+                // Hide stats
+                statsContainer.style.display = 'none';
+                
+                // Show evaluate button, hide reset button
+                evaluateBtn.style.display = 'block';
+                resetBtn.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
