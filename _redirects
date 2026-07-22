@@ -1,0 +1,10 @@
+# Cloudflare Pages path redirects (host-level redirects are NOT supported here).
+# See: https://developers.cloudflare.com/pages/configuration/redirects/
+# Preferred host is declared in HTML (base/canonical) + sitemap/robots → www.
+# Bulk Redirect app→www is optional/not required while both hosts serve the same site.
+#
+# Prefer relative path fixes if needed, e.g.:
+# /index.html / 301
+
+# Optional: normalize index.html → site root (Pages has served empty /index.html before)
+/index.html / 301

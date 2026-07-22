@@ -1,0 +1,11 @@
+# Optional security / cache hints for static Pages
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+/*.svg
+  Cache-Control: public, max-age=604800
+
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800
