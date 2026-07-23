@@ -23,8 +23,9 @@ FAVICON_SNIPPET = """    <link rel="icon" href="/favicon.svg" type="image/svg+xm
 """
 
 LOGO_IMG = (
-    '<img src="images/logo-launchpad.svg" alt="LAUNCHPAD Admissions Intelligence" '
-    'class="h-8 md:h-9 w-auto" width="200" height="40" decoding="async">'
+    '<img src="images/logo-launchpad.png" alt="LAUNCHPAD Admissions Intelligence" '
+    'class="h-10 md:h-11 w-auto max-w-[min(100%,11rem)] object-contain" '
+    'width="116" height="44" decoding="async">'
 )
 
 # Brand anchor: text LAUNCHPADi → logo img; normalize href to index.htm
@@ -49,8 +50,9 @@ HERO_H1_RE = re.compile(
 )
 
 HERO_REPLACEMENT = (
-    r'\1<img src="images/logo-launchpad.svg" alt="LAUNCHPAD Admissions Intelligence" '
-    r'class="mx-auto h-14 md:h-16 w-auto" width="320" height="64" decoding="async">\2'
+    r'\1<img src="images/logo-launchpad.png" alt="LAUNCHPAD Admissions Intelligence" '
+    r'class="mx-auto h-16 md:h-20 w-auto max-w-full object-contain" '
+    r'width="212" height="80" decoding="async">\2'
 )
 
 
