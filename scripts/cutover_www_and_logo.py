@@ -23,8 +23,8 @@ FAVICON_SNIPPET = """    <link rel="icon" href="/favicon.svg" type="image/svg+xm
 """
 
 LOGO_IMG = (
-    '<img src="images/logo-launchpad.png?v=2" alt="LAUNCHPAD Admissions Intelligence" '
-    'class="h-10 md:h-11 w-auto max-w-[min(100%,11rem)] object-contain" '
+    '<img src="images/logo-launchpad.png?v=3" alt="LAUNCHPAD Admissions Intelligence" '
+    'class="h-10 md:h-11 w-auto max-w-[min(100%,13rem)] object-contain" '
     'width="116" height="44" decoding="async">'
 )
 
@@ -50,7 +50,7 @@ HERO_H1_RE = re.compile(
 )
 
 HERO_REPLACEMENT = (
-    r'\1<img src="images/logo-launchpad.png?v=2" alt="LAUNCHPAD Admissions Intelligence" '
+    r'\1<img src="images/logo-launchpad.png?v=3" alt="LAUNCHPAD Admissions Intelligence" '
     r'class="mx-auto h-16 md:h-20 w-auto max-w-full object-contain" '
     r'width="212" height="80" decoding="async">\2'
 )

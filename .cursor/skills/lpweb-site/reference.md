@@ -77,9 +77,9 @@ See root `P0-PLAN.md` for cutover status.
 ## Logo / brand
 
 - Wordmark art: **LAUNCHPAD** + “Admissions Intelligence” + rocket/star
-- Header uses SVG lockup; site copy often still says **LAUNCHPADi**
-- Master SVG: `logo/logo-horizontal-color.svg` / `images/logo-launchpad.svg` (`#75458E`)
-- Approved PNG: `images/logo-launchpad.png`
+- Header uses PNG lockup: `images/logo-launchpad.png?v=3`
+- Source of truth: `logo/launchpad-new-logo-transparent.png` (identical bytes to served PNG)
+- Favicons: rocket mark at repo root (`favicon.svg`, etc.)
 - Brand kit sibling: `../brand-kit/` (colors, fonts, stationery)
 - Bulk script: `scripts/cutover_www_and_logo.py`
 

@@ -53,7 +53,7 @@ Never print OAuth tokens from `~/Library/Preferences/.wrangler/config/*.toml`.
 ## Editing content
 
 1. Edit `.htm` / `index.html` in place; keep Tailwind class patterns consistent.
-2. Brand chrome uses **logo image** in the header (`images/logo-launchpad.svg`); footer may keep text `LAUNCHPADi`.
+2. Brand chrome uses **logo image** in the header (`images/logo-launchpad.png?v=3`); footer may keep text `LAUNCHPADi`.
 3. Bulk domain/logo/favicon updates: `python3 scripts/cutover_www_and_logo.py` (idempotent-ish; review diff before re-run).
 4. After meaningful site changes: commit (Conventional Commits) only when the user asks; push triggers Pages.
 
@@ -70,14 +70,12 @@ Never print OAuth tokens from `~/Library/Preferences/.wrangler/config/*.toml`.
 
 | File | Use |
 |------|-----|
-| `logo/logo-horizontal-color.svg` / `images/logo-launchpad.svg` | Full lockup (header + heroes) |
-| `logo/logo-horizontal-color.png` / `images/logo-launchpad.png` | Raster from approved artwork |
-| `logo/logo-horizontal-white.svg` | On dark backgrounds |
-| `logo/logo-mark-rocket.svg` | Icon / favicon source |
+| `logo/launchpad-new-logo-transparent.png` | Source of truth (approved transparent lockup) |
+| `images/logo-launchpad.png` | Served web copy (identical; use `?v=3` cache buster in HTML) |
 | `favicon.svg` | Rocket mark (vector) |
 | `favicon.ico`, `favicon-32x32.png`, `apple-touch-icon.png` | Raster favicons |
 
-Sibling brand kit: `../brand-kit/02-logo/` (png/svg/source). Purple from artwork: `#75458E`.
+Do not reintroduce superseded SVG/PNG lockups (`logo-horizontal-*`, `logo-launchpad.svg`, reference PNGs). Sibling brand kit may live outside this repo. Purple from artwork: `#75458E`.
 
 ## Quick commands
 
