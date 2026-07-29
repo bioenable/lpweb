@@ -12,7 +12,7 @@ description: >-
 
 ## What this is
 
-Static HTML site for **LAUNCHPAD / LAUNCHPADi** admissions marketing.
+Static HTML site for **LAUNCHPAD / LAUNCHPADi** — admissions intelligence marketplace (destinations, courses, consultants, AI agents, services).
 
 - Repo: `https://github.com/bioenable/lpweb` (public, branch `main`)
 - Host: Cloudflare Pages project **`lpweb`**
@@ -20,7 +20,7 @@ Static HTML site for **LAUNCHPAD / LAUNCHPADi** admissions marketing.
 - Live hosts: `lpweb.pages.dev`, `www.launchpadi.com`, `app.launchpadi.com`
 - **Canonical host:** `https://www.launchpadi.com` (HTML/sitemap); force `app`→`www` via **Bulk Redirects** (not Pages `_redirects`)
 
-No build step. Tailwind + Preline via CDN. ~179 `.htm` files + `index.html`, `mcq/`, `images/`, favicons.
+No Cloudflare build step. Design system in `assets/css/site.css` + `assets/js/site.js`. Regenerate pages with `python3 sitegen/build.py` (~140+ `.htm` files). Logo: `images/logo-launchpad.png`.
 
 ## Deploy pipeline
 
