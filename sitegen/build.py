@@ -189,8 +189,13 @@ def esc(s: str) -> str:
     return html.escape(s, quote=True)
 
 
-def head(title: str, description: str, path: str, keywords: str = "") -> str:
-    canon = f"{CANONICAL}/{path}" if path not in ("", "/") else f"{CANONICAL}/"
+def head(title: str, description: str, path: str, keywords: str = "", canonical_path: str | None = None) -> str:
+    page_path = path if path not in ("", "/") else ""
+    canon_path = canonical_path if canonical_path is not None else page_path
+    if canon_path in ("", "/"):
+        canon = f"{CANONICAL}/"
+    else:
+        canon = f"{CANONICAL}/{canon_path.lstrip('/')}"
     kw = keywords or "study abroad, admissions consultants, MBBS abroad, education loan, IELTS, university admissions India"
     return f"""<!DOCTYPE html>
 <html lang="en-IN">
@@ -399,8 +404,15 @@ def inquiry_form(title: str = "Get free counselling") -> str:
 """
 
 
-def page_shell(title: str, description: str, path: str, body: str, keywords: str = "") -> str:
-    return head(title, description, path, keywords) + HEADER + body + FOOTER
+def page_shell(
+    title: str,
+    description: str,
+    path: str,
+    body: str,
+    keywords: str = "",
+    canonical_path: str | None = None,
+) -> str:
+    return head(title, description, path, keywords, canonical_path=canonical_path) + HEADER + body + FOOTER
 
 
 def homepage() -> str:
@@ -544,17 +556,31 @@ def content_page(
     keywords: str,
     extra_html: str = "",
     crumb: str = "Explore",
+    canonical_path: str | None = None,
 ) -> str:
     rel = "".join(f'<a class="chip" href="{esc(u)}">{esc(t)}</a>' for u, t in related)
+    self_path = f"{slug}.htm"
+    canon_note = ""
+    master_btn = ""
+    if canonical_path and canonical_path != self_path:
+        label = canonical_path.replace(".htm", "").replace("-", " ").title()
+        canon_note = f"""
+    <p class="form-note" style="margin:0 0 1rem;padding:0.75rem 1rem;background:var(--lavender);border-radius:10px">
+      Primary guide: <a href="{esc(canonical_path)}"><strong>{esc(label)}</strong></a>
+      — this URL keeps your search topic live; Google should treat the master guide as canonical.
+    </p>"""
+        master_btn = f'<a class="btn btn-secondary" href="{esc(canonical_path)}">Open master guide</a>'
     body = f"""
 <section class="page-hero">
   <div class="container">
     <div class="breadcrumb"><a href="index.htm">Home</a> / {esc(crumb)} / {esc(h1)}</div>
     <h1>{esc(h1)}</h1>
     <p class="lead">{esc(description)}</p>
+    {canon_note}
     <div class="hero-actions">
       <a class="btn btn-primary" href="book-counselling.htm">Free counselling</a>
       <a class="btn btn-secondary" href="https://wa.me/{WA}" target="_blank" rel="noopener">WhatsApp now</a>
+      {master_btn}
     </div>
   </div>
 </section>
@@ -580,7 +606,14 @@ def content_page(
   </aside>
 </div>
 """
-    return page_shell(f"{h1} | LAUNCHPAD", description, f"{slug}.htm", body, keywords)
+    return page_shell(
+        f"{h1} | LAUNCHPAD",
+        description,
+        self_path,
+        body,
+        keywords,
+        canonical_path=canonical_path,
+    )
 
 
 def hub_page(slug: str, h1: str, description: str, tiles: list[tuple[str, str, str]], crumb: str) -> str:
@@ -922,17 +955,244 @@ def build() -> None:
         "Products",
     )
 
+
+    # --- Legacy URL aliases: keep old paths live, new design, canonical → master ---
+    country_masters = {slug: f"study-in-{slug}.htm" for slug, *_ in DESTINATIONS}
+    # aliases that exist in DESTINATIONS under slightly different names
+    country_aliases = {
+        "usa": "usa", "us": "usa", "united-states": "usa",
+        "uk": "uk", "united-kingdom": "uk",
+        "uae": "uae", "dubai": "uae",
+        "south-korea": "south-korea", "korea": "south-korea",
+        "new-zealand": "new-zealand",
+        "kyrgyzstan": "kyrgyzstan",
+        "macedonia": None,  # no dedicated master
+        "ukraine": None,
+        "belarus": None,
+        "albania": None,
+        "azerbaijan": None,
+        "malaysia": None,
+        "mauritius": None,
+        "spain": None,
+        "france": "france",
+        "italy": "italy",
+        "germany": "germany",
+        "canada": "canada",
+        "australia": "australia",
+        "china": "china",
+        "egypt": "egypt",
+        "georgia": "georgia",
+        "russia": "russia",
+        "philippines": "philippines",
+        "kazakhstan": "kazakhstan",
+        "uzbekistan": "uzbekistan",
+        "bangladesh": "bangladesh",
+        "nepal": "nepal",
+        "armenia": "armenia",
+        "romania": "romania",
+        "bulgaria": "bulgaria",
+        "poland": "poland",
+    }
+
+    topic_masters = {
+        "foreign-medical-graduate-exam.htm": "fmge.htm",
+        "education-loan-for-mbbs.htm": "education-loan-abroad.htm",
+        "mbbs-admission-consultants.htm": "find-consultants.htm",
+        "mbbs-career-counseling.htm": "admission-counselling.htm",
+        "mbbs-admission-process.htm": "mbbs-abroad.htm",
+        "abroad-mbbs-admission-process.htm": "mbbs-abroad.htm",
+        "mbbs-eligibility-criteria.htm": "mbbs-abroad.htm",
+        "mbbs-college-list.htm": "mbbs-abroad.htm",
+        "mbbs-abroad-for-indian-students.htm": "mbbs-abroad.htm",
+        "mbbs-abroad-without-neet.htm": "mbbs-abroad.htm",
+        "mbbs-course-in-abroad.htm": "mbbs-abroad.htm",
+        "mbbs-degree-abroad.htm": "mbbs-abroad.htm",
+        "mbbs-fee-structure.htm": "mbbs-abroad.htm",
+        "mbbs-fees-comparison.htm": "mbbs-abroad.htm",
+        "mbbs-course-fees-in-abroad.htm": "mbbs-abroad.htm",
+        "abroad-mbbs-fees.htm": "mbbs-abroad.htm",
+        "affordable-mbbs-abroad.htm": "mbbs-abroad.htm",
+        "cheapest-country-to-study-mbbs-for-indian-students.htm": "mbbs-abroad.htm",
+        "best-country-for-mbbs-for-indian-students.htm": "best-country-for-indian-students.htm",
+        "best-abroad-university-for-mbbs.htm": "mbbs-abroad.htm",
+        "best-medical-colleges-in-abroad.htm": "mbbs-abroad.htm",
+        "top-medical-colleges-in-abroad.htm": "mbbs-abroad.htm",
+        "top-10-medical-colleges-in-india.htm": "medical-colleges-india.htm",
+        "top-10-private-medical-colleges-in-india.htm": "private-universities-india.htm",
+        "government-medical-colleges.htm": "medical-colleges-india.htm",
+        "medical-college-admission.htm": "medical-colleges-india.htm",
+        "medical-career-guidance.htm": "admission-counselling.htm",
+        "medical-education-pathway.htm": "mbbs-abroad.htm",
+        "medical-pg-entrance-exams.htm": "medicine-pg-abroad.htm",
+        "medical-research-opportunities.htm": "resources.htm",
+        "medical-university-abroad.htm": "mbbs-abroad.htm",
+        "medical-courses-in-abroad-for-indian-students.htm": "mbbs-abroad.htm",
+        "clinical-rotation-opportunities.htm": "mbbs-abroad.htm",
+        "mbbs-internship-details.htm": "mbbs-abroad.htm",
+        "mbbs-scholarship-options.htm": "scholarship-guidance.htm",
+        "mbbs-study-abroad-consultancy.htm": "find-consultants.htm",
+        "mbbs-university-fees.htm": "mbbs-abroad.htm",
+        "mbbs-in-low-cost-in-abroad.htm": "mbbs-abroad.htm",
+        "cost-of-mbbs-for-indian-students.htm": "cost-of-studying-abroad.htm",
+        "study-mbbs-abroad-fee-structure.htm": "mbbs-abroad.htm",
+        "study-medicine-in-abroad.htm": "mbbs-abroad.htm",
+        "specialization-after-mbbs.htm": "medicine-pg-abroad.htm",
+        "neet-counselling-process.htm": "neet-counselling.htm",
+        "neet-cutoff-marks.htm": "neet-exam.htm",
+        "neet-exam-preparation.htm": "neet-exam.htm",
+        "neet-rank-prediction.htm": "neet-exam.htm",
+        "neet-seat-allocation.htm": "neet-counselling.htm",
+        "state-quota-seats.htm": "neet-counselling.htm",
+        "state-wise-neet-counselling.htm": "neet-counselling.htm",
+        "news1.htm": "resources.htm",
+    }
+
+    def extract_country(name: str) -> str | None:
+        import re
+        patterns = [
+            r"mbbs-in-([a-z-]+)\.htm$",
+            r"mbbs-fees-in-([a-z-]+?)(?:-for-indian-students)?\.htm$",
+            r"medical-colleges-in-([a-z-]+)-for-indian-students\.htm$",
+            r"study-mbbs-in-([a-z-]+)-without-neet\.htm$",
+        ]
+        for pat in patterns:
+            m = re.match(pat, name)
+            if m:
+                return m.group(1)
+        return None
+
+    def resolve_master(fname: str) -> str:
+        if fname in topic_masters:
+            return topic_masters[fname]
+        c = extract_country(fname)
+        if c:
+            key = country_aliases.get(c, c)
+            if key and key in country_masters:
+                return country_masters[key]
+            return "mbbs-abroad.htm"
+        if "neet" in fname:
+            return "neet-counselling.htm"
+        if "loan" in fname:
+            return "education-loan-abroad.htm"
+        if "scholarship" in fname:
+            return "scholarship-guidance.htm"
+        if "consultant" in fname or "counsel" in fname:
+            return "admission-counselling.htm"
+        if "mbbs" in fname or "medical" in fname:
+            return "mbbs-abroad.htm"
+        return "study-abroad.htm"
+
+    def humanize(fname: str) -> str:
+        return fname.replace(".htm", "").replace("-", " ").strip().title()
+
+    # Only restore URLs that actually existed on the pre-redesign site (avoid inventing thin URLs)
+    legacy_names: set[str] = set(topic_masters.keys())
+    hist = ROOT / "sitegen" / "legacy-urls.txt"
+    if hist.exists():
+        for line in hist.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.endswith(".htm"):
+                legacy_names.add(line)
+
+    alias_pages: dict[str, str] = {}
+    for fname in sorted(legacy_names):
+        if not fname.endswith(".htm"):
+            continue
+        if fname in pages:
+            # already a master/self page — leave self-canonical
+            continue
+        master = resolve_master(fname)
+        # if master doesn't exist yet, fall back
+        if master not in pages and master != "index.htm":
+            master = "mbbs-abroad.htm" if "mbbs" in fname or "medical" in fname else "study-abroad.htm"
+        title = humanize(fname)
+        topic = title
+        desc = (
+            f"{topic} — updated LAUNCHPAD guide for Indian students. "
+            f"Compare fees, eligibility, counselling options, and next steps. "
+            f"Canonical guide: {master.replace('.htm','').replace('-', ' ')}."
+        )
+        intro = (
+            f"You opened a legacy LAUNCHPAD URL for “{topic}”. The page is fully redesigned for our admissions marketplace, "
+            f"with WhatsApp counselling, fee framing, and AI agents — while consolidating SEO to the master page "
+            f"{master}."
+        )
+        country = extract_country(fname)
+        extra = f"""
+        <h2>Topic focus</h2>
+        <p>This URL remains live for searches and bookmarks related to <strong>{esc(topic)}</strong>.
+        For the fullest destination/course guide, use the master page below.</p>
+        <div class="chips">
+          <a class="chip active" href="{esc(master)}">Master: {esc(humanize(master))}</a>
+          <a class="chip" href="mbbs-abroad.htm">MBBS Abroad hub</a>
+          <a class="chip" href="book-counselling.htm">Free counselling</a>
+          <a class="chip" href="find-consultants.htm">Find consultants</a>
+        </div>
+        """
+        if country:
+            extra += f"""
+            <h2>Country angle — {esc(country.replace('-', ' ').title())}</h2>
+            <p>Indian families evaluating this destination should separate tuition, hostel, living costs, and agent fees;
+            confirm English-medium instruction and current eligibility notices; and plan FMGE/NExT if returning to practise in India.</p>
+            """
+        if "without-neet" in fname:
+            extra += """
+            <h2>NEET note</h2>
+            <p>Many popular “without NEET” marketing claims are outdated or incomplete. Always verify current eligibility
+            rules for the university and for practising in India before paying any seat booking amount.</p>
+            """
+        if "fees" in fname:
+            extra += """
+            <h2>Fees checklist</h2>
+            <ul>
+              <li>University tuition (year-wise)</li>
+              <li>Hostel / mess / insurance</li>
+              <li>Visa, flight, and forex buffer</li>
+              <li>What’s included vs “package” marketing</li>
+            </ul>
+            """
+        alias_pages[fname] = content_page(
+            fname.replace(".htm", ""),
+            topic,
+            desc,
+            intro,
+            [
+                "Redesigned marketplace layout matching current LAUNCHPAD brand",
+                "Topic relevance preserved for the original search intent",
+                f"Canonical tag points to {master}",
+                "Counselling, loans, consultants, and AI agents linked from this page",
+            ],
+            [
+                (master, "Master guide"),
+                ("mbbs-abroad.htm", "MBBS Abroad"),
+                ("book-counselling.htm", "Counselling"),
+                ("admissions-marketplace.htm", "Marketplace"),
+            ],
+            topic.lower(),
+            extra,
+            "Legacy topic",
+            canonical_path=master,
+        )
+
+    pages.update(alias_pages)
+
     # Write pages
     for name, content in pages.items():
         (ROOT / name).write_text(content, encoding="utf-8")
 
-    # Sitemap
-    urls = sorted({n for n in pages if n.endswith(".htm")})
+    # Sitemap: ONLY self-canonical masters (exclude legacy aliases)
+    master_urls = []
+    for n in sorted(pages):
+        if not n.endswith(".htm") or n == "index.htm":
+            continue
+        # detect alias via canonical mismatch in file is heavy; use alias_pages set
+        if n in alias_pages:
+            continue
+        master_urls.append(n)
+
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm.append(f"  <url><loc>{CANONICAL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>")
-    for u in urls:
-        if u == "index.htm":
-            continue
+    for u in master_urls:
         pri = "0.9" if u in ("study-abroad.htm", "courses.htm", "admissions-marketplace.htm", "mbbs-abroad.htm") else "0.7"
         sm.append(f"  <url><loc>{CANONICAL}/{u}</loc><changefreq>weekly</changefreq><priority>{pri}</priority></url>")
     sm.append("</urlset>")
@@ -947,60 +1207,20 @@ Sitemap: {CANONICAL}/sitemap.xml
         encoding="utf-8",
     )
 
-    # Redirects: map popular legacy MBBS URLs to new study-in / course pages
-    legacy_map = {
-        "/mbbs-abroad.htm": "/mbbs-abroad.htm",
-        "/mbbs-in-georgia.htm": "/study-in-georgia.htm",
-        "/mbbs-in-russia.htm": "/study-in-russia.htm",
-        "/mbbs-in-philippines.htm": "/study-in-philippines.htm",
-        "/mbbs-in-kazakhstan.htm": "/study-in-kazakhstan.htm",
-        "/mbbs-in-uzbekistan.htm": "/study-in-uzbekistan.htm",
-        "/mbbs-in-bangladesh.htm": "/study-in-bangladesh.htm",
-        "/mbbs-in-nepal.htm": "/study-in-nepal.htm",
-        "/mbbs-in-china.htm": "/study-in-china.htm",
-        "/mbbs-in-egypt.htm": "/study-in-egypt.htm",
-        "/mbbs-in-armenia.htm": "/study-in-armenia.htm",
-        "/mbbs-in-romania.htm": "/study-in-romania.htm",
-        "/mbbs-in-bulgaria.htm": "/study-in-bulgaria.htm",
-        "/mbbs-in-usa.htm": "/study-in-usa.htm",
-        "/mbbs-admission-consultants.htm": "/find-consultants.htm",
-        "/mbbs-career-counseling.htm": "/admission-counselling.htm",
-        "/contact-us.htm": "/contact-us.htm",
-        "/neet-counselling.htm": "/neet-counselling.htm",
-        "/foreign-medical-graduate-exam.htm": "/fmge.htm",
-        "/education-loan-for-mbbs.htm": "/education-loan-abroad.htm",
-    }
-    redir_lines = [
-        "# Cloudflare Pages redirects — LAUNCHPAD redesign 2026",
-        "/index.html / 301",
-    ]
-    # Redirect remaining archived filenames that aren't regenerated
-    archived = list((ROOT / "_archive_legacy").glob("*.htm")) if (ROOT / "_archive_legacy").exists() else []
-    generated = set(pages.keys())
-    for p in archived:
-        old = f"/{p.name}"
-        if p.name in generated:
-            continue
-        # smart fallbacks
-        target = "/mbbs-abroad.htm" if "mbbs" in p.name else "/study-abroad.htm"
-        for k, v in legacy_map.items():
-            if k == old:
-                target = v
-                break
-        if "fees" in p.name and "georgia" in p.name:
-            target = "/study-in-georgia.htm"
-        elif "fees" in p.name and "russia" in p.name:
-            target = "/study-in-russia.htm"
-        redir_lines.append(f"{old} {target} 301")
-    for k, v in legacy_map.items():
-        line = f"{k} {v} 301"
-        if line not in redir_lines and k.split("/")[-1] not in generated:
-            redir_lines.append(line)
-    (ROOT / "_redirects").write_text("\n".join(redir_lines) + "\n", encoding="utf-8")
+    # No 301s for restored legacy URLs — keep only index.html normalize
+    (ROOT / "_redirects").write_text(
+        """# Cloudflare Pages redirects
+# Legacy URLs are restored as live pages with rel=canonical → master guides.
+# Do not 301 those paths or Google never sees the updated HTML + canonical.
 
-    print(f"Generated {len(pages)} page files")
-    print(f"Sitemap URLs: {len(urls)}")
-    print(f"Redirect rules: {len(redir_lines)}")
+/index.html / 301
+""",
+        encoding="utf-8",
+    )
+
+    print(f"Generated {len(pages)} page files ({len(alias_pages)} legacy aliases)")
+    print(f"Sitemap master URLs: {len(master_urls)}")
+    print(f"Redirects: index.html only")
 
 
 if __name__ == "__main__":
