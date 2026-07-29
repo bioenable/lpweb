@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAUNCHPAD Admissions Intelligence — Business Research &amp; Website Plan</title>
+  <meta name="description" content="Standalone research report and business plan for LAUNCHPAD / LAUNCHPADi Admissions Intelligence: industry landscape, competitors, operating model, and new website IA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #75458E;
+      --purple-deep: #5C3470;
+      --purple-soft: #7C4697;
+      --ink: #281C37;
+      --muted: #5A4F66;
+      --lavender: #E8E0F0;
+      --cloud: #FAF8FC;
+      --paper: #FFFFFF;
+      --line: #D9D0E4;
+      --ok: #2F6B4F;
+      --warn: #8A5A12;
+      --max: 52rem;
+      --wide: 68rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 10% -10%, rgba(117, 69, 142, 0.08), transparent 60%),
+        linear-gradient(180deg, #F7F4FA 0%, var(--cloud) 18%, #FFF 100%);
+      font-family: "Source Sans 3", Georgia, serif;
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    h1, h2, h3, h4, .brand-font {
+      font-family: Sora, "Source Sans 3", sans-serif;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    a { color: var(--purple-deep); }
+    a:hover { color: var(--purple); }
+
+    .wrap {
+      width: min(100% - 2rem, var(--wide));
+      margin-inline: auto;
+    }
+
+    /* Cover */
+    .cover {
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(117,69,142,0.06), transparent 45%),
+        var(--paper);
+      padding: 2.5rem 0 2rem;
+    }
+    .cover-grid {
+      display: grid;
+      gap: 1.5rem;
+      align-items: end;
+    }
+    @media (min-width: 800px) {
+      .cover-grid { grid-template-columns: 1.4fr 1fr; }
+    }
+    .logo {
+      height: 52px;
+      width: auto;
+      display: block;
+    }
+    .eyebrow {
+      display: inline-block;
+      margin: 1.25rem 0 0.5rem;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--lavender);
+      color: var(--purple-deep);
+      font-family: Sora, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .cover h1 {
+      margin: 0.35rem 0 0.75rem;
+      font-size: clamp(1.7rem, 3.5vw, 2.55rem);
+      color: var(--ink);
+      max-width: 18ch;
+    }
+    .cover .lede {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 42ch;
+    }
+    .meta-card {
+      border: 1px solid var(--line);
+      background: var(--cloud);
+      padding: 1.1rem 1.25rem;
+      border-radius: 8px;
+    }
+    .meta-card dl {
+      margin: 0;
+      display: grid;
+      gap: 0.55rem;
+    }
+    .meta-card dt {
+      font-family: Sora, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-card dd { margin: 0.1rem 0 0; font-weight: 600; }
+
+    /* Layout */
+    .layout {
+      display: grid;
+      gap: 2rem;
+      padding: 2rem 0 4rem;
+    }
+    @media (min-width: 980px) {
+      .layout {
+        grid-template-columns: 15.5rem minmax(0, 1fr);
+        align-items: start;
+      }
+    }
+
+    /* TOC */
+    .toc {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 8px;
+      padding: 1rem 1rem 1.1rem;
+      position: sticky;
+      top: 1rem;
+      max-height: calc(100vh - 2rem);
+      overflow: auto;
+    }
+    .toc h2 {
+      margin: 0 0 0.75rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--purple);
+    }
+    .toc ol {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+    }
+    .toc li { margin: 0.35rem 0; }
+    .toc a { text-decoration: none; color: var(--ink); }
+    .toc a:hover { color: var(--purple); text-decoration: underline; }
+
+    /* Sections */
+    main section {
+      scroll-margin-top: 1.25rem;
+      margin-bottom: 2.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+    main section:last-of-type { border-bottom: 0; }
+    main h2 {
+      margin: 0 0 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 3px solid var(--purple);
+      display: inline-block;
+      font-size: 1.55rem;
+      color: var(--purple-deep);
+    }
+    main h3 {
+      margin: 1.6rem 0 0.65rem;
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+    main p { margin: 0.75rem 0; }
+    main ul, main ol { margin: 0.5rem 0 1rem; padding-left: 1.25rem; }
+    main li { margin: 0.3rem 0; }
+    .callout {
+      margin: 1.1rem 0;
+      padding: 0.95rem 1.1rem;
+      border-left: 4px solid var(--purple);
+      background: var(--lavender);
+      border-radius: 0 8px 8px 0;
+    }
+    .callout strong { color: var(--purple-deep); }
+    .note {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .tag {
+      display: inline-block;
+      padding: 0.12rem 0.45rem;
+      border-radius: 3px;
+      background: var(--lavender);
+      color: var(--purple-deep);
+      font-family: Sora, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0 1.25rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    th, td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #F0EAF5;
+      font-family: Sora, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--purple-deep);
+    }
+    tr:last-child td { border-bottom: 0; }
+    tr:nth-child(even) td { background: #FCFAFD; }
+
+    /* Competitor cards */
+    .cards {
+      display: grid;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    @media (min-width: 720px) {
+      .cards.two { grid-template-columns: 1fr 1fr; }
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      padding: 1rem 1.1rem 1.15rem;
+      box-shadow: 0 1px 0 rgba(40, 28, 55, 0.04);
+    }
+    .card h3 {
+      margin: 0 0 0.25rem;
+      font-size: 1.05rem;
+    }
+    .card .url {
+      font-size: 0.85rem;
+      margin-bottom: 0.65rem;
+      word-break: break-all;
+    }
+    .card dl {
+      margin: 0;
+      display: grid;
+      gap: 0.55rem;
+    }
+    .card dt {
+      font-family: Sora, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--purple);
+    }
+    .card dd { margin: 0.15rem 0 0; color: var(--ink); }
+
+    .matrix-key {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      margin: 0.75rem 0 0.25rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .dot {
+      display: inline-block;
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 2px;
+      margin-right: 0.3rem;
+      vertical-align: -1px;
+    }
+    .dot.full { background: var(--purple); }
+    .dot.partial { background: #B89BC8; }
+    .dot.none { background: #DDD6E6; border: 1px solid #C9BDD6; }
+
+    .roadmap {
+      display: grid;
+      gap: 0.85rem;
+    }
+    .phase {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: 0.85rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .phase-n {
+      background: var(--purple);
+      color: white;
+      font-family: Sora, sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: grid;
+      place-items: center;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+    }
+    .phase-body { padding: 0.85rem 1rem 1rem; }
+    .phase-body h3 { margin: 0 0 0.35rem; font-size: 1rem; }
+
+    .sources a { word-break: break-all; }
+
+    footer.doc-foot {
+      border-top: 1px solid var(--line);
+      padding: 1.5rem 0 2.5rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media print {
+      body { background: white; font-size: 11pt; }
+      .toc { position: static; max-height: none; page-break-after: always; }
+      .cover { border: 0; }
+      a { color: inherit; text-decoration: none; }
+      .card, .phase, .table-wrap, .meta-card { break-inside: avoid; }
+      main section { break-inside: avoid-page; }
+    }
+  </style>
+</head>
+<body>
+  <header class="cover">
+    <div class="wrap cover-grid">
+      <div>
+        <img class="logo" src="../images/logo-launchpad.png" alt="LAUNCHPAD Admissions Intelligence" width="160" height="60">
+        <span class="eyebrow">Internal research &amp; planning document</span>
+        <h1>Admissions Intelligence: Business Research &amp; Website Plan</h1>
+        <p class="lede">A standalone plan for expanding LAUNCHPAD / LAUNCHPADi from MBBS-doorway marketing to a full-funnel admissions intelligence platform — schools through higher education, India and abroad, with finance and human matching at the core.</p>
+      </div>
+      <aside class="meta-card" aria-label="Document metadata">
+        <dl>
+          <div>
+            <dt>Brand</dt>
+            <dd>LAUNCHPAD / LAUNCHPADi · Admissions Intelligence</dd>
+          </div>
+          <div>
+            <dt>Legal</dt>
+            <dd>Lpad Intelligence Pvt Ltd</dd>
+          </div>
+          <div>
+            <dt>Live site</dt>
+            <dd><a href="https://www.launchpadi.com">www.launchpadi.com</a></dd>
+          </div>
+          <div>
+            <dt>Last updated</dt>
+            <dd>2026-07-23</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>Research report — not a live site redesign</dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <nav class="toc" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#exec">Executive summary</a></li>
+        <li><a href="#current-site">Current website today</a></li>
+        <li><a href="#landscape">Industry landscape</a></li>
+        <li><a href="#taxonomy">Opportunity taxonomy</a></li>
+        <li><a href="#competitors">Competitor research</a></li>
+        <li><a href="#matrix">Positioning matrix</a></li>
+        <li><a href="#model">Operating model</a></li>
+        <li><a href="#website">Website IA &amp; UX plan</a></li>
+        <li><a href="#roadmap">Phased roadmap</a></li>
+        <li><a href="#risks">Risks &amp; recommendations</a></li>
+        <li><a href="#appendix">Appendix: sources</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- 1 -->
+      <section id="exec">
+        <h2>1. Executive summary</h2>
+        <p><strong>LAUNCHPAD</strong> (consumer brand <strong>LAUNCHPADi</strong>; legal entity Lpad Intelligence Pvt Ltd) should position as <em>Admissions Intelligence</em>: helping families decide <em>where</em> they want admission, explore peer-tier alternatives (India + abroad + online), unlock finance/scholarship paths, and connect to people who know exact processes at target institutions.</p>
+        <div class="callout">
+          <strong>Core thesis:</strong> Marks are necessary but not sufficient. Timing, process literacy, fit across peer-tier options, and funding exploration decide outcomes. Families often reject better-fit options as “too costly” without mapping loans, scholarships, sponsorships, or alternate destinations/tiers.
+        </div>
+        <p>Today’s live site at <a href="https://www.launchpadi.com">www.launchpadi.com</a> already states an admissions-intelligence narrative on the homepage, but the <em>content surface</em> is overwhelmingly MBBS-abroad / NEET SEO doorway pages (~179 <code>.htm</code> files). That creates a mismatch between brand promise and productized experience — and SEO risk from thin/near-duplicate country templates (documented in the internal SEO audit of 2026-07-21).</p>
+        <p><strong>Strategic opportunity:</strong> Expand from “MBBS abroad consultant content” into a structured opportunity database + human network (consultants, institution process experts, finance partners) covering:</p>
+        <ul>
+          <li>K–12 school admissions (local reputed schools, timelines, applications, references)</li>
+          <li>UG/PG higher education across medicine, engineering, law, and other fields</li>
+          <li>India + US/UK/Australia/Canada/Middle East/Europe/Asia + online programs</li>
+          <li>Finance: loans, scholarships, sponsorships — presented as decision tools, not afterthoughts</li>
+        </ul>
+        <p><strong>Competitive white space:</strong> Large portals (Shiksha, Collegedunia, CollegeDekho) win discovery SEO but weak high-trust strategy. Study-abroad specialists (Yocket, Leap, Leverage, IDP, AECC, AdmitKard) monetize Big-4/Europe pathways and university commissions. School consultants (e.g. Schoolling) are city-deep but narrow. MBBS-abroad agents own Russia/Georgia/Central Asia SEO but often lack finance transparency and India alternatives. <em>Few players own the full “marks → fit → funding → process expert” loop across school + college + abroad.</em></p>
+        <p><strong>Website planning goal:</strong> Replace doorway sprawl with hubs, opportunity cards, journey tools, and inquiry routing — then deepen categories and partner networks in phases. Do not rebuild the live marketing site in this document; this is the blueprint.</p>
+      </section>
+
+      <!-- 2 -->
+      <section id="current-site">
+        <h2>2. What the current website proposes today</h2>
+        <p>Factual summary from local inventory + SEO audit (<code>docs/SEO-AUDIT-AND-CONTENT-REPLAN.md</code>, 2026-07-21) and homepage copy on <a href="https://www.launchpadi.com/">www.launchpadi.com</a>.</p>
+
+        <h3>2.1 Brand chrome vs content reality</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Layer</th><th>What it says / does</th><th>Implication</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Logo / brand</td>
+                <td>LAUNCHPAD Admissions Intelligence; purple lockup</td>
+                <td>Broader than medicine; intelligence positioning</td>
+              </tr>
+              <tr>
+                <td>Homepage hero</td>
+                <td>“MBBS abroad &amp; India admissions guidance for students and parents”</td>
+                <td>Still medicine-first messaging</td>
+              </tr>
+              <tr>
+                <td>Homepage body</td>
+                <td>Admissions intelligence, university networks, finance/sponsorship, affordable reputed universities</td>
+                <td>Aligns with vision; under-delivered by interior pages</td>
+              </tr>
+              <tr>
+                <td>Primary nav</td>
+                <td>Home, LAUNCHPADi-Q, NEET Counselling, MBBS Abroad, MBBS University Fees, Contact</td>
+                <td>Medical / exam funnel only</td>
+              </tr>
+              <tr>
+                <td>Content corpus</td>
+                <td>~179 root <code>.htm</code> pages; clusters of country fees, colleges, “without NEET”, MBBS-in-{country}</td>
+                <td>SEO doorway architecture</td>
+              </tr>
+              <tr>
+                <td>Product</td>
+                <td>LAUNCHPADi-Q MCQ quiz app (linked; product at q.launchpadi.com historically)</td>
+                <td>Adjacent test-prep utility, weakly integrated into counselling CTA</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>2.2 Theme inventory (approximate)</h3>
+        <ul>
+          <li><strong>~34</strong> country fee pages (<code>mbbs-fees-in-*</code>)</li>
+          <li><strong>~30</strong> medical colleges by country</li>
+          <li><strong>~31</strong> “study MBBS without NEET” variants</li>
+          <li><strong>~31</strong> <code>mbbs-in-{country}</code> pages</li>
+          <li><strong>~6</strong> NEET hub pages</li>
+          <li><strong>~43</strong> other guides (loans, FMGE, scholarships, “best country”, etc.)</li>
+          <li><strong>~17</strong> thin <code>mcq/</code> quiz landings</li>
+        </ul>
+        <p class="note">~30 countries often appear in 3–5 near-parallel templates. Audit flags ~94 pages with <code>noindex</code>, weak E-E-A-T (little author/org schema / last-reviewed / primary citations), and hero H1 branding that often overshadows topic H1s.</p>
+
+        <h3>2.3 Vision gap</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Vision (user strategy)</th><th>Current site</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Full funnel: schools → UG/PG → abroad → online</td>
+                <td>Almost exclusively MBBS / NEET / abroad medicine</td>
+              </tr>
+              <tr>
+                <td>Peer-tier alternatives &amp; fit strategy</td>
+                <td>Country keyword pages; limited structured comparison UX</td>
+              </tr>
+              <tr>
+                <td>Finance explored before “too costly” rejection</td>
+                <td>Loan/scholarship articles exist but not first-class decision tools</td>
+              </tr>
+              <tr>
+                <td>Network of process-knowers / consultants</td>
+                <td>Contact form / counselling CTA; no visible partner directory or matching UX</td>
+              </tr>
+              <tr>
+                <td>Opportunity database</td>
+                <td>Static HTML articles, not filterable opportunity objects</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Verdict:</strong> Positioning copy is ahead of information architecture. The next website should make the homepage promise operational — not add more country doorway URLs.</p>
+      </section>
+
+      <!-- 3 -->
+      <section id="landscape">
+        <h2>3. Industry landscape</h2>
+        <p>India’s admissions economy is not one market. It is stacked segments that families move through over 15+ years — often with different vendors each time (school agent → coaching → college portal → study-abroad counsellor → loan broker).</p>
+
+        <h3>3.1 Size drivers (use carefully — mixed definitions)</h3>
+        <ul>
+          <li><strong>Outbound student stock (official):</strong> MEA data tabled in Parliament (2025) reports <strong>1,882,318</strong> Indians studying abroad across 153 countries — including, for the first time, <strong>628,305 school-level</strong> enrolments and <strong>1,254,013</strong> in universities/tertiary. Higher-education enrolments fell ~5.7% vs 2024’s ~1.33M after three years of growth — attributed by press analysis to visa/immigration policy shifts in major destinations. Sources: <a href="https://indianexpress.com/article/education/study-abroad/drop-in-number-of-indians-pursuing-higher-education-abroad-gulf-countries-dominate-school-enrollment-data-10403781/">Indian Express</a>, <a href="https://monitor.icef.com/2025/12/the-number-of-indian-students-abroad-fell-in-2025/">ICEF Monitor</a>, <a href="https://thepienews.com/outbound-indian-university-enrolments-fall-after-three-year-rise/">The PIE News</a>.</li>
+          <li><strong>Spend pool (industry commentary, not official GDP series):</strong> Commentary often cites ~<strong>$85B</strong> expected spend by Indian students on overseas education (tuition + living + services) as the commercial “pie” study-abroad firms chase. Treat as <em>estimate / secondary</em> (e.g. LinkedIn industry overview citing HolonIQ-style framing).</li>
+          <li><strong>“India education consulting” market reports:</strong> Market Research Future lists India education consulting at roughly <strong>USD 189M (2024)</strong> with modest long-range CAGRs depending on which MRFR table is cited — and profiles large strategy firms (McKinsey, Deloitte, etc.), so this figure is <em>not</em> a clean outbound-agent TAM. Independent analysis (RAOSCAFF) notes <strong>no reliable primary FICCI/CII/Redseer figure</strong> for India outbound-only consultancy revenue. Do not use MRFR alone as Launchpad’s addressable market.</li>
+          <li><strong>University commission economics (secondary survey claim):</strong> Industry write-ups cite average commissions on the order of <strong>USD 2,500–3,500</strong> per successfully placed student for commission-based agencies — useful as a <em>model clue</em>, not Launchpad revenue forecast.</li>
+        </ul>
+
+        <h3>3.2 Segment map</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Segment</th><th>Buyer</th><th>Pain</th><th>Typical incumbents</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>K–12 private / international school admissions</td>
+                <td>Parents (metro / NCR / tier-1)</td>
+                <td>Opaque points systems, CAF chaos, essays, interviews, timelines</td>
+                <td>Schoolling-type local consultants; school marketing agencies (B2B)</td>
+              </tr>
+              <tr>
+                <td>Entrance coaching</td>
+                <td>Students + parents</td>
+                <td>Marks maximization</td>
+                <td>Unacademy, Physics Wallah, FIITJEE, Aakash, etc. — <em>not</em> Launchpad’s core</td>
+              </tr>
+              <tr>
+                <td>India college discovery &amp; counselling</td>
+                <td>Students + parents</td>
+                <td>Cutoffs, fees, private college opacity, counselling rounds</td>
+                <td>Shiksha, Collegedunia, CollegeDekho, GetMyUni + offline agents</td>
+              </tr>
+              <tr>
+                <td>Study abroad (Big-4 + Europe)</td>
+                <td>UG/PG aspirants</td>
+                <td>Profile building, SOP, visas, loans</td>
+                <td>IDP, AECC, Yocket, Leap, Leverage, AdmitKard</td>
+              </tr>
+              <tr>
+                <td>MBBS abroad (Russia, Georgia, Central Asia, etc.)</td>
+                <td>NEET-qualified / near-qualified medical aspirants</td>
+                <td>NMC compliance, FMGE path, agent trust, true cost</td>
+                <td>Specialist medical consultancies + SEO farms</td>
+              </tr>
+              <tr>
+                <td>Finance / loans / scholarships</td>
+                <td>Parents</td>
+                <td>Collateral, rates, eligibility, remittance</td>
+                <td>Banks/NBFCs; Leap Finance; portal loan desks</td>
+              </tr>
+              <tr>
+                <td>Online / hybrid degrees</td>
+                <td>Working learners + cost-sensitive families</td>
+                <td>Recognition, ROI, employer signal</td>
+                <td>upGrad, Amity Online, portal “online degree” funnels</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>3.3 Pain points Launchpad can own</h3>
+        <ol>
+          <li><strong>Single-path tunnel vision</strong> — “Only IIT / only AIIMS / only Canada” without peer-tier maps.</li>
+          <li><strong>Cost rejection without finance exploration</strong> — sticker price ≠ net payable.</li>
+          <li><strong>Process opacity</strong> — counselling rounds, CAF points, visa checklists, NMC duration rules.</li>
+          <li><strong>Conflicted advice</strong> — commission-led destination push vs family goals.</li>
+          <li><strong>Fragmented vendors</strong> — no continuity from school → college → abroad.</li>
+        </ol>
+
+        <h3>3.4 Regulatory notes (non-exhaustive; verify before counselling claims)</h3>
+        <ul>
+          <li><strong>NEET / NMC / FMGL:</strong> Indian students intending to practice allopathy in India after foreign UG medical study must meet NMC Foreign Medical Graduate Licentiate conditions (duration, English medium, internship, etc.). NMC has repeatedly alerted students about foreign private colleges not aligned with FMGL (e.g. UGMEB advisories). NEET qualification is required for eligibility pathways; FMGE (and evolving NExT policy) sits on the return-to-practice path. See NMC advisories and explainers in Appendix.</li>
+          <li><strong>India seat allotment:</strong> MCC / state counselling (NEET UG), JoSAA/CSAB (engineering), state CAP rounds, CLAT consortium processes — official portals are source of truth; consultants add navigation, not substitute authority.</li>
+          <li><strong>Study-abroad agents:</strong> Destination regulators (UK Agent Quality Framework / British Council training, ICEF, AIRC, Australian ESOS ecosystem) increasingly pressure quality and transparency. Claiming “guaranteed admission/visa” is both unethical and a brand risk.</li>
+          <li><strong>School admissions:</strong> City rules (e.g. Delhi nursery points / CAF) change; local process experts matter more than national SEO content.</li>
+        </ul>
+      </section>
+
+      <!-- 4 -->
+      <section id="taxonomy">
+        <h2>4. Opportunity taxonomy / category map</h2>
+        <p>Exhaustive structured list of categories Launchpad can cover over time. MVP should pick 2–3 depth wedges; the taxonomy is the product roadmap north star.</p>
+
+        <h3>4.1 K–12 school admissions</h3>
+        <ul>
+          <li>Nursery / pre-primary; primary; middle; secondary / senior secondary</li>
+          <li>Board types: CBSE, ICSE/ISC, state boards, IB, IGCSE, Cambridge</li>
+          <li>School tiers: neighbourhood strong schools → city-reputed → national brand / international</li>
+          <li>Services: shortlisting, points/probability, CAF &amp; docs, essays, interviews, waitlist strategy, mid-year / transfer, boarding</li>
+          <li>Geography hubs: Delhi NCR first (proven demand), then Mumbai, Bangalore, Hyderabad, Chennai, Pune, Kolkata</li>
+        </ul>
+
+        <h3>4.2 Undergraduate (India)</h3>
+        <ul>
+          <li>Medicine &amp; allied: MBBS, BDS, AYUSH, nursing, physiotherapy, pharmacy</li>
+          <li>Engineering &amp; tech: B.Tech / BE, specialized computing, design-adjacent</li>
+          <li>Law: 5-year integrated, 3-year LLB</li>
+          <li>Business: BBA, BMS, IPM pathways</li>
+          <li>Pure sciences, arts, commerce, design, hospitality, agriculture, architecture</li>
+          <li>Path types: government merit, state quota, All-India, private / management / NRI quotas (ethics &amp; transparency mandatory), CUET central universities, deemed universities</li>
+        </ul>
+
+        <h3>4.3 Postgraduate (India)</h3>
+        <ul>
+          <li>Medical PG (NEET PG / INI-CET), engineering M.Tech, MBA/PGDM, LLM, M.Des, research tracks</li>
+          <li>Career switchers and working-professional programs</li>
+        </ul>
+
+        <h3>4.4 Abroad destinations (higher ed)</h3>
+        <ul>
+          <li><strong>Traditional Big-4:</strong> US, UK, Canada, Australia</li>
+          <li><strong>Europe rising hubs:</strong> Germany, Ireland, France, Netherlands, Italy, Spain, etc.</li>
+          <li><strong>Middle East:</strong> UAE and regional university cities (incl. school-level diaspora demand)</li>
+          <li><strong>Asia:</strong> Singapore, Malaysia, Japan, South Korea, etc.</li>
+          <li><strong>Medical-abroad corridors:</strong> Russia, Georgia, Kazakhstan, Uzbekistan, Kyrgyzstan, Bangladesh, Nepal, Philippines, Egypt, Eastern Europe — with NMC-compliance intelligence as differentiator</li>
+        </ul>
+
+        <h3>4.5 Online / hybrid / transnational</h3>
+        <ul>
+          <li>UGC-entitled online degrees, foreign online / distance caveats, twinning / 2+2, pathway colleges</li>
+          <li>Position as <em>fit &amp; recognition</em> advisory, not commodity upsell</li>
+        </ul>
+
+        <h3>4.6 Finance &amp; access</h3>
+        <ul>
+          <li>Education loans (secured / unsecured), co-borrower strategy</li>
+          <li>Scholarships (merit, need, destination, diaspora, institutional)</li>
+          <li>Sponsorships / employer / CSR / community funding</li>
+          <li>Cost-of-attendance calculators (tuition + living + insurance + travel)</li>
+          <li>Remittance &amp; forex hygiene (partner, not core product)</li>
+        </ul>
+
+        <h3>4.7 Test-prep adjacency (differentiated)</h3>
+        <p>Launchpad is <strong>admissions strategy</strong>, not a coaching replacement. Adjacent offerings:</p>
+        <ul>
+          <li>Exam calendars &amp; “what score unlocks which tier”</li>
+          <li>LAUNCHPADi-Q as readiness / practice utility</li>
+          <li>Referrals to prep partners (affiliate) when strategy says “raise score first”</li>
+        </ul>
+
+        <h3>4.8 Network / marketplace objects</h3>
+        <ul>
+          <li>Verified consultants (by city, stream, destination)</li>
+          <li>Institution process experts / alumni / faculty contacts (privacy-preserving)</li>
+          <li>University / school partnership inventory</li>
+          <li>Loan &amp; scholarship partners</li>
+        </ul>
+      </section>
+
+      <!-- 5 -->
+      <section id="competitors">
+        <h2>5. Competitor research</h2>
+        <p>Ten named competitors researched via live site fetches / public pages (July 2026). Analysis focuses on positioning, site IA/content, and business-model clues — not financial diligence.</p>
+
+        <div class="cards">
+          <!-- 1 -->
+          <article class="card">
+            <h3>1. Leverage Edu</h3>
+            <p class="url"><a href="https://www.leverageedu.com/">https://www.leverageedu.com/</a></p>
+            <dl>
+              <div><dt>Positioning</dt><dd>AI-native “global talent mobility &amp; upskilling” across study, work, and online — far beyond classic counselling. Includes Study Global, Work Global (nursing/teaching/vocational), Ivy100, Leverage MBBS, Leverage Pathways.</dd></div>
+              <div><dt>Target segment</dt><dd>Ambitious Indian (and global) students/professionals; also B2B consultant partners (claims 10K+ education consultants / white-label AI).</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Heavy product marketing, AI coach CTA, success stories, destination modules. Content engine via Learn/blog historically SEO-strong. CTA: talk to AI coach / counselling. Strength: breadth + brand gravity. Weakness: noise — admissions strategy can feel secondary to “mobility platform” ambition.</dd></div>
+              <div><dt>Business model clues</dt><dd>University recruitment + counselling; expansion into finance, housing, careers; partner/white-label; press historically cited large revenue claims (treat press figures cautiously).</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Too broad/capital-intensive to copy. Launchpad wins by <em>clarity of admissions decisioning</em> + school-to-college continuity + finance-before-rejection — not by matching AI-mobility theater.</dd></div>
+            </dl>
+          </article>
+
+          <!-- 2 -->
+          <article class="card">
+            <h3>2. Yocket</h3>
+            <p class="url"><a href="https://yocket.com/">https://yocket.com/</a></p>
+            <dl>
+              <div><dt>Positioning</dt><dd>“Confirmed admits” study-abroad platform; Premium counselling + Prep (GRE/GMAT/IELTS/TOEFL) + Finance (30+ lenders).</dd></div>
+              <div><dt>Target segment</dt><dd>MS/MBA/Bachelor’s/PhD aspirants for US/UK/Canada/Germany and similar.</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Strong conversion IA: product pillars, admit stats, acceptance-rate comparison widgets, 1:1 expert CTA, app download. Community/content historically SEO-relevant for “university shortlist” queries. Strength: clear paid Premium ladder. Weakness: little India domestic or K–12; medicine-abroad not core brand.</dd></div>
+              <div><dt>Business model clues</dt><dd>Paid premium counselling; test-prep product; loan referral; free top-of-funnel community/content. (LeapScholar footer lists Yocket partnership — ecosystem consolidation signal.)</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Compete only if Launchpad enters Big-4 profile-building. Differentiator: Launchpad’s peer-tier + India options + medical NMC intelligence + schools.</dd></div>
+            </dl>
+          </article>
+
+          <!-- 3 -->
+          <article class="card">
+            <h3>3. LeapScholar (Leap)</h3>
+            <p class="url"><a href="https://leapscholar.com/">https://leapscholar.com/</a></p>
+            <dl>
+              <div><dt>Positioning</dt><dd>Study-abroad + IELTS/test prep + scholarships/loans; “get university shortlist”; physical centres in major Indian cities.</dd></div>
+              <div><dt>Target segment</dt><dd>Mass-premium study-abroad aspirants; IELTS learners as acquisition wedge.</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Country mega-menus (USA/UK/Canada/Ireland/Australia/Germany/France/NZ/Italy), exam hubs, live webinars, counsellor CTA, app downloads. SEO posture: large programmatic country/university/exam content. Strength: omnichannel (online + centres + events). Weakness: content scale can feel commoditized; India college/school not primary.</dd></div>
+              <div><dt>Business model clues</dt><dd>Counselling + test prep; claims large loan disbursement volumes; investor-backed; university partnerships/commissions typical of category.</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Do not out-SEO Leap on IELTS. Win on structured opportunity intelligence and multi-path (India/abroad/online) strategy with finance embedded.</dd></div>
+            </dl>
+          </article>
+
+          <!-- 4 -->
+          <article class="card">
+            <h3>4. Shiksha</h3>
+            <p class="url"><a href="https://www.shiksha.com/">https://www.shiksha.com/</a></p>
+            <dl>
+              <div><dt>Positioning</dt><dd>India’s dominant higher-ed discovery &amp; counselling media property (Info Edge ecosystem historically): colleges, exams, predictors, news, study abroad.</dd></div>
+              <div><dt>Target segment</dt><dd>Broad Indian students across MBA, B.Tech, medical, design, boards, sarkari exams.</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Deep IA by stream; college predictors; student Q&amp;A; live news desks (NEET counselling, results). CTA: counselling / expert guidance / predictors. Strength: unmatched SEO &amp; trust for informational queries. Weakness: experience can feel lead-gen heavy; personal strategy depth varies; K–12 school admissions not a flagship product.</dd></div>
+              <div><dt>Business model clues</dt><dd>Advertising + lead generation to institutions + counselling services.</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Cannot beat Shiksha on encyclopedia SEO. Launchpad should <em>cite and link out</em> where useful, and own the guided strategy/consultation layer with higher intimacy and partner matching.</dd></div>
+            </dl>
+          </article>
+
+          <!-- 5 -->
+          <article class="card">
+            <h3>5. Collegedunia</h3>
+            <p class="url"><a href="https://collegedunia.com/">https://collegedunia.com/</a></p>
+            <dl>
+              <div><dt>Positioning</dt><dd>“Find 25,000+ colleges” — rankings, fees, cutoffs, compare, predictors, study abroad modules.</dd></div>
+              <div><dt>Target segment</dt><dd>India college shoppers across engineering, management, medical, arts, commerce.</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Database UX + news + exam pages + brochure CTAs (“Need Counselling”). Strength: structured college objects and comparison. Weakness: partner colleges can dominate featured slots; strategy narrative thinner than brand promise of “intelligence.”</dd></div>
+              <div><dt>Business model clues</dt><dd>Institutional lead-gen, advertising, counselling referrals.</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Borrow UX patterns (filters, compare, predictors) but differentiate with human process experts + finance pathways + ethical shortlisting not only brochure downloads.</dd></div>
+            </dl>
+          </article>
+
+          <!-- 6 -->
+          <article class="card">
+            <h3>6. CollegeDekho</h3>
+            <p class="url"><a href="https://www.collegedekho.com/">https://www.collegedekho.com/</a> (Girnarsoft Education Services)</p>
+            <dl>
+              <div><dt>Positioning</dt><dd>College discovery + Common Application Form for many private colleges + Career Compass + online degrees.</dd></div>
+              <div><dt>Target segment</dt><dd>Students open to private universities; career-confused Class 12 / UG aspirants.</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Stream hubs, featured partner colleges, CAF CTA (“2000+ colleges, 1 application”), predictors. Strength: application convenience for private sector. Weakness: heavy partner inventory can reduce perceived neutrality.</dd></div>
+              <div><dt>Business model clues</dt><dd>College partnerships / lead &amp; application fees; online degree funnels.</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Launchpad should disclose partner incentives and offer “neutral fit” mode — especially valuable for medicine and selective schools where trust is fragile.</dd></div>
+            </dl>
+          </article>
+
+          <!-- 7 -->
+          <article class="card">
+            <h3>7. AdmitKard</h3>
+            <p class="url"><a href="https://www.admitkard.com/">https://www.admitkard.com/</a></p>
+            <dl>
+              <div><dt>Positioning</dt><dd>“Cheapest, unbiased, easiest” study abroad; end-to-end applications, visas, loans, housing; ICEF / British Council / AIRC accreditation badges.</dd></div>
+              <div><dt>Target segment</dt><dd>Indian students for 15+ countries; founder-led YouTube trust channel.</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Clean service narrative, free consultation CTA, country grid, reviews, Refer &amp; Earn. Strength: accreditation signalling + founder content. Weakness: still classic study-abroad scope; limited domestic/school.</dd></div>
+              <div><dt>Business model clues</dt><dd>Free consult → conversion; university commissions likely; loans/remittance/accommodation attach; funding history publicly covered (Series A ~₹50 Cr / $6M in 2023 press).</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Study for accreditation playbook. Differentiate via opportunity taxonomy breadth and admissions-intelligence tooling.</dd></div>
+            </dl>
+          </article>
+
+          <!-- 8 -->
+          <article class="card">
+            <h3>8. IDP India</h3>
+            <p class="url"><a href="https://www.idp.com/india/">https://www.idp.com/india/</a></p>
+            <dl>
+              <div><dt>Positioning</dt><dd>Global study-abroad incumbent (ASX-listed heritage); free counselling; FastLane instant offers; IELTS ownership historically; student essentials (loan, housing, insurance, SIM).</dd></div>
+              <div><dt>Target segment</dt><dd>Students targeting Australia/UK/Canada/US/NZ/Ireland/Malaysia etc.</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Expo-driven acquisition, destination hubs, IDP Live app for application tracking, ambassador community. Strength: institutional trust + operational scale. Weakness: less personalized “strategy brand”; India domestic not focus.</dd></div>
+              <div><dt>Business model clues</dt><dd>University contracts / student placement; events; ancillary student services; free-to-student counselling model.</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Do not wage brand war on Big-4 volume. Partner or coexist; own niches IDP under-serves (medical-abroad compliance intelligence, Indian private college strategy, K–12).</dd></div>
+            </dl>
+          </article>
+
+          <!-- 9 -->
+          <article class="card">
+            <h3>9. AECC</h3>
+            <p class="url"><a href="https://www.aeccglobal.com/">https://www.aeccglobal.com/</a></p>
+            <dl>
+              <div><dt>Positioning</dt><dd>International education consultancy; claims 760,000+ students assisted since 2008; 1,100+ institution partners; course search tool.</dd></div>
+              <div><dt>Target segment</dt><dd>Study-abroad students across USA/UK/Australia/Canada/Germany/Ireland/NZ/Dubai etc.</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Destination cards, counsellor form (destination/year/intake), student stories, course explorer. Strength: straightforward conversion site. Weakness: generic category look; limited India/school content.</dd></div>
+              <div><dt>Business model clues</dt><dd>Classic agent model — free consult, university commissions, volume operations.</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Same category as IDP/Leap. Launchpad differentiation remains multi-path intelligence + network matching transparency.</dd></div>
+            </dl>
+          </article>
+
+          <!-- 10 -->
+          <article class="card">
+            <h3>10. Schoolling</h3>
+            <p class="url"><a href="https://schoolling.com/">https://schoolling.com/</a></p>
+            <dl>
+              <div><dt>Positioning</dt><dd>Strategic K–12 school admission consultancy for Delhi NCR parents — data-driven shortlisting, CAF, points analysis, essays, interviews.</dd></div>
+              <div><dt>Target segment</dt><dd>Parents targeting reputed Delhi NCR schools (DPS, Shri Ram, Heritage, international schools, etc.).</dd></div>
+              <div><dt>Website &amp; content</dt><dd>Service catalog with explicit pricing (e.g. consultations from ₹1,499; CAF packages from ₹14,999; point calculator; tracking). Trending schools content; appointment CTA; parent testimonials. Strength: productized services + local depth. Weakness: geographic concentration; not a higher-ed platform.</dd></div>
+              <div><dt>Business model clues</dt><dd>Direct parent fees for packaged services; community/WhatsApp groups; content/books as acquisition.</dd></div>
+              <div><dt>vs Launchpad</dt><dd>Proof that parents pay for process literacy. Launchpad can (a) partner/affiliate in NCR, (b) replicate playbook city-by-city, (c) bridge school clients into later UG counselling LTV.</dd></div>
+            </dl>
+          </article>
+        </div>
+
+        <h3>5.1 Additional category references (not full dossiers)</h3>
+        <ul>
+          <li><strong>GetMyUni</strong> (<a href="https://www.getmyuni.com/">getmyuni.com</a>) — India college search + counselling leads + study-abroad modules; similar portal economics to Collegedunia/CollegeDekho.</li>
+          <li><strong>MBBS-abroad specialists</strong> (e.g. <a href="https://videshimentors.com/">Videshi Mentors</a>, <a href="https://www.tenoverseaseducation.in/">Ten Overseas Education</a>, PSP Education) — destination SEO + admission packages for Russia/Georgia/Central Asia; high trust risk if NMC rules are soft-pedaled. Launchpad’s edge: compliance-first content + India alternatives + finance.</li>
+          <li><strong>Galvanize / Unacademy counselling arms / upGrad Abroad</strong> — adjacent; verify current product lines before treating as primary comps (site availability fluctuates).</li>
+        </ul>
+      </section>
+
+      <!-- 6 -->
+      <section id="matrix">
+        <h2>6. Competitive positioning matrix</h2>
+        <p class="matrix-key">
+          <span><span class="dot full"></span> Core focus</span>
+          <span><span class="dot partial"></span> Partial / secondary</span>
+          <span><span class="dot none"></span> Weak / absent</span>
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>K–12</th>
+                <th>India UG/PG</th>
+                <th>Study abroad Big-4</th>
+                <th>MBBS abroad</th>
+                <th>Finance tools</th>
+                <th>Primary channel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LAUNCHPAD (target)</td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot full"></span></td>
+                <td>Strategy hubs + consult matching</td>
+              </tr>
+              <tr>
+                <td>Shiksha / Collegedunia / CollegeDekho</td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td>SEO portals + lead-gen</td>
+              </tr>
+              <tr>
+                <td>Yocket / Leap / AdmitKard</td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot full"></span></td>
+                <td>Content + paid counselling + app</td>
+              </tr>
+              <tr>
+                <td>Leverage Edu</td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td><span class="dot full"></span></td>
+                <td>Brand + AI platform + partners</td>
+              </tr>
+              <tr>
+                <td>IDP / AECC</td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td>Offices + expos + free counselling</td>
+              </tr>
+              <tr>
+                <td>Schoolling</td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot none"></span></td>
+                <td>Local parent fees + community</td>
+              </tr>
+              <tr>
+                <td>MBBS-abroad agents</td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td>SEO doorways + offline sales</td>
+              </tr>
+              <tr>
+                <td>LAUNCHPAD today (actual)</td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td><span class="dot none"></span></td>
+                <td><span class="dot full"></span></td>
+                <td><span class="dot partial"></span></td>
+                <td>Static SEO pages + contact</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Matrix is qualitative from public sites (July 2026), not a measured share-of-search study.</p>
+      </section>
+
+      <!-- 7 -->
+      <section id="model">
+        <h2>7. Business structure / operating model</h2>
+
+        <h3>7.1 Value chain</h3>
+        <ol>
+          <li><strong>Demand</strong> — parents/students arrive via SEO hubs, referrals, YouTube, WhatsApp, partner schools/coaching.</li>
+          <li><strong>Intake</strong> — profile (stage, academics, budget band, geography, constraints, timeline).</li>
+          <li><strong>Strategize</strong> — peer-tier opportunity set (reach / match / safety) across India, abroad, online; finance overlay.</li>
+          <li><strong>Match</strong> — route to Launchpad counsellor and/or specialized consultant / institution process expert.</li>
+          <li><strong>Execute</strong> — applications, counselling rounds, docs, visas as applicable.</li>
+          <li><strong>Outcomes</strong> — admits, joins, funding closed; feedback into opportunity database.</li>
+        </ol>
+
+        <h3>7.2 Revenue hypotheses (directions — not forecasts)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Stream</th><th>Who pays</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Strategy consult fees</td>
+                <td>Parent / student</td>
+                <td>Schoolling-like packages; high trust when priced transparently</td>
+              </tr>
+              <tr>
+                <td>Success / placement fees</td>
+                <td>Parent or institution</td>
+                <td>Disclose clearly; avoid double-dipping without consent</td>
+              </tr>
+              <tr>
+                <td>University / school partner leads</td>
+                <td>Institution</td>
+                <td>Portal model; protect “neutral mode”</td>
+              </tr>
+              <tr>
+                <td>Study-abroad commissions</td>
+                <td>University / pathway</td>
+                <td>Industry norms often cited ~USD 2.5–3.5k per place (secondary); varies widely</td>
+              </tr>
+              <tr>
+                <td>Finance referral</td>
+                <td>Lender / partner</td>
+                <td>Attach after fit decision — brand-safe sequencing</td>
+              </tr>
+              <tr>
+                <td>LAUNCHPADi-Q / tools</td>
+                <td>User or B2B</td>
+                <td>Secondary; supports readiness narrative</td>
+              </tr>
+              <tr>
+                <td>Consultant marketplace take-rate</td>
+                <td>Consultant</td>
+                <td>Only after supply density; start private matching</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Do not invent revenue targets</strong> until pipeline experiments produce conversion data. Public competitor “₹X crore” headlines are marketing, not diligence.</p>
+
+        <h3>7.3 Data assets to build</h3>
+        <ul>
+          <li>Opportunity objects (institution, program, fees bands, deadlines, eligibility, recognition flags)</li>
+          <li>Process playbooks (per city school rules; per counselling authority; per destination visa)</li>
+          <li>Outcome anonymized stats (admit rates by profile band — publish only when statistically honest)</li>
+          <li>Partner graph (consultants, lenders, universities) with compliance tags</li>
+          <li>Content freshness metadata (last reviewed, source links) for E-E-A-T</li>
+        </ul>
+      </section>
+
+      <!-- 8 -->
+      <section id="website">
+        <h2>8. New website information architecture &amp; UX plan</h2>
+        <p>Planning goal: a site that operationalizes Admissions Intelligence. This is <em>not</em> a commitment to rewrite all 179 pages in one pass.</p>
+
+        <h3>8.1 Proposed sitemap (MVP → expand)</h3>
+        <pre style="background:#281C37;color:#F3ECF8;padding:1rem 1.1rem;border-radius:8px;overflow:auto;font-size:0.85rem;line-height:1.45;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;">www.launchpadi.com/
+├── /                              Home — problem, brand, paths, CTA
+├── /about                         Org, methodology, E-E-A-T
+├── /how-it-works                  Intake → strategy → match → outcome
+├── /opportunities                 Search/filter opportunity explorer
+│   ├── /schools                   K–12 hubs (city → school guides)
+│   ├── /india                     UG/PG stream hubs (medicine, eng, law…)
+│   ├── /abroad                    Destination hubs (not 5× doorways)
+│   └── /online                    Online/hybrid with recognition notes
+├── /finance                       Loans, scholarships, cost-of-attendance
+├── /timelines                     Exam &amp; admission calendars
+├── /guides                        Evergreen strategy guides (unique)
+├── /neet                          India medical pathway hub (keep strength)
+├── /mbbs-abroad                   Medical-abroad hub + NMC compliance center
+├── /q                             LAUNCHPADi-Q product bridge
+├── /inquire                       Smart intake form (+ WhatsApp)
+├── /partners                      For consultants / institutions (apply)
+└── /contact                       Human channels</pre>
+
+        <h3>8.2 User journeys</h3>
+        <ol>
+          <li><strong>Discover</strong> — land on hub/guide from search or social; understand Launchpad’s non-coaching stance.</li>
+          <li><strong>Explore</strong> — filter opportunities by stage, stream, budget band, geography, online/on-campus.</li>
+          <li><strong>Strategize</strong> — short profile → peer-tier shortlist (reach/match/safety) + finance flags.</li>
+          <li><strong>Inquire</strong> — form / WhatsApp / calendar; consent + urgency + preferred contact window.</li>
+          <li><strong>Human follow-up</strong> — counsellor assigns path; optionally introduces specialist consultant.</li>
+        </ol>
+
+        <h3>8.3 Content types to present</h3>
+        <ul>
+          <li><strong>Hub pages</strong> — one strong URL per country/stream/city (merge doorways).</li>
+          <li><strong>Opportunity cards</strong> — structured fields; compare; save; inquire.</li>
+          <li><strong>Process playbooks</strong> — checklists with official source links.</li>
+          <li><strong>Finance explainers</strong> — calculators + partner CTAs after fit.</li>
+          <li><strong>Timelines / calendars</strong> — NEET, JoSAA, school CAF windows, intake months abroad.</li>
+          <li><strong>Trust / E-E-A-T</strong> — about, methodology, last-reviewed dates, no “guaranteed seat” claims, author/reviewer where possible.</li>
+        </ul>
+
+        <h3>8.4 Inquiry / CRM flow</h3>
+        <ul>
+          <li>Primary: multi-step web form (stage → goals → budget band → timeline → contact).</li>
+          <li>Secondary: WhatsApp Business deep link with prefilled context.</li>
+          <li>Tertiary: calendar booking for strategy calls (once staffing ready).</li>
+          <li>Routing: tags by segment (K–12 / NEET / abroad / finance) → owner queue; SLA response.</li>
+          <li>CRM fields: source page, UTM, consent, partner-of-interest, disclosure flags.</li>
+        </ul>
+
+        <h3>8.5 Consultants / partners on site</h3>
+        <p><strong>Recommendation:</strong> Start with <em>private matching</em> (Launchpad routes quietly). Public directory only after vetting standards, dispute process, and enough supply — otherwise thin directories hurt trust. Partner apply page can exist early.</p>
+
+        <h3>8.6 SEO strategy shift</h3>
+        <div class="callout">
+          <strong>From:</strong> 3–5 near-duplicate MBBS doorway URLs per country.<br>
+          <strong>To:</strong> Priority country hubs with unique evidence + NMC notes + fees tables with year/source + internal links to finance and India alternatives; noindex or 301 thin siblings; strengthen About/methodology; integrate Q and inquire CTAs mid-content.
+        </div>
+        <p>Aligns with existing internal SEO audit recommendations (merge country clusters; keep NEET/fees comparison/FMGE/loan guides; kill doorway spam patterns).</p>
+      </section>
+
+      <!-- 9 -->
+      <section id="roadmap">
+        <h2>9. Phased roadmap</h2>
+        <div class="roadmap">
+          <div class="phase">
+            <div class="phase-n">Phase 0<br>0–6 wks</div>
+            <div class="phase-body">
+              <h3>Foundation &amp; trust</h3>
+              <ul>
+                <li>About / methodology / contact hygiene; fix nav extension mismatches (.html vs .htm)</li>
+                <li>Define opportunity data schema; pick CRM</li>
+                <li>Rewrite homepage for full-funnel vision without abandoning medical credibility</li>
+                <li>Noindex / consolidate worst doorway duplicates (start top 5 countries)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-n">Phase 1<br>MVP site</div>
+            <div class="phase-body">
+              <h3>Two wedges + inquire</h3>
+              <ul>
+                <li><strong>Wedge A:</strong> Medical pathway intelligence (India NEET + compliant MBBS abroad + finance)</li>
+                <li><strong>Wedge B:</strong> One city K–12 pilot <em>or</em> one India UG stream (engineering/law) — pick based on network access</li>
+                <li>Opportunity explorer v1 (even if manually curated JSON/CMS)</li>
+                <li>Smart intake + WhatsApp + human SLA</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-n">Phase 2<br>Expand</div>
+            <div class="phase-body">
+              <h3>Categories &amp; content system</h3>
+              <ul>
+                <li>Add streams/destinations with hub templates (not doorway farms)</li>
+                <li>Finance center with cost-of-attendance patterns</li>
+                <li>Editorial calendar for unique guides; retire thin MCQ landings into Q product</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-n">Phase 3<br>Network</div>
+            <div class="phase-body">
+              <h3>Partner operations</h3>
+              <ul>
+                <li>Vetted consultant bench; private matching playbooks</li>
+                <li>University/school partner agreements with disclosure UX</li>
+                <li>Optional public directory when quality bar met</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase">
+            <div class="phase-n">Phase 4<br>Product</div>
+            <div class="phase-body">
+              <h3>Productized tools</h3>
+              <ul>
+                <li>Profile → shortlist engine; deadline alerts; saved opportunities</li>
+                <li>Deeper LAUNCHPADi-Q integration to strategy plans</li>
+                <li>Partner analytics / lead quality feedback loops</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 -->
+      <section id="risks">
+        <h2>10. Risks &amp; recommendations</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Risk</th><th>Why it matters</th><th>Mitigation</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SEO doorway penalty / ignore</td>
+                <td>Current scale of near-duplicate country pages</td>
+                <td>Hub consolidation; unique evidence; E-E-A-T; follow audit P0/P1</td>
+              </tr>
+              <tr>
+                <td>Regulatory / NMC mis-advice</td>
+                <td>Medical-abroad is high-harm if wrong</td>
+                <td>Compliance center; cite NMC; never promise practice rights</td>
+              </tr>
+              <tr>
+                <td>Commission conflict</td>
+                <td>Destroys “intelligence” brand</td>
+                <td>Disclosure; neutral mode; parent-paid strategy option</td>
+              </tr>
+              <tr>
+                <td>Scope explosion</td>
+                <td>Full taxonomy too wide for small team</td>
+                <td>Two wedges max in MVP; taxonomy as backlog</td>
+              </tr>
+              <tr>
+                <td>Marketplace cold start</td>
+                <td>Empty directory looks worse than none</td>
+                <td>Private matching first</td>
+              </tr>
+              <tr>
+                <td>Trust deficit vs IDP/Shiksha</td>
+                <td>New brand vs incumbents</td>
+                <td>Methodology transparency; case studies; accreditations over time</td>
+              </tr>
+              <tr>
+                <td>Outbound market volatility</td>
+                <td>2025 HE enrolments dipped on visa policy</td>
+                <td>Diversify into India + schools + online; don’t bet only Big-4 volume</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Top recommendations</h3>
+        <ol>
+          <li>Rewrite site IA around <strong>opportunities + strategy + inquire</strong>, not keyword country farms.</li>
+          <li>Keep medical strength, but reframe as <strong>pathway intelligence</strong> (India ↔ abroad ↔ finance).</li>
+          <li>Add a real <strong>K–12 or India UG wedge</strong> early to escape “just another MBBS agent” perception.</li>
+          <li>Productize <strong>finance exploration before cost rejection</strong> in the UX flow.</li>
+          <li>Build the <strong>human network</strong> operationally before showcasing it publicly.</li>
+        </ol>
+      </section>
+
+      <!-- 11 -->
+      <section id="appendix">
+        <h2>11. Appendix — sources &amp; URLs visited</h2>
+        <p class="note">Fetched or consulted during research (2026-07-23). Secondary market figures marked as such in body text.</p>
+        <h3>Launchpad / internal</h3>
+        <ul class="sources">
+          <li><a href="https://www.launchpadi.com/">https://www.launchpadi.com/</a> (live marketing site)</li>
+          <li>Local: <code>docs/SEO-AUDIT-AND-CONTENT-REPLAN.md</code> (2026-07-21)</li>
+          <li>Local: brand kit <code>01-strategy/brand-foundations.md</code>, <code>messaging-framework.md</code>, <code>03-colors/palette.md</code></li>
+        </ul>
+        <h3>Industry / policy</h3>
+        <ul class="sources">
+          <li><a href="https://indianexpress.com/article/education/study-abroad/drop-in-number-of-indians-pursuing-higher-education-abroad-gulf-countries-dominate-school-enrollment-data-10403781/">Indian Express — MEA 2025 students abroad data</a></li>
+          <li><a href="https://monitor.icef.com/2025/12/the-number-of-indian-students-abroad-fell-in-2025/">ICEF Monitor — Indian students abroad 2025</a></li>
+          <li><a href="https://thepienews.com/outbound-indian-university-enrolments-fall-after-three-year-rise/">The PIE News — outbound enrolments</a></li>
+          <li><a href="https://www.universityworldnews.com/post.php?story=20251212085724933">University World News — India outbound decline</a></li>
+          <li><a href="https://www.marketresearchfuture.com/reports/india-education-consulting-market-46211">Market Research Future — India education consulting (use cautiously)</a></li>
+          <li><a href="https://raoscaff.com/intel/student-09-consultancy-industry/report.html">RAOSCAFF — India outbound consultancy industry brief</a></li>
+          <li><a href="https://www.linkedin.com/pulse/overview-indias-study-aborad-market-opportunities-trends-payal-jain">LinkedIn — India study abroad market overview (secondary)</a></li>
+          <li><a href="https://leverageedu.com/learn/nmc-guidelines-for-mbbs-abroad/">Leverage Learn — NMC guidelines explainer</a></li>
+          <li><a href="https://studyabroad.careers360.com/articles/is-an-mbbs-abroad-valid-in-india">Careers360 — MBBS abroad validity / FMGE</a></li>
+          <li><a href="https://news.careers360.com/neet-ug-must-for-foreign-mbbs-supreme-court-eligibility-certificate-study-abroad-china-us-uk-nmc-regulations-explained">Careers360 — NEET for foreign MBBS eligibility</a></li>
+        </ul>
+        <h3>Competitor sites</h3>
+        <ul class="sources">
+          <li><a href="https://www.leverageedu.com/">https://www.leverageedu.com/</a></li>
+          <li><a href="https://yocket.com/">https://yocket.com/</a></li>
+          <li><a href="https://leapscholar.com/">https://leapscholar.com/</a></li>
+          <li><a href="https://www.shiksha.com/">https://www.shiksha.com/</a></li>
+          <li><a href="https://collegedunia.com/">https://collegedunia.com/</a></li>
+          <li><a href="https://www.collegedekho.com/">https://www.collegedekho.com/</a></li>
+          <li><a href="https://www.admitkard.com/">https://www.admitkard.com/</a></li>
+          <li><a href="https://www.idp.com/india/">https://www.idp.com/india/</a></li>
+          <li><a href="https://www.aeccglobal.com/">https://www.aeccglobal.com/</a></li>
+          <li><a href="https://schoolling.com/">https://schoolling.com/</a></li>
+          <li><a href="https://www.getmyuni.com/">https://www.getmyuni.com/</a> (additional)</li>
+          <li><a href="https://videshimentors.com/">https://videshimentors.com/</a> / <a href="https://www.tenoverseaseducation.in/">https://www.tenoverseaseducation.in/</a> (MBBS-abroad category refs)</li>
+        </ul>
+        <p class="note"><strong>Research gaps:</strong> Perplexity CLI deep-research was attempted but auth/Cloudflare session was unavailable mid-run — competitor analysis relied on WebFetch/WebSearch instead. Galvanize and some Mentors domains timed out or returned 403. No confidential CRM/revenue data for Launchpad was available; revenue sections are hypotheses only. MRFR consulting-market figures are definitionally noisy.</p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="doc-foot">
+    <div class="wrap">
+      <p>© 2026 Lpad Intelligence Pvt Ltd · LAUNCHPAD / LAUNCHPADi · Admissions Intelligence</p>
+      <p>Internal planning document. Not legal, financial, or admissions advice. Verify regulations and partner claims before public counselling use.</p>
+    </div>
+  </footer>
+</body>
+</html>
