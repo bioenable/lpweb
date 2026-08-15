@@ -3,3 +3,9 @@
 # Do not 301 those paths or Google never sees the updated HTML + canonical.
 
 /index.html / 301
+
+# Path-preserving host redirects when both apex and www are custom domains on this Pages project.
+# Prefer Bulk Redirects / Redirect Rules if apex is served outside Pages; these still help unify host.
+https://launchpadi.com/* https://www.launchpadi.com/:splat 301
+http://launchpadi.com/* https://www.launchpadi.com/:splat 301
+http://www.launchpadi.com/* https://www.launchpadi.com/:splat 301

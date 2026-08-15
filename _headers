@@ -1,6 +1,10 @@
 # Optional security / cache hints for static Pages
 # https://developers.cloudflare.com/pages/configuration/headers/
 
+# Keep robots.txt fresh for crawlers (repo file is deployed; CF may prepend managed Content-Signals).
+/robots.txt
+  Cache-Control: public, max-age=0, must-revalidate
+
 /*.svg
   Cache-Control: public, max-age=604800
 
