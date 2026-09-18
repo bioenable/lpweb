@@ -1,6 +1,12 @@
 # Optional security / cache hints for static Pages
 # https://developers.cloudflare.com/pages/configuration/headers/
 
+# HSTS: apex HTTP/HTTPS already 301 → https://www — safe to enforce HTTPS
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
 # Keep robots.txt fresh for crawlers (repo file is deployed; CF may prepend managed Content-Signals).
 /robots.txt
   Cache-Control: public, max-age=0, must-revalidate

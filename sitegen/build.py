@@ -30,6 +30,46 @@ BRAND = "LAUNCHPAD"
 TAGLINE = "Admissions Intelligence Marketplace"
 BUILD_DATE = date.today().isoformat()
 
+# High-impression fee URLs: self-canonical masters (not soft-canonical aliases).
+# Titles stay <60 chars before " | LAUNCHPAD"; metas target GSC query clusters.
+PRIORITY_FEE_PAGES: dict[str, dict] = {
+    "mbbs-fees-in-albania-for-indian-students.htm": {
+        "h1": "MBBS Fees in Albania for Indian Students (2026)",
+        "description": (
+            "Affordable MBBS in Albania for Indian students — low-cost medical education, "
+            "how to apply, tuition ranges & living costs. Compare with LAUNCHPAD."
+        ),
+        "keywords": (
+            "mbbs fees in albania for indian students, affordable mbbs in albania, "
+            "low-cost medical education albania, mbbs abroad albania, how to apply for mbbs in albania"
+        ),
+        "related": [
+            ("mbbs-abroad.htm", "MBBS Abroad hub"),
+            ("mbbs-fees-in-georgia-for-indian-students.htm", "Georgia MBBS fees"),
+            ("study-in-georgia.htm", "Study in Georgia"),
+            ("book-counselling.htm", "Free counselling"),
+        ],
+    },
+    "mbbs-fees-in-georgia-for-indian-students.htm": {
+        "h1": "MBBS Fees in Georgia for Indian Students (2026)",
+        "description": (
+            "Georgia MBBS tuition fee per year for Indian students — Batumi Shota Rustaveli, "
+            "Akaki Tsereteli & hostel bands. Compare 2026 costs on LAUNCHPAD."
+        ),
+        "keywords": (
+            "mbbs fees in georgia for indian students, batumi shota rustaveli state university mbbs tuition fee per year, "
+            "akaki tsereteli state university mbbs tuition fee per year, mbbs georgia fees 2026"
+        ),
+        "related": [
+            ("study-in-georgia.htm", "Study in Georgia"),
+            ("mbbs-fees-in-georgia-2026-guide.htm", "Georgia 2026 fee guide"),
+            ("mbbs-abroad.htm", "MBBS Abroad hub"),
+            ("mbbs-fees-in-albania-for-indian-students.htm", "Albania MBBS fees"),
+            ("book-counselling.htm", "Free counselling"),
+        ],
+    },
+}
+
 DESTINATIONS = [
     ("usa", "USA", "Study in USA for Indian Students", "MS, MBA, BS STEM, and Ivy-path counselling with profile building, Common App, and visa guidance.", "₹25–80L+/yr", "Big 4", ["MS in USA", "MBA in USA", "Study in USA without IELTS", "F1 visa consultants"]),
     ("uk", "UK", "Study in UK for Indian Students", "One-year Master's, CAS support, and post-study work routes with transparent fee planning.", "₹20–55L total", "Big 4", ["Study in UK", "UK student visa", "One year masters UK", "CAS guidance"]),
@@ -597,13 +637,30 @@ def homepage() -> str:
 
 <section class="section">
   <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">High-intent fee guides</div>
+      <h2>MBBS fees families are comparing right now</h2>
+      <p class="lead">Start at the MBBS hub, then open destination and fee pages — Georgia and Albania are where Indian search interest is strongest today.</p>
+    </div>
+    <div class="grid-4">
+      <a class="tile reveal" href="mbbs-abroad.htm"><h3>MBBS Abroad hub</h3><p>Country comparison, NEET notes, and NMC-aware shortlists.</p><div class="meta">Hub</div></a>
+      <a class="tile reveal" href="study-in-georgia.htm"><h3>Study in Georgia</h3><p>Destination guide for Indian medical aspirants.</p><div class="meta">Country</div></a>
+      <a class="tile reveal" href="mbbs-fees-in-georgia-for-indian-students.htm"><h3>Georgia MBBS fees</h3><p>Tuition fee per year — including Batumi &amp; Akaki Tsereteli bands.</p><div class="meta">Fees</div></a>
+      <a class="tile reveal" href="mbbs-fees-in-albania-for-indian-students.htm"><h3>Albania MBBS fees</h3><p>Affordable / low-cost medical education planning for Indians.</p><div class="meta">Fees</div></a>
+    </div>
+    <p style="margin-top:1rem"><a class="chip" href="mbbs-fees-in-georgia-2026-guide.htm">Georgia 2026 full cost breakdown</a></p>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
     <div class="section-head reveal"><div class="eyebrow">Destinations</div><h2>Study abroad intelligence for Indian students</h2></div>
     <div class="grid-4">{dest_tiles}</div>
     <p style="margin-top:1.25rem"><a class="btn btn-secondary" href="study-abroad.htm">View all destinations</a></p>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section">
   <div class="container">
     <div class="section-head reveal"><div class="eyebrow">Programs</div><h2>From MBBS to data science — one marketplace</h2></div>
     <div class="grid-4">{course_tiles}</div>
@@ -641,8 +698,8 @@ def homepage() -> str:
 </section>
 """
     return page_shell(
-        "LAUNCHPAD — Admissions Intelligence Marketplace | Study Abroad & India Admissions",
-        "India’s admissions marketplace: search countries & courses, connect with consultants, use AI agents, and get counselling for MBBS, MS, MBA, and more.",
+        "LAUNCHPAD — India's Admissions Marketplace",
+        "Compare MBBS, MS & MBA pathways, fee bands, consultants and AI agents — India's admissions marketplace for study abroad and India admits.",
         "",
         body,
         "study abroad consultants India, MBBS abroad, admissions marketplace, education counselling, study in USA UK Canada Germany",
@@ -1001,6 +1058,43 @@ def build() -> None:
         <h2>Next actions for {esc(name)}</h2>
         <ol><li>Run a free profile evaluation</li><li>Shortlist 6–10 programs</li><li>Align exams (IELTS/GRE/NEET)</li><li>Plan funding early</li></ol>
         """
+        related = [
+            ("courses.htm", "All courses"),
+            ("study-abroad.htm", "Destinations"),
+            ("book-counselling.htm", "Counselling"),
+            ("mbbs-abroad.htm", "MBBS") if "mbbs" in slug else ("resources.htm", "Guides"),
+        ]
+        if slug == "mbbs-abroad":
+            course_extra += """
+        <h2>Country hubs &amp; fee guides (start here)</h2>
+        <p>Follow the cluster path: <strong>MBBS hub → country hub → fee page</strong>. These are the high-intent pages Indian families open when comparing tuition and living costs.</p>
+        <div class="chips">
+          <a class="chip active" href="study-in-georgia.htm">Study in Georgia</a>
+          <a class="chip" href="mbbs-fees-in-georgia-for-indian-students.htm">Georgia MBBS fees</a>
+          <a class="chip" href="mbbs-fees-in-georgia-2026-guide.htm">Georgia 2026 fee guide</a>
+          <a class="chip" href="mbbs-fees-in-albania-for-indian-students.htm">Albania MBBS fees</a>
+          <a class="chip" href="study-in-russia.htm">Study in Russia</a>
+          <a class="chip" href="study-in-philippines.htm">Study in Philippines</a>
+          <a class="chip" href="study-in-kazakhstan.htm">Study in Kazakhstan</a>
+        </div>
+        <div class="table-wrap"><table class="data">
+          <thead><tr><th>Page</th><th>Use it for</th></tr></thead>
+          <tbody>
+            <tr><td><a href="study-in-georgia.htm">Study in Georgia</a></td><td>Country pathway, visas, living context</td></tr>
+            <tr><td><a href="mbbs-fees-in-georgia-for-indian-students.htm">MBBS fees in Georgia</a></td><td>Tuition fee per year (Batumi, Akaki Tsereteli &amp; peers)</td></tr>
+            <tr><td><a href="mbbs-fees-in-albania-for-indian-students.htm">MBBS fees in Albania</a></td><td>Affordable / low-cost medical education planning</td></tr>
+            <tr><td><a href="mbbs-fees-in-georgia-2026-guide.htm">Georgia 2026 full breakdown</a></td><td>Line-item cost worksheet for parents</td></tr>
+          </tbody>
+        </table></div>
+            """
+            related = [
+                ("study-in-georgia.htm", "Study in Georgia"),
+                ("mbbs-fees-in-georgia-for-indian-students.htm", "Georgia fees"),
+                ("mbbs-fees-in-albania-for-indian-students.htm", "Albania fees"),
+                ("mbbs-fees-in-georgia-2026-guide.htm", "Georgia 2026 guide"),
+                ("courses.htm", "All courses"),
+                ("book-counselling.htm", "Counselling"),
+            ]
         pages[f"{slug}.htm"] = content_page(
             slug,
             title,
@@ -1013,7 +1107,7 @@ def build() -> None:
                 "Optional human counselling and consultant marketplace",
                 "FAQ schema and decision checklists for parents",
             ],
-            [("courses.htm", "All courses"), ("study-abroad.htm", "Destinations"), ("book-counselling.htm", "Counselling"), ("mbbs-abroad.htm", "MBBS") if "mbbs" in slug else ("resources.htm", "Guides")],
+            related,
             ", ".join(kws),
             course_extra,
             "Courses",
@@ -1204,6 +1298,137 @@ def build() -> None:
         "Products",
     )
 
+
+    # --- Priority fee pages (self-canonical; win GSC impression queries) ---
+    def build_priority_fee_page(fname: str, meta: dict) -> str:
+        slug = fname.replace(".htm", "")
+        h1 = meta["h1"]
+        country = "Albania" if "albania" in fname else "Georgia" if "georgia" in fname else "Abroad"
+        if country == "Albania":
+            intro = (
+                f"Indian students searching how to apply for MBBS in Albania, MBBS abroad Albania, "
+                f"affordable MBBS in Albania, or low-cost medical education Albania need a fee-first worksheet — "
+                f"not a brochure. This page frames indicative tuition and living costs for {BUILD_DATE[:4]}, "
+                f"then routes you to counselling and the MBBS Abroad hub."
+            )
+            extra = f"""
+        <h2>Affordable / low-cost MBBS in Albania — what to verify</h2>
+        <p>Albania often appears in “low-cost medical education” searches. Treat marketed package prices as a starting point only.
+        Separate university tuition, hostel/mess, insurance, visa, flights, and forex buffer before paying any seat booking amount.</p>
+        <div class="table-wrap"><table class="data">
+          <thead><tr><th>Decision item</th><th>Parent checklist</th></tr></thead>
+          <tbody>
+            <tr><td>How to apply for MBBS in Albania</td><td>Passport timing, NEET status, English-medium confirmation, intake calendar</td></tr>
+            <tr><td>Affordable MBBS claim</td><td>Ask for year-wise tuition letterhead — not a single “package” WhatsApp quote</td></tr>
+            <tr><td>Living costs</td><td>Hostel vs private flat; Indian mess availability; city transport</td></tr>
+            <tr><td>Licensing Plan-B</td><td>FMGE/NExT timeline if you intend to practise in India</td></tr>
+          </tbody>
+        </table></div>
+        <h2>Next links in this cluster</h2>
+        <div class="chips">
+          <a class="chip" href="mbbs-abroad.htm">MBBS Abroad hub</a>
+          <a class="chip" href="mbbs-fees-in-georgia-for-indian-students.htm">Compare Georgia fees</a>
+          <a class="chip" href="study-in-georgia.htm">Study in Georgia</a>
+          <a class="chip" href="book-counselling.htm">Free counselling</a>
+        </div>
+            """
+            faqs = [
+                (
+                    "Is MBBS in Albania affordable for Indian students?",
+                    "Albania is often marketed as low-cost medical education, but total cost depends on tuition + hostel + living + forex. Use line-item quotes before comparing with Georgia or Russia.",
+                ),
+                (
+                    "How do I apply for MBBS in Albania?",
+                    "Confirm eligibility (including NEET where required for your pathway), gather marksheets and passport, shortlist English-medium colleges, then book a LAUNCHPAD counselling call to sequence applications and funding.",
+                ),
+                (
+                    "Are fees on this page final?",
+                    "No — figures discussed on LAUNCHPAD are indicative planning bands. Demand university letterheads before payment.",
+                ),
+                (
+                    "What should I read next?",
+                    "Open the MBBS Abroad hub, compare Georgia fee pages if budget allows, then book free counselling.",
+                ),
+            ]
+        else:
+            intro = (
+                f"Families comparing Batumi Shota Rustaveli State University MBBS tuition fee per year and "
+                f"Akaki Tsereteli State University MBBS tuition fee per year need Georgia-specific fee framing. "
+                f"This page summarises indicative 2026 tuition and hostel bands for Indian students, with links to the "
+                f"Study in Georgia hub and the deeper 2026 cost guide."
+            )
+            extra = f"""
+        <h2>Georgia MBBS tuition fee per year — universities families ask about</h2>
+        <p>Indicative planning bands only (confirm on university letterhead). Currency and hostel contracts change by intake.</p>
+        <div class="table-wrap"><table class="data">
+          <thead><tr><th>University (search intent)</th><th>What to ask</th><th>Related guide</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Batumi Shota Rustaveli State University — MBBS tuition fee per year</td>
+              <td>Year-wise tuition, English-medium confirmation, hostel contract length</td>
+              <td><a href="mbbs-fees-in-georgia-2026-guide.htm">2026 cost guide</a></td>
+            </tr>
+            <tr>
+              <td>Akaki Tsereteli State University — MBBS tuition fee per year</td>
+              <td>Official circular vs agent “package”; mess / Indian food options</td>
+              <td><a href="study-in-georgia.htm">Study in Georgia</a></td>
+            </tr>
+            <tr>
+              <td>Other Georgian medical universities</td>
+              <td>Recognition posture + FMGE/NExT plan if returning to India</td>
+              <td><a href="mbbs-abroad.htm">MBBS hub</a></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <h2>Cluster path</h2>
+        <div class="chips">
+          <a class="chip active" href="study-in-georgia.htm">Study in Georgia</a>
+          <a class="chip" href="mbbs-fees-in-georgia-2026-guide.htm">Georgia 2026 fee guide</a>
+          <a class="chip" href="mbbs-fees-in-albania-for-indian-students.htm">Albania fees (compare)</a>
+          <a class="chip" href="mbbs-abroad.htm">MBBS Abroad hub</a>
+        </div>
+            """
+            faqs = [
+                (
+                    "What is the MBBS tuition fee per year in Georgia for Indian students?",
+                    "Tuition varies by university. Families commonly compare Batumi Shota Rustaveli and Akaki Tsereteli year-wise fees — always confirm the current circular and separate hostel/living costs.",
+                ),
+                (
+                    "Where can I see a fuller Georgia cost breakdown?",
+                    "Open the Georgia 2026 fee guide and the Study in Georgia hub, then book counselling for a line-item worksheet.",
+                ),
+                (
+                    "Are fees on this page guaranteed?",
+                    "No. LAUNCHPAD publishes indicative bands for planning. Universities change tuition — get letterheads before paying.",
+                ),
+                (
+                    "Should I compare Albania with Georgia?",
+                    "Yes if budget is the primary filter. Use the Albania MBBS fees page alongside this Georgia fee page, then decide with a counsellor.",
+                ),
+            ]
+        return content_page(
+            slug,
+            h1,
+            meta["description"],
+            intro,
+            [
+                f"Query-matched fee guide for Indian students researching {country} MBBS costs",
+                "Self-canonical page (indexable) with FAQ + BreadcrumbList schema",
+                "Internal links into MBBS hub, country hubs, and sibling fee guides",
+                "Line-item checklist — not package-only marketing",
+                f"Content reviewed {BUILD_DATE}",
+            ],
+            list(meta["related"]),
+            meta["keywords"],
+            extra,
+            "Guides",
+            canonical_path=None,  # self-canonical
+            faqs=faqs,
+            course_name=f"MBBS in {country}",
+        )
+
+    for _fname, _meta in PRIORITY_FEE_PAGES.items():
+        pages[_fname] = build_priority_fee_page(_fname, _meta)
 
     # --- Legacy URL aliases: keep old paths live, new design, canonical → master ---
     country_masters = {slug: f"study-in-{slug}.htm" for slug, *_ in DESTINATIONS}
@@ -1539,8 +1764,12 @@ def build() -> None:
         f"<changefreq>daily</changefreq><priority>1.0</priority></url>"
     )
     for u in master_urls:
-        pri = "0.9" if u in ("study-abroad.htm", "courses.htm", "admissions-marketplace.htm", "mbbs-abroad.htm") else "0.7"
-        freq = "daily" if u in ("mbbs-abroad.htm", "study-abroad.htm") else "weekly"
+        if u in PRIORITY_FEE_PAGES or u == "mbbs-fees-in-georgia-2026-guide.htm":
+            pri, freq = "0.85", "weekly"
+        elif u in ("study-abroad.htm", "courses.htm", "admissions-marketplace.htm", "mbbs-abroad.htm", "study-in-georgia.htm"):
+            pri, freq = "0.9", "daily" if u in ("mbbs-abroad.htm", "study-abroad.htm") else "weekly"
+        else:
+            pri, freq = "0.7", "weekly"
         sm.append(
             f"  <url><loc>{CANONICAL}/{u}</loc><lastmod>{BUILD_DATE}</lastmod>"
             f"<changefreq>{freq}</changefreq><priority>{pri}</priority></url>"
@@ -1588,9 +1817,37 @@ http://www.launchpadi.com/* https://www.launchpadi.com/:splat 301
         encoding="utf-8",
     )
 
+    # Write _headers (HSTS only after apex→www HTTPS redirects are confirmed stable)
+    (ROOT / "_headers").write_text(
+        """# Optional security / cache hints for static Pages
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+# HSTS: apex HTTP/HTTPS already 301 → https://www — safe to enforce HTTPS
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Keep robots.txt fresh for crawlers (repo file is deployed; CF may prepend managed Content-Signals).
+/robots.txt
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.svg
+  Cache-Control: public, max-age=604800
+
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800
+""",
+        encoding="utf-8",
+    )
+
     print(f"Generated {len(pages)} page files ({len(alias_pages)} legacy aliases)")
     print(f"Sitemap master URLs: {len(master_urls)}")
-    print(f"Redirects: index.html + apex→www host rules")
+    print(f"Priority self-canonical fee pages: {len(PRIORITY_FEE_PAGES)}")
+    print(f"Redirects: index.html + apex→www host rules; HSTS enabled in _headers")
 
 
 if __name__ == "__main__":
