@@ -1,0 +1,142 @@
+<!doctype html><html><head><meta charset="utf-8"><title>GSC report 2026-09-03</title>
+    <style>body{font:14px/1.4 system-ui;max-width:960px;margin:24px auto;padding:0 16px;color:#111}
+    table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:6px 8px;text-align:left}
+    .action{background:#fff8e1;padding:8px 12px} pre{white-space:pre-wrap;background:#f6f6f6;padding:8px}
+    .note{color:#555;font-size:13px}</style></head><body>
+    <h1>GSC webmaster report 2026-09-03</h1>
+    <p class="note">Built from local exports under data/gsc (last full pull 2026-08-15). Not a live scrape. 404s on the live site come from the daily section check. smartsuite.in is not in GSC yet.</p>
+    
+    <section>
+      <h2>cityair.in</h2>
+      <p class="action"><b>Do this:</b> Shrink URL firehose (crawled-not-indexed). Template CWV. Keep apex canonical. Do not index auction junk.</p>
+      <p>Last 14 days in export: clicks 282, impressions 35567. Last day vs ~week-ago day: -6 clicks.</p>
+      <h3>Indexing issues (export)</h3>
+      <table><thead><tr><th>issue</th><th>pages</th></tr></thead><tbody><tr><td>Excluded by ‘noindex’ tag</td><td>28950</td></tr><tr><td>Blocked by robots.txt</td><td>15668</td></tr><tr><td>Not found (404)</td><td>4455</td></tr><tr><td>Page with redirect</td><td>3679</td></tr><tr><td>Alternative page with proper canonical tag</td><td>1719</td></tr><tr><td>Duplicate without user-selected canonical</td><td>3</td></tr><tr><td>Soft 404</td><td>1</td></tr><tr><td>Crawled - currently not indexed</td><td>330815</td></tr></tbody></table>
+      <pre># cityair.in — GSC Pages indexing (screen transcription) — 2026-08-31
+
+Property: sc-domain:cityair.in (domain property), account pk@bioenabletech.com
+Pages indexing &quot;Last update&quot;: 20/08/2026 · view = All known pages
+
+## Totals
+- Indexed: 48k
+- Not indexed: 390k (10 reasons)
+
+## Not-indexed reasons (pages)
+| Reason | Source | Pages |
+|---|---|---|
+| Crawled - currently not indexed | Google systems | 330,815 |
+| Excluded by &#x27;noindex&#x27; tag | Website | 28,950 |
+| Blocked by robots.txt | Website | 15,668 |
+| Discovered – currently not indexed | Google systems | 4,650 |
+| Not found (404) | Website | 4,455 |
+| Page with redirect | Website | 3,679 |
+| Alternative page with proper canonical tag | Website | 1,719 |
+| Duplicate, Google chose different canonical than user | Google systems | 55 |
+| Dupl</pre>
+    </section>
+    
+    <section>
+      <h2>geosquare.in</h2>
+      <p class="action"><b>Do this:</b> www is canonical; 301 apex. 410 dead news. Slash 301s. Do not grow sitemap until coverage is clean.</p>
+      <p>Last 14 days in export: clicks 1716, impressions 129743. Last day vs ~week-ago day: +18 clicks.</p>
+      <h3>Indexing issues (export)</h3>
+      <table><thead><tr><th>issue</th><th>pages</th></tr></thead><tbody><tr><td>Page with redirect</td><td>4362</td></tr><tr><td>Excluded by ‘noindex’ tag</td><td>1509</td></tr><tr><td>Blocked by robots.txt</td><td>19618</td></tr><tr><td>Alternative page with proper canonical tag</td><td>3946</td></tr><tr><td>Duplicate without user-selected canonical</td><td>537</td></tr><tr><td>Blocked due to access forbidden (403)</td><td>8</td></tr><tr><td>Redirect error</td><td>2</td></tr><tr><td>Soft 404</td><td>1</td></tr></tbody></table>
+      <pre># geosquare.in — GSC Pages indexing (screen transcription) — 2026-09-01
+
+Property: sc-domain:geosquare.in (domain property), account pk@bioenabletech.com
+Pages indexing &quot;Last update&quot;: 20/08/2026 · view = All known pages
+
+## Totals
+- Indexed: 35.3k
+- Not indexed: 222k (13 reasons)
+
+## Not-indexed reasons (pages)
+| Reason | Pages |
+|---|---|
+| Crawled - currently not indexed | 126,624 |
+| Not found (404) | 53,312 |
+| Blocked by robots.txt | 19,618 |
+| Discovered – currently not indexed | 11,226 |
+| Page with redirect | 4,362 |
+| Alternative page with proper canonical tag | 3,946 |
+| Excluded by &#x27;noindex&#x27; tag | 1,509 |
+| Duplicate, Google chose different canonical than user | 757 |
+| Duplicate without user-selected canonical | 537 |
+| Soft/other small buckets | 403(8)+redirect error(2)+soft 4</pre>
+    </section>
+    
+    <section>
+      <h2>bioenabletech.com</h2>
+      <p class="action"><b>Do this:</b> Real robots.txt + XML sitemap. Stop titling product pages Home. Domain GSC still unverified — use www prefix.</p>
+      <p>Last 14 days in export: clicks 1164, impressions 127988. Last day vs ~week-ago day: -8 clicks.</p>
+      <h3>Indexing issues (export)</h3>
+      <table><thead><tr><th>issue</th><th>pages</th></tr></thead><tbody><tr><td colspan=2>no critical-issues file</td></tr></tbody></table>
+      <pre>## Indexing &gt; Pages (All known pages, last update 06/08/2026)
+- Indexed: 817
+- Not indexed: 253 (4 reasons active)
+  - Not found (404): 43
+  - Duplicate without user-selected canonical: 4
+  - Page with redirect: 1
+  - Crawled - currently not indexed: 205
+  - Alternative page with proper canonical tag: 0 (Passed)
+
+</pre>
+    </section>
+    
+    <section>
+      <h2>visive.ai</h2>
+      <p class="action"><b>Do this:</b> Restore apex Worker 301 to www (robots/sitemap/HTML). Drop dead GSC sitemap rows. Keep https://www.visive.ai/sitemap.xml.</p>
+      <p>Last 14 days in export: clicks 75, impressions 11974. Last day vs ~week-ago day: -1 clicks.</p>
+      <h3>Indexing issues (export)</h3>
+      <table><thead><tr><th>issue</th><th>pages</th></tr></thead><tbody><tr><td>Not found (404)</td><td>328</td></tr><tr><td>Page with redirect</td><td>38</td></tr><tr><td>Alternative page with proper canonical tag</td><td>6</td></tr><tr><td>Duplicate without user-selected canonical</td><td>1</td></tr><tr><td>Crawled - currently not indexed</td><td>497</td></tr><tr><td>Server error (5xx)</td><td>0</td></tr></tbody></table>
+      <pre># visive.ai — GSC Pages indexing (screen transcription) — 2026-09-02
+
+Property: sc-domain:visive.ai (domain property), account pk@bioenabletech.com
+Pages indexing &quot;Last update&quot;: 27/08/2026 · view = All known pages
+
+## Totals
+- Indexed: 468
+- Not indexed: 870 (5 reasons)
+
+## Not-indexed reasons (pages)
+| Reason | Pages |
+|---|---|
+| Crawled - currently not indexed | 497 |
+| Not found (404) | 328 |
+| Page with redirect | 38 |
+| Alternative page with proper canonical tag | 6 |
+| Duplicate without user-selected canonical | 1 |
+| Server error (5xx) | 0 |
+
+## Performance (Search type Web, Last 16 months, ends ~2026-08-30)
+- Total clicks: 20.5k
+- Total impressions: 1.96m
+- Average CTR: 1%
+- Average position: 20.2
+(3-month reference: 404 clicks / 71.2k impressions / 0.6% / 43.8)
+
+Downloads: /home/</pre>
+    </section>
+    
+    <section>
+      <h2>launchpadi.com</h2>
+      <p class="action"><b>Do this:</b> 0 indexed until apex robots 301s to www and stay there. Then request indexing on / and 2–3 money pages only.</p>
+      <p>Last 14 days in export: clicks 0, impressions 4. Last day vs ~week-ago day: +0 clicks.</p>
+      <h3>Indexing issues (export)</h3>
+      <table><thead><tr><th>issue</th><th>pages</th></tr></thead><tbody><tr><td>Page with redirect</td><td>4</td></tr><tr><td>Alternative page with proper canonical tag</td><td>2</td></tr><tr><td>Crawled - currently not indexed</td><td>1</td></tr></tbody></table>
+      <pre># launchpadi.com Page indexing — 2026-09-03 (data last updated 27/08/2026, All known pages)
+- Indexed: 1
+- Not indexed: 7 (3 reasons)
+Reasons (not indexed):
+| Reason | Source | Validation | Pages |
+|---|---|---|---|
+| Page with redirect | Website | Not started | 4 |
+| Alternative page with proper canonical tag | Website | Not started | 2 |
+| Crawled - currently not indexed | Google systems | Not started | 1 |
+Export: launchpadi.com-Coverage-2026-09-02.zip
+Note: only 1 indexed page vs sitemap reporting 143 discovered pages — big indexing gap to investigate.
+</pre>
+    </section>
+    
+    </body></html>
+    

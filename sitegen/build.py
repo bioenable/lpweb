@@ -5,16 +5,30 @@ from __future__ import annotations
 
 import html
 import json
+import sys
+from datetime import date
 from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from seo_schema import (  # noqa: E402
+    breadcrumb_schema,
+    course_schema,
+    faq_html,
+    faq_schema,
+    json_ld_scripts,
+    organization_schema,
+    webpage_schema,
+)
+
 CANONICAL = "https://www.launchpadi.com"
 PHONE = "+91 8855-833-244"
 PHONE_TEL = "+918855833244"
 WA = "918855833244"
 BRAND = "LAUNCHPAD"
 TAGLINE = "Admissions Intelligence Marketplace"
+BUILD_DATE = date.today().isoformat()
 
 DESTINATIONS = [
     ("usa", "USA", "Study in USA for Indian Students", "MS, MBA, BS STEM, and Ivy-path counselling with profile building, Common App, and visa guidance.", "₹25–80L+/yr", "Big 4", ["MS in USA", "MBA in USA", "Study in USA without IELTS", "F1 visa consultants"]),
@@ -189,7 +203,17 @@ def esc(s: str) -> str:
     return html.escape(s, quote=True)
 
 
-def head(title: str, description: str, path: str, keywords: str = "", canonical_path: str | None = None) -> str:
+def head(
+    title: str,
+    description: str,
+    path: str,
+    keywords: str = "",
+    canonical_path: str | None = None,
+    breadcrumbs: list[tuple[str, str]] | None = None,
+    faqs: list[tuple[str, str]] | None = None,
+    course: dict | None = None,
+    extra_schemas: list[dict] | None = None,
+) -> str:
     page_path = path if path not in ("", "/") else ""
     canon_path = canonical_path if canonical_path is not None else page_path
     if canon_path in ("", "/"):
@@ -197,6 +221,17 @@ def head(title: str, description: str, path: str, keywords: str = "", canonical_
     else:
         canon = f"{CANONICAL}/{canon_path.lstrip('/')}"
     kw = keywords or "study abroad, admissions consultants, MBBS abroad, education loan, IELTS, university admissions India"
+    crumbs = breadcrumbs or [("Home", "/"), (title.split("|")[0].strip()[:60], canon_path or "/")]
+    schemas: list[dict | None] = [
+        organization_schema(),
+        webpage_schema(title, description, canon_path or "/", BUILD_DATE),
+        breadcrumb_schema(crumbs),
+        faq_schema(faqs or []),
+        course,
+    ]
+    if extra_schemas:
+        schemas.extend(extra_schemas)
+    ld = json_ld_scripts(*schemas)
     return f"""<!DOCTYPE html>
 <html lang="en-IN">
 <head>
@@ -207,15 +242,22 @@ def head(title: str, description: str, path: str, keywords: str = "", canonical_
 <meta name="keywords" content="{esc(kw)}">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#8058A0">
+<meta name="author" content="LAUNCHPAD Admissions Team">
+<meta name="last-reviewed" content="{BUILD_DATE}">
 <link rel="canonical" href="{canon}">
 <base href="{CANONICAL}/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="LAUNCHPAD">
+<meta property="og:locale" content="en_IN">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{canon}">
 <meta property="og:image" content="{CANONICAL}/images/logo-launchpad.png">
+<meta property="og:image:alt" content="LAUNCHPAD admissions marketplace">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{esc(title)}">
+<meta name="twitter:description" content="{esc(description)}">
+<meta name="twitter:image" content="{CANONICAL}/images/logo-launchpad.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -223,19 +265,7 @@ def head(title: str, description: str, path: str, keywords: str = "", canonical_
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
-<script type="application/ld+json">
-{json.dumps({
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "LAUNCHPAD",
-  "alternateName": "LAUNCHPADi",
-  "url": CANONICAL,
-  "logo": f"{CANONICAL}/images/logo-launchpad.png",
-  "telephone": PHONE_TEL,
-  "sameAs": ["https://www.youtube.com/@Launchpadi"],
-  "description": "Admissions intelligence marketplace for Indian students — courses, countries, consultants, and AI agents."
-}, ensure_ascii=False)}
-</script>
+{ld}
 </head>
 <body>
 """
@@ -411,8 +441,81 @@ def page_shell(
     body: str,
     keywords: str = "",
     canonical_path: str | None = None,
+    breadcrumbs: list[tuple[str, str]] | None = None,
+    faqs: list[tuple[str, str]] | None = None,
+    course: dict | None = None,
 ) -> str:
-    return head(title, description, path, keywords, canonical_path=canonical_path) + HEADER + body + FOOTER
+    return (
+        head(
+            title,
+            description,
+            path,
+            keywords,
+            canonical_path=canonical_path,
+            breadcrumbs=breadcrumbs,
+            faqs=faqs,
+            course=course,
+        )
+        + HEADER
+        + body
+        + FOOTER
+    )
+
+
+def default_destination_faqs(name: str, cost: str, cluster: str) -> list[tuple[str, str]]:
+    faqs = [
+        (
+            f"How much does it cost to study in {name} for Indian students?",
+            f"Indicative marketed bands for {name} are around {cost}. Always separate university tuition, hostel, living costs, insurance, and agent fees before paying any booking amount.",
+        ),
+        (
+            f"Do I need IELTS or another English test for {name}?",
+            f"Many universities in {name} accept IELTS, TOEFL, PTE, or Duolingo; some waive tests with prior English-medium education. Confirm the exact requirement on your shortlist before booking a test date.",
+        ),
+        (
+            f"When should Indian students start applications for {name}?",
+            "Most families should start 9–12 months before intake — shortlist, exams, finances, and visa documentation take longer than expected.",
+        ),
+        (
+            "Can LAUNCHPAD help with counselling and consultants?",
+            "Yes. Book a free WhatsApp profile evaluation, use AI agents for shortlists/SOP drafts, or connect with marketplace consultants by destination and city.",
+        ),
+    ]
+    if cluster == "MBBS":
+        faqs.extend(
+            [
+                (
+                    f"Is NEET required for MBBS in {name}?",
+                    f"NEET qualification is commonly required for Indian students seeking recognised foreign medical pathways linked to practising in India. Marketing that says “without NEET” is often incomplete — verify current rules for {name} and NMC notices before paying fees.",
+                ),
+                (
+                    f"Can I practise in India after MBBS in {name}?",
+                    "Graduates typically need to clear the licensing pathway applicable at the time (FMGE/NExT and related NMC requirements). Plan exam prep during clinical years, not after graduation.",
+                ),
+            ]
+        )
+    return faqs
+
+
+def default_course_faqs(name: str) -> list[tuple[str, str]]:
+    return [
+        (
+            f"Who should consider {name}?",
+            f"{name} fits students who have clarified budget, timeline, and career outcome. Use destination pages plus a counsellor call to avoid brochure-only decisions.",
+        ),
+        (
+            f"What exams are usually needed for {name}?",
+            "Depending on destination: English tests (IELTS/TOEFL/PTE), GRE/GMAT for many PG programs, or NEET for medicine pathways. Waivers exist — verify per university.",
+        ),
+        (
+            "How does LAUNCHPAD help beyond articles?",
+            "Shortlists, fee framing, WhatsApp counselling, education-loan guidance, visa checklists, and AI agents for drafts — in one marketplace.",
+        ),
+        (
+            "What is a realistic timeline?",
+            "UG/PG abroad: 9–12 months. MBBS abroad: align NEET docs, university offers, and visa windows carefully — rushed seat bookings are a common risk.",
+        ),
+    ]
 
 
 def homepage() -> str:
@@ -543,6 +646,25 @@ def homepage() -> str:
         "",
         body,
         "study abroad consultants India, MBBS abroad, admissions marketplace, education counselling, study in USA UK Canada Germany",
+        breadcrumbs=[("Home", "/")],
+        faqs=[
+            (
+                "What is LAUNCHPAD?",
+                "An admissions intelligence marketplace for Indian students — destinations, courses, consultants, AI agents, and WhatsApp counselling in one place.",
+            ),
+            (
+                "Is the first counselling call free?",
+                "Yes. Profile evaluation and the first WhatsApp consult are free. Premium application packs are optional and quoted upfront.",
+            ),
+            (
+                "Do you cover MBBS abroad and MS/MBA?",
+                "Yes. MBBS destinations, Big 4 master’s pathways, India NEET/JEE options, loans, and visas are all in scope.",
+            ),
+            (
+                "How do I start today?",
+                "Use the quick search on this page or book free counselling — share scores, budget, and target year.",
+            ),
+        ],
     )
 
 
@@ -557,19 +679,53 @@ def content_page(
     extra_html: str = "",
     crumb: str = "Explore",
     canonical_path: str | None = None,
+    faqs: list[tuple[str, str]] | None = None,
+    course_name: str | None = None,
 ) -> str:
     rel = "".join(f'<a class="chip" href="{esc(u)}">{esc(t)}</a>' for u, t in related)
     self_path = f"{slug}.htm"
     canon_note = ""
     master_btn = ""
+    page_faqs = faqs or [
+        (
+            f"What is this {h1} guide for?",
+            f"{description} Use it with a free LAUNCHPAD counselling call to turn research into a shortlist.",
+        ),
+        (
+            "How do I get personalised help?",
+            f"WhatsApp or book counselling on LAUNCHPAD ({PHONE}). Share scores, budget, and target year for a concrete next step.",
+        ),
+        (
+            "Is the fee information on this page final?",
+            "Figures are indicative planning bands for Indian families. Universities change tuition and living costs — confirm line-item quotes before payment.",
+        ),
+        (
+            "Where should I go next on the site?",
+            "Open the related pathways below, compare destinations, then book a free profile evaluation.",
+        ),
+    ]
     if canonical_path and canonical_path != self_path:
         label = canonical_path.replace(".htm", "").replace("-", " ").title()
         canon_note = f"""
     <p class="form-note" style="margin:0 0 1rem;padding:0.75rem 1rem;background:var(--lavender);border-radius:10px">
       Primary guide: <a href="{esc(canonical_path)}"><strong>{esc(label)}</strong></a>
-      — this URL keeps your search topic live; Google should treat the master guide as canonical.
+      — this topic page supports the search intent while consolidating ranking signals to the master guide.
     </p>"""
         master_btn = f'<a class="btn btn-secondary" href="{esc(canonical_path)}">Open master guide</a>'
+    faq_block = faq_html(page_faqs)
+    depth_block = f"""
+    <h2>How Indian families use this page</h2>
+    <p>Treat this guide as a decision worksheet — not a brochure. Compare the fee bands and eligibility notes with two or three peer destinations, list documents you already have (marksheets, NEET/English scores, passport), and only then shortlist universities or consultants. LAUNCHPAD pairs this research layer with WhatsApp counselling and AI agents so you move from tabs of articles to an actual application calendar.</p>
+    <h2>Checklist before you pay any booking amount</h2>
+    <ol>
+      <li>Separate tuition, hostel, mess, insurance, visa, and agent fees in writing.</li>
+      <li>Confirm medium of instruction, intake month, and refund policy.</li>
+      <li>Match eligibility to current Indian regulatory notes (especially for medicine).</li>
+      <li>Align education-loan or family-fund proof with visa timelines.</li>
+      <li>Keep a parallel Plan-B destination or India pathway if seats slip.</li>
+    </ol>
+    <p class="form-note">Last reviewed: {BUILD_DATE}. Figures and rules change — re-verify before committing.</p>
+    """
     body = f"""
 <section class="page-hero">
   <div class="container">
@@ -590,6 +746,8 @@ def content_page(
     <h2>What you get on LAUNCHPAD</h2>
     <ul>{''.join(f'<li>{esc(b)}</li>' for b in bullets)}</ul>
     {extra_html}
+    {depth_block}
+    {faq_block}
     <h2>Related pathways</h2>
     <div class="chips">{rel}</div>
     <h2>Ask an admissions counsellor</h2>
@@ -606,6 +764,27 @@ def content_page(
   </aside>
 </div>
 """
+    crumb_hubs = {
+        "Destinations": "study-abroad.htm",
+        "Courses": "courses.htm",
+        "Services": "services.htm",
+        "Exams": "exams.htm",
+        "Resources": "resources.htm",
+        "Consultants": "find-consultants.htm",
+        "India": "study-in-india.htm",
+        "AI Agents": "ai-agents.htm",
+        "Company": "about.htm",
+        "Marketplace": "admissions-marketplace.htm",
+        "Products": "resources.htm",
+        "Legacy topic": "mbbs-abroad.htm",
+        "Guides": "resources.htm",
+        "Explore": "admissions-marketplace.htm",
+    }
+    hub = crumb_hubs.get(crumb, "admissions-marketplace.htm")
+    crumbs = [("Home", "/"), (crumb, hub), (h1, canonical_path or self_path)]
+    course = None
+    if course_name:
+        course = course_schema(course_name, description, canonical_path or self_path)
     return page_shell(
         f"{h1} | LAUNCHPAD",
         description,
@@ -613,7 +792,11 @@ def content_page(
         body,
         keywords,
         canonical_path=canonical_path,
+        breadcrumbs=crumbs,
+        faqs=page_faqs,
+        course=course,
     )
+
 
 
 def hub_page(slug: str, h1: str, description: str, tiles: list[tuple[str, str, str]], crumb: str) -> str:
@@ -621,6 +804,17 @@ def hub_page(slug: str, h1: str, description: str, tiles: list[tuple[str, str, s
         f'<a class="tile reveal" href="{esc(href)}"><h3>{esc(title)}</h3><p>{esc(blurb)}</p><div class="meta">Open</div></a>'
         for href, title, blurb in tiles
     )
+    hub_faqs = [
+        (f"What is the {h1} hub?", description),
+        (
+            "How do I get a shortlist faster?",
+            "Open 2–3 tiles below, then book a free WhatsApp profile evaluation so a counsellor can prioritise fit vs brochure brand.",
+        ),
+        (
+            "Does LAUNCHPAD only publish articles?",
+            "No — hubs connect to counselling, consultants, loans, visas, and AI agents inside the admissions marketplace.",
+        ),
+    ]
     body = f"""
 <section class="page-hero"><div class="container">
   <div class="breadcrumb"><a href="index.htm">Home</a> / {esc(crumb)}</div>
@@ -628,9 +822,17 @@ def hub_page(slug: str, h1: str, description: str, tiles: list[tuple[str, str, s
   <p class="lead">{esc(description)}</p>
 </div></section>
 <section class="section"><div class="container"><div class="grid-3">{grid}</div></div></section>
+<section class="section"><div class="container prose">{faq_html(hub_faqs)}</div></section>
 <section class="section section-alt"><div class="container inquiry"><div><h2>Not sure where to start?</h2><p class="lead">Tell us your goal — we’ll route you to the right destination, course, or consultant.</p></div>{inquiry_form()}</div></section>
 """
-    return page_shell(f"{h1} | LAUNCHPAD", description, f"{slug}.htm", body)
+    return page_shell(
+        f"{h1} | LAUNCHPAD",
+        description,
+        f"{slug}.htm",
+        body,
+        breadcrumbs=[("Home", "/"), (crumb, f"{slug}.htm")],
+        faqs=hub_faqs,
+    )
 
 
 def build() -> None:
@@ -693,11 +895,22 @@ def build() -> None:
             mbbs_note = f"""
             <h2>MBBS notes for {esc(name)}</h2>
             <p>Indian families comparing MBBS in {esc(name)} should verify current NMC/eligibility notices, English-medium instruction, internship structure, and FMGE/NExT preparation plans. Total packages commonly marketed in India often differ from university tuition alone — always separate tuition, hostel, mess, insurance, and agent fees.</p>
+            <div class="table-wrap"><table class="data">
+              <thead><tr><th>Decision factor</th><th>What to verify for {esc(name)}</th></tr></thead>
+              <tbody>
+                <tr><td>NMC / recognition posture</td><td>Check latest NMC public notices; do not rely on agent screenshots alone</td></tr>
+                <tr><td>NEET</td><td>Confirm whether NEET qualification is required for your intended pathway</td></tr>
+                <tr><td>Duration &amp; internship</td><td>Map clinical years and internship location against Indian licensing plans</td></tr>
+                <tr><td>Language</td><td>English-medium claim vs local-language clinical interaction</td></tr>
+                <tr><td>Total cost</td><td>Indicative band {esc(cost)} — demand a line-item sheet</td></tr>
+              </tbody>
+            </table></div>
             <ul>
               <li>Ask for a line-item fee sheet, not only a “package” number</li>
               <li>Confirm intake months, NEET documentation, and medium of instruction</li>
               <li>Plan FMGE/NExT prep early if you intend to practise in India</li>
               <li>Use <a href="mbbs-abroad.htm">MBBS Abroad hub</a> to compare destinations</li>
+              <li>Read <a href="fmge.htm">FMGE / NExT guide</a> before locking a seat</li>
             </ul>"""
         elif cluster == "Big 4":
             mbbs_note = f"""
@@ -714,12 +927,26 @@ def build() -> None:
           <tr><th>Cluster</th><td>{esc(cluster)}</td></tr>
           <tr><th>Popular searches</th><td>{esc(', '.join(kws[:3]))}</td></tr>
           <tr><th>Who it fits</th><td>Indian students comparing ROI, visa climate, and English-taught options</td></tr>
+          <tr><th>Last reviewed</th><td>{BUILD_DATE}</td></tr>
         </table></div>
         <h2>How Indian students usually evaluate {esc(name)}</h2>
         <p>Families weigh tuition, living costs, post-study work, safety, climate, and whether a consultant or DIY application makes sense. On LAUNCHPAD you can open a destination shortlist, message a counsellor on WhatsApp, or browse consultants who specialise in {esc(name)}.</p>
+        <h2>Indicative planning table (not a university quote)</h2>
+        <div class="table-wrap"><table class="data">
+          <thead><tr><th>Cost head</th><th>What to ask</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td>Tuition</td><td>Year-wise official fee sheet</td><td>Packages often hide year-2+ jumps</td></tr>
+            <tr><td>Hostel / mess</td><td>On-campus vs private; Indian food options</td><td>Living costs drive total ROI</td></tr>
+            <tr><td>Insurance &amp; admin</td><td>Mandatory university insurance</td><td>Avoid surprise first-week invoices</td></tr>
+            <tr><td>Visa &amp; travel</td><td>Embassy checklist + forex buffer</td><td>Cash-flow for parents</td></tr>
+            <tr><td>Agent / consultancy</td><td>Written scope &amp; refund terms</td><td>Separates service fee from tuition</td></tr>
+          </tbody>
+        </table></div>
         {mbbs_note}
         <h2>Popular keywords we optimise for</h2>
         <div class="chips">{''.join(f'<span class="chip">{esc(k)}</span>' for k in kws)}</div>
+        <h2>Topic cluster — keep exploring</h2>
+        <p>After this destination page, open the matching course hub, a peer-country comparison, and counselling so your shortlist is coherent rather than a pile of bookmarks.</p>
         <h2>Services for {esc(name)}</h2>
         <div class="chips">
           <a class="chip" href="admission-counselling.htm">Counselling</a>
@@ -728,48 +955,70 @@ def build() -> None:
           <a class="chip" href="sop-lor-writing.htm">SOP</a>
           <a class="chip" href="find-consultants.htm">Consultants</a>
           <a class="chip" href="ai-university-finder.htm">AI University Finder</a>
+          <a class="chip" href="compare-countries.htm">Compare countries</a>
         </div>"""
         pages[f"study-in-{slug}.htm"] = content_page(
             f"study-in-{slug}",
             title,
             blurb,
-            f"{blurb} Typical marketed cost band: {cost}. Use LAUNCHPAD to shortlist universities, talk to consultants, and activate AI agents for checklists.",
+            f"{blurb} Typical marketed cost band: {cost}. Use LAUNCHPAD to shortlist universities, talk to consultants, and activate AI agents for checklists. This guide is written for Indian search behaviour — fee honesty, visa realism, and next actions — not brochure copy.",
             [
                 f"Country guide for “study in {name} for Indian students” and related queries",
                 f"INR-oriented fee framing ({cost}) with counselling for line-item clarity",
                 "Visa and post-study work notes for family planning conversations",
                 "Connect to counselling, loans, AI agents, and marketplace consultants",
+                "Internal links into course hubs and peer destinations for topical depth",
             ],
             [
                 ("study-abroad.htm", "All destinations"),
                 ("compare-countries.htm", "Compare countries"),
                 ("book-counselling.htm", "Book counselling"),
                 ("education-loan-abroad.htm", "Loans"),
+                ("mbbs-abroad.htm", "MBBS hub") if cluster == "MBBS" else ("ms-abroad.htm", "MS hub"),
             ],
             ", ".join(kws + [f"study in {name}", f"{name} for indian students", f"admission consultants for {name}"]),
             table,
             "Destinations",
+            faqs=default_destination_faqs(name, cost, cluster),
+            course_name=title if cluster == "MBBS" else None,
         )
 
     # Courses
     course_tiles = [(f"{s}.htm", n, d) for s, n, _, d, _ in COURSES]
     pages["courses.htm"] = hub_page("courses", "Courses & Programs", "Browse MBBS, MS, MBA, engineering, nursing, design, and more — India and abroad.", course_tiles, "Courses")
     for slug, name, title, desc, kws in COURSES:
+        course_extra = f"""
+        <h2>Program planning table — {esc(name)}</h2>
+        <div class="table-wrap"><table class="data">
+          <thead><tr><th>Stage</th><th>What to finish</th><th>LAUNCHPAD help</th></tr></thead>
+          <tbody>
+            <tr><td>Discover</td><td>Budget, intake year, destination shortlist</td><td><a href="ai-profile-matcher.htm">Profile Matcher</a></td></tr>
+            <tr><td>Decide</td><td>Fees, exams, ROI, Plan-B</td><td><a href="book-counselling.htm">Counselling</a></td></tr>
+            <tr><td>Apply</td><td>SOP/LOR, portals, deadlines</td><td><a href="sop-lor-writing.htm">SOP studio</a></td></tr>
+            <tr><td>Fund &amp; visa</td><td>Loan/forex + document checks</td><td><a href="education-loan-abroad.htm">Loans</a> · <a href="visa-guidance.htm">Visa</a></td></tr>
+          </tbody>
+        </table></div>
+        <h2>Next actions for {esc(name)}</h2>
+        <ol><li>Run a free profile evaluation</li><li>Shortlist 6–10 programs</li><li>Align exams (IELTS/GRE/NEET)</li><li>Plan funding early</li></ol>
+        """
         pages[f"{slug}.htm"] = content_page(
             slug,
             title,
             desc,
-            desc + " LAUNCHPAD combines destination pages, counsellor access, and AI tools so you can decide faster.",
+            desc + " LAUNCHPAD combines destination pages, counsellor access, and AI tools so you can decide faster. Each program page is built as a cluster hub: link out to countries, exams, loans, and human help instead of trapping you in a thin article.",
             [
                 f"SEO-focused guidance for “{kws[0]}” and related searches",
                 "Fee bands and eligibility checkpoints",
                 "Link-outs to destinations and exams that unlock admits",
                 "Optional human counselling and consultant marketplace",
+                "FAQ schema and decision checklists for parents",
             ],
-            [("courses.htm", "All courses"), ("study-abroad.htm", "Destinations"), ("book-counselling.htm", "Counselling")],
+            [("courses.htm", "All courses"), ("study-abroad.htm", "Destinations"), ("book-counselling.htm", "Counselling"), ("mbbs-abroad.htm", "MBBS") if "mbbs" in slug else ("resources.htm", "Guides")],
             ", ".join(kws),
-            f"<h2>Next actions for {esc(name)}</h2><ol><li>Run a free profile evaluation</li><li>Shortlist 6–10 programs</li><li>Align exams (IELTS/GRE/NEET)</li><li>Plan funding early</li></ol>",
+            course_extra,
             "Courses",
+            faqs=default_course_faqs(name),
+            course_name=name,
         )
 
     # Services
@@ -1107,60 +1356,153 @@ def build() -> None:
             master = "mbbs-abroad.htm" if "mbbs" in fname or "medical" in fname else "study-abroad.htm"
         title = humanize(fname)
         topic = title
-        desc = (
-            f"{topic} — updated LAUNCHPAD guide for Indian students. "
-            f"Compare fees, eligibility, counselling options, and next steps. "
-            f"Canonical guide: {master.replace('.htm','').replace('-', ' ')}."
-        )
-        intro = (
-            f"You opened a legacy LAUNCHPAD URL for “{topic}”. The page is fully redesigned for our admissions marketplace, "
-            f"with WhatsApp counselling, fee framing, and AI agents — while consolidating SEO to the master page "
-            f"{master}."
-        )
         country = extract_country(fname)
+        country_label = country.replace("-", " ").title() if country else None
+        master_label = humanize(master)
+
+        # Rich, non-boilerplate intros — no "You opened a legacy URL" language
+        if country and "fees" in fname:
+            desc = (
+                f"MBBS / medical fee planning for {country_label}: indicative tuition and living-cost bands for Indian students, "
+                f"line-item checklist, and NMC-aware next steps. Updated {BUILD_DATE}."
+            )
+            intro = (
+                f"Indian families searching for medical fees in {country_label} need more than a single “package” number. "
+                f"This guide breaks the decision into tuition, hostel, living costs, insurance, and consultancy fees, then routes you "
+                f"to counselling and the master destination page ({master_label}) for the full country pathway."
+            )
+        elif country and "without-neet" in fname:
+            desc = (
+                f"Clearing up “MBBS in {country_label} without NEET” marketing for Indian students — eligibility reality, "
+                f"documentation, and safer next steps. Reviewed {BUILD_DATE}."
+            )
+            intro = (
+                f"Search results for MBBS in {country_label} without NEET are often outdated or incomplete. "
+                f"This page explains what families should verify before paying seat-booking amounts, and links to NEET counselling "
+                f"plus the {master_label} master guide."
+            )
+        elif country and ("medical-colleges" in fname or "mbbs-in-" in fname):
+            desc = (
+                f"Medical colleges and MBBS pathways in {country_label} for Indian students — fees framing, language of instruction, "
+                f"and licensing planning. Reviewed {BUILD_DATE}."
+            )
+            intro = (
+                f"Use this {country_label} medical pathway page to compare recognition posture, English-medium claims, and total cost — "
+                f"then open the master guide ({master_label}) and book a WhatsApp evaluation before shortlisting seats."
+            )
+        elif "neet" in fname:
+            desc = (
+                f"{topic} — practical guidance for Indian NEET aspirants comparing India seats with abroad Plan-B options. "
+                f"Reviewed {BUILD_DATE}."
+            )
+            intro = (
+                f"This NEET-focused page helps families interpret cutoffs, counselling steps, and parallel abroad options without "
+                f"panic-driven seat bookings. Continue on {master_label} for the deepest walkthrough."
+            )
+        elif "loan" in fname:
+            desc = (
+                f"{topic} for Indian students — collateral vs non-collateral framing, disbursal timing, and forex realities. "
+                f"Reviewed {BUILD_DATE}."
+            )
+            intro = (
+                f"Education loans for medical and study-abroad pathways fail when families discover forex and living gaps late. "
+                f"This page outlines questions to ask lenders and points to {master_label} plus LAUNCHPAD loan guidance."
+            )
+        else:
+            desc = (
+                f"{topic} — admissions intelligence for Indian students: fees framing, eligibility checks, counselling, "
+                f"and next actions. Reviewed {BUILD_DATE}."
+            )
+            intro = (
+                f"This topic guide covers {topic.lower()} with marketplace-ready next steps: shortlists, counsellor access, "
+                f"and AI agents. For the fullest cluster page, continue to {master_label}."
+            )
+
         extra = f"""
-        <h2>Topic focus</h2>
-        <p>This URL remains live for searches and bookmarks related to <strong>{esc(topic)}</strong>.
-        For the fullest destination/course guide, use the master page below.</p>
+        <h2>Decision worksheet — {esc(topic)}</h2>
+        <p>Search intent for <strong>{esc(topic)}</strong> usually means a family is comparing cost, eligibility, and trust.
+        Use the table below as a parent-ready agenda for your next counselling call.</p>
+        <div class="table-wrap"><table class="data">
+          <thead><tr><th>Question</th><th>Why ask it</th><th>LAUNCHPAD next step</th></tr></thead>
+          <tbody>
+            <tr><td>What is the line-item fee sheet?</td><td>Avoid package-only marketing</td><td><a href="book-counselling.htm">Free counselling</a></td></tr>
+            <tr><td>What eligibility docs are mandatory?</td><td>NEET / English / passport timing</td><td><a href="neet-exam.htm">NEET guide</a></td></tr>
+            <tr><td>What is Plan-B if this seat slips?</td><td>Reduces panic deposits</td><td><a href="{esc(master)}">Master: {esc(master_label)}</a></td></tr>
+            <tr><td>Who owns visa &amp; loan paperwork?</td><td>Scope clarity with consultants</td><td><a href="find-consultants.htm">Find consultants</a></td></tr>
+          </tbody>
+        </table></div>
         <div class="chips">
-          <a class="chip active" href="{esc(master)}">Master: {esc(humanize(master))}</a>
+          <a class="chip active" href="{esc(master)}">Master: {esc(master_label)}</a>
           <a class="chip" href="mbbs-abroad.htm">MBBS Abroad hub</a>
           <a class="chip" href="book-counselling.htm">Free counselling</a>
           <a class="chip" href="find-consultants.htm">Find consultants</a>
+          <a class="chip" href="education-loan-abroad.htm">Education loans</a>
         </div>
         """
         if country:
             extra += f"""
-            <h2>Country angle — {esc(country.replace('-', ' ').title())}</h2>
-            <p>Indian families evaluating this destination should separate tuition, hostel, living costs, and agent fees;
-            confirm English-medium instruction and current eligibility notices; and plan FMGE/NExT if returning to practise in India.</p>
+            <h2>Country angle — {esc(country_label)}</h2>
+            <p>When evaluating {esc(country_label)}, separate tuition from hostel and living costs; confirm English-medium instruction
+            for lectures vs clinics; and map FMGE/NExT preparation if you intend to practise in India. Indicative destination page:
+            <a href="study-in-{esc(country_aliases.get(country, country) or 'georgia')}.htm">Study in {esc(country_label)}</a>
+            (falls back via master if a dedicated page is not live).</p>
+            <div class="table-wrap"><table class="data">
+              <thead><tr><th>Cost head</th><th>Ask for</th></tr></thead>
+              <tbody>
+                <tr><td>Tuition</td><td>Official year-wise fee circular</td></tr>
+                <tr><td>Hostel / mess</td><td>Indian food options &amp; contract length</td></tr>
+                <tr><td>Insurance / admin</td><td>Mandatory first-year charges</td></tr>
+                <tr><td>Visa / flight / forex</td><td>Buffer beyond tuition</td></tr>
+              </tbody>
+            </table></div>
             """
         if "without-neet" in fname:
             extra += """
-            <h2>NEET note</h2>
-            <p>Many popular “without NEET” marketing claims are outdated or incomplete. Always verify current eligibility
-            rules for the university and for practising in India before paying any seat booking amount.</p>
+            <h2>NEET reality check</h2>
+            <p>Many popular “without NEET” claims are outdated or incomplete for students who later want Indian licensing pathways.
+            Always verify current eligibility rules for the university and for practising in India before paying any seat booking amount.
+            Start with <a href="neet-counselling.htm">NEET counselling</a> and <a href="mbbs-abroad.htm">MBBS Abroad</a>.</p>
             """
         if "fees" in fname:
             extra += """
-            <h2>Fees checklist</h2>
+            <h2>Fees checklist for Indian parents</h2>
             <ul>
-              <li>University tuition (year-wise)</li>
+              <li>University tuition (year-wise, currency stated)</li>
               <li>Hostel / mess / insurance</li>
               <li>Visa, flight, and forex buffer</li>
               <li>What’s included vs “package” marketing</li>
+              <li>Refund and deferral policy in writing</li>
             </ul>
             """
+        alias_faqs = [
+            (
+                f"Is this page the main guide for {topic}?",
+                f"This page targets the “{topic}” search intent with practical checklists. The deepest cluster guide is {master_label}, linked throughout.",
+            ),
+            (
+                "Are fees on this page guaranteed?",
+                "No. Amounts discussed across LAUNCHPAD are indicative planning bands. Demand university letterheads and line-item quotes before payment.",
+            ),
+            (
+                "How do I talk to a counsellor quickly?",
+                f"Use WhatsApp counselling or book a free profile evaluation. Share scores, budget, and target country — phone {PHONE}.",
+            ),
+            (
+                "What should I read next?",
+                f"Open {master_label}, then MBBS Abroad or Study Abroad hubs, then education loans if funding is unclear.",
+            ),
+        ]
         alias_pages[fname] = content_page(
             fname.replace(".htm", ""),
             topic,
             desc,
             intro,
             [
-                "Redesigned marketplace layout matching current LAUNCHPAD brand",
-                "Topic relevance preserved for the original search intent",
-                f"Canonical tag points to {master}",
-                "Counselling, loans, consultants, and AI agents linked from this page",
+                f"Intent-matched guide for “{topic}” searches from Indian students and parents",
+                "Fee / eligibility checklists instead of brochure paragraphs",
+                f"Clear path to master guide: {master}",
+                "Counselling, loans, consultants, and AI agents linked in-context",
+                f"Content reviewed {BUILD_DATE} for freshness signals",
             ],
             [
                 (master, "Master guide"),
@@ -1170,8 +1512,9 @@ def build() -> None:
             ],
             topic.lower(),
             extra,
-            "Legacy topic",
+            "Guides",
             canonical_path=master,
+            faqs=alias_faqs,
         )
 
     pages.update(alias_pages)
@@ -1191,10 +1534,31 @@ def build() -> None:
         master_urls.append(n)
 
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    sm.append(f"  <url><loc>{CANONICAL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>")
+    sm.append(
+        f"  <url><loc>{CANONICAL}/</loc><lastmod>{BUILD_DATE}</lastmod>"
+        f"<changefreq>daily</changefreq><priority>1.0</priority></url>"
+    )
     for u in master_urls:
         pri = "0.9" if u in ("study-abroad.htm", "courses.htm", "admissions-marketplace.htm", "mbbs-abroad.htm") else "0.7"
-        sm.append(f"  <url><loc>{CANONICAL}/{u}</loc><changefreq>weekly</changefreq><priority>{pri}</priority></url>")
+        freq = "daily" if u in ("mbbs-abroad.htm", "study-abroad.htm") else "weekly"
+        sm.append(
+            f"  <url><loc>{CANONICAL}/{u}</loc><lastmod>{BUILD_DATE}</lastmod>"
+            f"<changefreq>{freq}</changefreq><priority>{pri}</priority></url>"
+        )
+    # Include daily-published guides registry if present
+    daily_dir = ROOT / "sitegen" / "data" / "published_guides.json"
+    if daily_dir.exists():
+        try:
+            for item in json.loads(daily_dir.read_text(encoding="utf-8")):
+                slug = item.get("slug", "")
+                if slug and (ROOT / f"{slug}.htm").exists() and f"{slug}.htm" not in master_urls:
+                    lm = item.get("date", BUILD_DATE)
+                    sm.append(
+                        f"  <url><loc>{CANONICAL}/{slug}.htm</loc><lastmod>{lm}</lastmod>"
+                        f"<changefreq>weekly</changefreq><priority>0.8</priority></url>"
+                    )
+        except json.JSONDecodeError:
+            pass
     sm.append("</urlset>")
     (ROOT / "sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8")
 
@@ -1207,20 +1571,26 @@ Sitemap: {CANONICAL}/sitemap.xml
         encoding="utf-8",
     )
 
-    # No 301s for restored legacy URLs — keep only index.html normalize
+    # No 301s for restored legacy URLs — keep index.html normalize + apex→www host redirects
     (ROOT / "_redirects").write_text(
         """# Cloudflare Pages redirects
 # Legacy URLs are restored as live pages with rel=canonical → master guides.
 # Do not 301 those paths or Google never sees the updated HTML + canonical.
 
 /index.html / 301
+
+# Path-preserving host redirects when both apex and www are custom domains on this Pages project.
+# Prefer Bulk Redirects / Redirect Rules if apex is served outside Pages; these still help unify host.
+https://launchpadi.com/* https://www.launchpadi.com/:splat 301
+http://launchpadi.com/* https://www.launchpadi.com/:splat 301
+http://www.launchpadi.com/* https://www.launchpadi.com/:splat 301
 """,
         encoding="utf-8",
     )
 
     print(f"Generated {len(pages)} page files ({len(alias_pages)} legacy aliases)")
     print(f"Sitemap master URLs: {len(master_urls)}")
-    print(f"Redirects: index.html only")
+    print(f"Redirects: index.html + apex→www host rules")
 
 
 if __name__ == "__main__":

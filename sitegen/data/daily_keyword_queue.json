@@ -1,0 +1,115 @@
+{
+  "queue": [
+    {
+      "slug": "nmc-guidelines-mbbs-abroad-2026",
+      "keyword": "nmc guidelines for mbbs abroad 2026",
+      "title": "NMC Guidelines for MBBS Abroad 2026 — What Indian Students Must Verify",
+      "cluster": "mbbs",
+      "country": null,
+      "hub": "mbbs-abroad.htm",
+      "intent": "regulatory"
+    },
+    {
+      "slug": "mbbs-georgia-vs-philippines-fees",
+      "keyword": "mbbs georgia vs philippines fees",
+      "title": "MBBS Georgia vs Philippines Fees — Which Fits Indian Students?",
+      "cluster": "mbbs",
+      "country": null,
+      "hub": "mbbs-abroad.htm",
+      "intent": "comparison"
+    },
+    {
+      "slug": "neet-requirement-mbbs-abroad-explained",
+      "keyword": "is neet required for mbbs abroad",
+      "title": "Is NEET Required for MBBS Abroad? Eligibility Explained for Indian Students",
+      "cluster": "mbbs",
+      "country": null,
+      "hub": "neet-exam.htm",
+      "intent": "eligibility"
+    },
+    {
+      "slug": "mbbs-in-kazakhstan-fees-hostel-living",
+      "keyword": "mbbs in kazakhstan fees with hostel",
+      "title": "MBBS in Kazakhstan Fees with Hostel & Living Costs (Indian Students)",
+      "cluster": "mbbs",
+      "country": "Kazakhstan",
+      "hub": "study-in-kazakhstan.htm",
+      "intent": "fee-breakdown"
+    },
+    {
+      "slug": "fmge-preparation-timeline-after-mbbs-abroad",
+      "keyword": "fmge preparation after mbbs abroad",
+      "title": "FMGE Preparation Timeline After MBBS Abroad — Year-by-Year Plan",
+      "cluster": "mbbs",
+      "country": null,
+      "hub": "fmge.htm",
+      "intent": "licensing"
+    },
+    {
+      "slug": "study-ms-germany-cost-for-indian-students",
+      "keyword": "ms in germany cost for indian students",
+      "title": "MS in Germany Cost for Indian Students — Tuition, Blocked Account & Living",
+      "cluster": "ms",
+      "country": "Germany",
+      "hub": "study-in-germany.htm",
+      "intent": "fee-breakdown"
+    },
+    {
+      "slug": "ielts-score-for-canada-sds-2026",
+      "keyword": "ielts score for canada sds 2026",
+      "title": "IELTS Score for Canada SDS 2026 — What Indian Applicants Need",
+      "cluster": "exams",
+      "country": "Canada",
+      "hub": "ielts-preparation.htm",
+      "intent": "exam"
+    },
+    {
+      "slug": "education-loan-for-mbbs-abroad-without-collateral",
+      "keyword": "education loan for mbbs abroad without collateral",
+      "title": "Education Loan for MBBS Abroad Without Collateral — Checklist for Parents",
+      "cluster": "loans",
+      "country": null,
+      "hub": "education-loan-abroad.htm",
+      "intent": "funding"
+    },
+    {
+      "slug": "mbbs-philippines-clinical-rotation-guide",
+      "keyword": "mbbs philippines clinical rotation for indian students",
+      "title": "MBBS Philippines Clinical Rotations — What Indian Students Should Expect",
+      "cluster": "mbbs",
+      "country": "Philippines",
+      "hub": "study-in-philippines.htm",
+      "intent": "academic"
+    },
+    {
+      "slug": "russia-mbbs-total-package-vs-tuition",
+      "keyword": "russia mbbs package vs tuition fees",
+      "title": "Russia MBBS Package vs Tuition — How Indian Families Get Misled",
+      "cluster": "mbbs",
+      "country": "Russia",
+      "hub": "study-in-russia.htm",
+      "intent": "fee-breakdown"
+    },
+    {
+      "slug": "best-country-for-mbbs-under-25-lakhs",
+      "keyword": "best country for mbbs under 25 lakhs",
+      "title": "Best Country for MBBS Under ₹25 Lakhs — Realistic Options for Indians",
+      "cluster": "mbbs",
+      "country": null,
+      "hub": "mbbs-abroad.htm",
+      "intent": "comparison"
+    }
+  ],
+  "completed": [
+    {
+      "slug": "mbbs-fees-in-georgia-2026-guide",
+      "keyword": "mbbs fees in georgia for indian students 2026",
+      "title": "MBBS Fees in Georgia for Indian Students 2026 — Full Cost Breakdown",
+      "cluster": "mbbs",
+      "country": "Georgia",
+      "hub": "study-in-georgia.htm",
+      "intent": "fee-breakdown",
+      "published_on": "2026-09-18"
+    }
+  ]
+}
