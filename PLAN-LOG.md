@@ -24,7 +24,7 @@
 | — Discovered – currently not indexed | 142 | Validation **Started** 18/09/2026 |
 | — Crawled – currently not indexed | 1 | Still Not Started |
 | Sitemap discovered pages (pre-rebuild UI) | 143 | GSC Sitemaps table |
-| Live sitemap `<url>` count after deploy | **144** | `https://www.launchpadi.com/sitemap.xml` (verified HTTP 200) |
+| Live sitemap `<url>` count after deploy | **146** | Includes priority Albania + Georgia fee masters (was 144) |
 
 **North-star KPI:** ≥100 organic Google sessions/day by Day 90.
 
@@ -46,6 +46,17 @@
 | 10 | URL Inspection — Georgia 2026 guide | Done | Live test **18 Sept 2026, 20:22**: **URL is available to Google**; Breadcrumbs **1 valid item**; **Indexing requested** (priority crawl queue) | **20:22 IST** |
 | 11 | URL Inspection — Study in Georgia hub | Done | Status: URL unknown to Google → **Indexing requested** (priority crawl queue) | **20:24 IST** |
 | 12 | Browser cleanup | Done | Closed Neo local tab opened for this task; chipsilicon GSC tab left untouched | ~20:25 |
+| 13 | Verify apex→www HTTP/HTTPS 301 | Done | `curl -I http://launchpadi.com/` → **301** `https://www.launchpadi.com/`; `curl -I https://launchpadi.com/` → **301** same; www **200** | ~20:45 |
+| 14 | Origin SSL / Full (strict) check | Done | Valid certs: apex `CN=launchpadi.com` (GTS WE1, to Nov 2026); www `CN=www.launchpadi.com` (to Dec 2026) — no 525 | ~20:45 |
+| 15 | Enable HSTS after redirects stable | Done | `_headers` → `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload` live on www responses | Deployed `adf3736` |
+| 16 | Shorten homepage title + meta | Done | Title **47 chars**: `LAUNCHPAD — India's Admissions Marketplace` (was ~81); meta **142 chars** | Live |
+| 17 | Self-canonical Albania/Georgia fee pages + query metas | Done | Titles `(2026) \| LAUNCHPAD` (59 chars); Albania meta targets affordable/low-cost/how-to-apply; Georgia meta targets Batumi Shota Rustaveli + Akaki Tsereteli tuition/year; unique H1s; added to sitemap as masters | Live |
+| 18 | Internal links hub cluster | Done | Homepage fee-guide tiles + `mbbs-abroad.htm` table/chips → Georgia hub, Georgia fees, Albania fees, Georgia 2026 guide | Live |
+| 19 | Git commit + push SEO pass | Done | `adf3736` — `perf(seo): optimize homepage title length, high-impression fee metas, and internal links` → `origin/main` (`lpweb`) | ~20:46 |
+| 20 | GSC URL Inspection — Home (new title) | Done | Live test: **Page can be indexed**; Breadcrumbs **1 valid**; **Indexing requested** | ~20:47 IST |
+| 21 | GSC URL Inspection — Albania fees | Partial | Live test: **Page can be indexed**; Breadcrumbs **1 valid**; **Request indexing = Quota exceeded** (retry next day) | ~20:48 IST |
+| 22 | GSC URL Inspection — Georgia fees | Partial | Index status was **URL unknown to Google**; Live test: **Page can be indexed**; Breadcrumbs **1 valid**; **Request indexing = Quota exceeded** (retry next day) | ~20:49 IST |
+| 23 | Browser cleanup (pass 2) | Done | Closed Neo GSC tab; left chipsilicon + GitHub user tabs untouched | ~20:50 |
 
 ### Git commits referenced
 
@@ -53,6 +64,8 @@
 |--------|---------|
 | `a1b92ea` | `fix(seo): path-preserving apex→www redirects + fee page titles` (already on origin; integrated locally) |
 | `68a3ca5` | `feat(seo): deploy rich schema, clean legacy pages, daily publisher and 90-day growth engine` |
+| `3e51d2e` | `docs(seo): add PLAN-LOG with baseline, GSC actions and 90-day roadmap` |
+| `adf3736` | `perf(seo): optimize homepage title length, high-impression fee metas, and internal links` |
 
 ### Live URLs verified (HTTP 200)
 
@@ -60,6 +73,15 @@
 - https://www.launchpadi.com/sitemap.xml
 - https://www.launchpadi.com/mbbs-fees-in-georgia-2026-guide.htm
 - https://www.launchpadi.com/study-in-georgia.htm
+- https://www.launchpadi.com/mbbs-fees-in-albania-for-indian-students.htm *(self-canonical)*
+- https://www.launchpadi.com/mbbs-fees-in-georgia-for-indian-students.htm *(self-canonical)*
+- https://www.launchpadi.com/mbbs-abroad.htm
+
+### Follow-ups (next session)
+
+1. Re-request indexing for Albania + Georgia fee pages when GSC quota resets (live tests already green).
+2. Do **not** mass-expand thin content until indexed count rises — index-first policy remains.
+3. Continue daily publisher from queue (`nmc-guidelines-mbbs-abroad-2026` next).
 
 ---
 
@@ -76,6 +98,9 @@
 | **W1** | Start validation on Alternative canonical + Discovered buckets | [x] |
 | **W1** | Publish Day-1 high-intent guide + request indexing | [x] |
 | **W1** | Spot-check live schema (BreadcrumbList / FAQPage / Course) | [x] |
+| **W1** | Shorten homepage title; query-match Albania/Georgia fee metas; self-canonical fee pages | [x] |
+| **W1** | Internal links home → MBBS hub → Georgia/Albania fee pages | [x] |
+| **W1** | HSTS after apex→www redirects verified | [x] |
 | **W1** | Validate 10 sample URLs in Rich Results Test (batch) | [ ] |
 | **W2** | Upgrade `mbbs-abroad.htm` to ≥1,200-word flagship | [ ] |
 | **W2** | Deepen Georgia / Russia / Philippines / Kazakhstan hubs | [ ] |
