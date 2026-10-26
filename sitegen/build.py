@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import html
 import json
+import re
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path
@@ -306,6 +308,17 @@ def head(
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
 {ld}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W7Z56XHC67"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-W7Z56XHC67', {{
+    send_page_view: true,
+    site_brand: 'launchpadi.com'
+  }});
+</script>
 </head>
 <body>
 """
@@ -890,6 +903,170 @@ def hub_page(slug: str, h1: str, description: str, tiles: list[tuple[str, str, s
         breadcrumbs=[("Home", "/"), (crumb, f"{slug}.htm")],
         faqs=hub_faqs,
     )
+
+
+def insert_before(page: str, marker: str, content: str) -> str:
+    position = page.find(marker)
+    if position == -1:
+        raise ValueError(f"Could not find insertion point {marker!r}")
+    return page[:position].rstrip() + "\n" + content.strip() + "\n" + page[position:]
+
+
+def normalize_review_dates(content: str) -> str:
+    markers = re.compile(
+        r'((?:dateModified["\']?\s*:\s*["\']|name=["\']last-reviewed["\']\s+content=["\']|'
+        r'<th>Last reviewed</th><td>|'
+        r'(?:Last|Content) reviewed:?\s*|Reviewed\s+|Updated\s+))\d{4}-\d{2}-\d{2}',
+        re.IGNORECASE,
+    )
+    return markers.sub(r"\g<1>DATE", content)
+
+
+def git_lastmod(path: str) -> str:
+    result = subprocess.run(
+        ["git", "log", "-1", "--format=%cs", "--", path],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return result.stdout.strip() or BUILD_DATE
+
+
+def directory_group(slug: str) -> str:
+    if slug in {
+        "admissions-marketplace", "how-it-works", "services", "admission-counselling",
+        "application-support", "university-shortlisting", "profile-evaluation", "book-counselling",
+    }:
+        return "Admissions & services"
+    if slug.startswith("ai-"):
+        return "AI tools"
+    if "consultant" in slug or slug in {"for-consultants", "partner-with-us"}:
+        return "Consultants & partners"
+    if slug.startswith(("mbbs", "medical-", "study-mbbs", "foreign-medical", "clinical-rotation", "specialization-after-mbbs", "fmge", "neet")):
+        return "Medicine & NEET"
+    if slug in {"study-abroad", "compare-countries", "best-country-for-indian-students", "post-study-work-visa"} or slug.startswith("study-in-"):
+        return "Destinations"
+    if any(term in slug for term in ("loan", "scholarship", "visa", "forex", "accommodation", "pre-departure", "cost-of-", "fees", "fee-structure")):
+        return "Funding, visas & arrival"
+    if slug in {"courses", "compare-courses"} or slug.endswith("-abroad") or slug in {
+        "study-abroad", "study-medicine-in-abroad", "medical-courses-in-abroad-for-indian-students",
+    }:
+        return "Courses & programs"
+    if slug in {"exams", "entrance-exams-india", "neet-exam", "cuet-exam", "cat-exam", "jee-counselling"} or slug.endswith("-preparation"):
+        return "Exams & preparation"
+    return "Guides & organization"
+
+
+def page_heading(slug: str, rendered: str) -> str:
+    match = re.search(r"<h1\b[^>]*>(.*?)</h1>", rendered, re.IGNORECASE | re.DOTALL)
+    if match:
+        return html.unescape(re.sub(r"<[^>]+>", " ", match.group(1))).strip()
+    return slug.replace("-", " ").title()
+
+
+PAGE_ENRICHMENTS = {
+    "admissions-marketplace.htm": """
+<h2>Use the marketplace as a decision path</h2>
+<p>Start with the question that is actually blocking your next step: which program fits, where to study, or who can help with an application. The <a href="courses.htm">courses index</a> and <a href="study-abroad.htm">destination hub</a> let you explore those two choices separately, so an early idea does not force a country decision before you have compared the course itself.</p>
+<p>Once you have a small set of options, read the relevant detail pages and note what still needs a human answer. The <a href="services.htm">services hub</a> separates counselling, applications, visas, funding and other support; the <a href="ai-agents.htm">AI agents</a> page describes tools for research and drafting. Neither a listing nor a generated draft is an admission offer, a university rule confirmation or a substitute for checking written terms.</p>
+<p>Keep one simple worksheet for the student and parent: target intake, academic record, likely budget, preferred program, and questions that need verification. Use it to compare options on the same basis rather than comparing a tuition figure on one page with an all-in package on another. When you need a person to help prioritize, the <a href="book-counselling.htm">counselling page</a> explains how to start the conversation and what information to share.</p>
+<ul><li>Explore opportunities by program before narrowing destinations.</li><li>Record tuition, living costs and one-time charges separately.</li><li>Check each service’s scope and who is responsible for each document.</li><li>Keep a second pathway open until eligibility and timelines are clear.</li></ul>
+<h3>Marketplace questions</h3>
+<details><summary>Does a marketplace listing guarantee admission?</summary><p>No. Use listings to research and compare; verify eligibility, current requirements and written service terms with the university or provider.</p></details>
+<details><summary>Can I begin without choosing a country?</summary><p>Yes. Start with a program or a question, then use destination pages to compare possible routes.</p></details>
+""",
+    "study-abroad.htm": """
+<h2>Compare destinations on the same checklist</h2>
+<p>A country page is most useful when it answers a decision question, not when it is read as a stand-alone brochure. Begin with the course and study level, then compare entry requirements, tuition, accommodation and other living costs, application timing, and the visa steps described for that destination. The <a href="compare-countries.htm">country comparison guide</a> helps keep those factors side by side; the <a href="cost-of-studying-abroad.htm">study-cost guide</a> provides a separate place to think through expense categories.</p>
+<p>Do not compare a first-year tuition figure with another destination’s full program total. Write down the currency and time period for each amount, mark which expenses are not included, and confirm the current figure with the institution before making a payment decision. For the same reason, check a destination’s visa guidance against the student’s actual documents and timeline rather than assuming a general overview applies to every applicant.</p>
+<p>Use this hub to move from broad exploration to a short list: open a few country pages, follow the course links relevant to your goal, and note what remains uncertain. A family considering a medical route can switch to the <a href="mbbs-abroad.htm">MBBS destination hub</a>; applicants who need a broader application discussion can use <a href="admission-counselling.htm">admission counselling</a>. Keep the shortlist focused enough that each option can be checked in detail.</p>
+<ul><li>State your target intake and level of study.</li><li>Separate tuition from housing, insurance, travel and visa costs.</li><li>Check academic and language requirements for the chosen course.</li><li>Confirm visa documents and deadlines from current official instructions.</li></ul>
+<h3>Destination questions</h3>
+<details><summary>Should I choose the country before the course?</summary><p>Not necessarily. Comparing course options first can make destination research more relevant to your goal.</p></details>
+<details><summary>Are the cost figures final quotes?</summary><p>No. Treat published figures as planning context and confirm current, itemized costs with the institution.</p></details>
+""",
+    "courses.htm": """
+<h2>Choose a program before comparing applications</h2>
+<p>Program choice sets the questions that matter later: level of study, academic prerequisites, examinations, application materials and the type of institution to research. This hub includes medical, postgraduate, business, engineering and other routes. Open the <a href="mbbs-abroad.htm">MBBS guide</a> for medicine, the <a href="ms-abroad.htm">MS guide</a> for postgraduate science and technology pathways, or the <a href="mba-abroad.htm">MBA guide</a> when management study is the goal.</p>
+<p>For each program, write down what the student wants to learn and what qualification or career direction the family is planning for. Then compare course duration, curriculum, entry requirements, practical or clinical components where relevant, and the documents needed to apply. Requirements differ by institution; do not infer that a test, subject prerequisite or waiver on one course page applies to another course or university.</p>
+<p>After the academic fit is clearer, use the <a href="study-abroad.htm">destination hub</a> to explore where that program is offered and the <a href="compare-courses.htm">course comparison guide</a> to frame trade-offs. If the decision depends on budget or application timing, add those questions to the family’s planning notes. Keep the notes in one table so that course options, destinations and costs are compared with the same criteria.</p>
+<ul><li>Separate undergraduate, postgraduate and professional routes.</li><li>Check prerequisites and accepted tests on the institution’s own page.</li><li>Compare curriculum and practical learning, not only the course title.</li><li>Map each chosen program to its application calendar and funding plan.</li></ul>
+<h3>Program questions</h3>
+<details><summary>Can I shortlist a course before selecting a country?</summary><p>Yes. Starting with the subject and study level can make later destination comparisons more focused.</p></details>
+<details><summary>Does a course page replace university requirements?</summary><p>No. Use it to frame research, then confirm the current requirements with each institution.</p></details>
+""",
+    "services.htm": """
+<h2>Choose support by the task that is unfinished</h2>
+<p>Admissions work is a sequence of distinct tasks, so a useful service choice starts with the point where the student needs help. A planning conversation belongs with <a href="admission-counselling.htm">admission counselling</a>; document assembly and portal follow-through belong with <a href="application-support.htm">application support</a>; a student comparing financing can read <a href="education-loan-abroad.htm">education-loan guidance</a>. The service descriptions are starting points for clarifying scope, not a reason to buy work that is not needed.</p>
+<p>Before engaging any provider, write down the deliverable, inputs you must supply, who will review the work, the expected hand-off, and any deadlines that matter. For essays, be clear that the applicant’s experiences and voice remain their own; for visa preparation, separate document organization from a decision made by an immigration authority. Keep promises, exclusions and payment or refund terms in writing.</p>
+<p>Some tasks depend on another being complete. A shortlist is more useful after scores, budget and study goal are clear; applications need institution-specific documents; a loan plan depends on a realistic total budget and disbursement timing. Use the links here to identify that dependency, and bring unresolved questions to a counsellor instead of purchasing overlapping packages. If you are unsure which task comes first, begin with the <a href="profile-evaluation.htm">profile evaluation</a> or the <a href="book-counselling.htm">counselling conversation</a>.</p>
+<ul><li>Ask for the exact output and revision or follow-up scope.</li><li>Confirm which documents and decisions remain the student’s responsibility.</li><li>Check how the service fits the application calendar.</li><li>Compare providers on scope and written terms, not just labels.</li></ul>
+<h3>Service questions</h3>
+<details><summary>Do I need every service on this page?</summary><p>No. Choose only the support that matches an identified task or a gap in your plan.</p></details>
+<details><summary>Who makes the final admission or visa decision?</summary><p>The institution decides admissions and the relevant authority decides visas; support services help you prepare and organize.</p></details>
+""",
+    "ai-agents.htm": """
+<h2>Use each agent for a bounded piece of work</h2>
+<p>The tools in this hub address different parts of an admissions workflow. The <a href="ai-profile-matcher.htm">Profile Matcher</a> frames a profile against destination considerations; the <a href="ai-university-finder.htm">University Finder</a> helps organize possible options; and the <a href="ai-sop-coach.htm">SOP Coach</a> supports drafting and critique. The Visa Assistant organizes checklist and practice questions, while the Loan Advisor frames early funding questions. Choose one task at a time rather than treating the tools as one final answer.</p>
+<p>Useful inputs are the same details a student would need to check manually: target course and intake, academic record, budget boundaries, destinations under consideration, and the specific question to resolve. Review every output against the source document or institution page it concerns. A generated shortlist is not proof of eligibility, a drafted statement must be edited into the applicant’s own account, and a visa checklist cannot predict an official decision.</p>
+<p>Keep the process auditable: save the question, note assumptions, and mark each item that still needs confirmation. Bring high-stakes or ambiguous decisions to a person. The <a href="university-shortlisting.htm">shortlisting service</a> explains how a dream/target/safe framework can be used with an applicant’s profile, while <a href="book-counselling.htm">human counselling</a> is available for discussion. This division makes the tools useful for organization without implying that automation replaces professional judgement.</p>
+<ul><li>Give an agent one clear task and relevant context.</li><li>Check dates, eligibility and costs against current primary sources.</li><li>Rewrite drafts so they reflect the student’s own facts and voice.</li><li>Escalate uncertain or consequential decisions for human review.</li></ul>
+<h3>AI tool questions</h3>
+<details><summary>Can an AI agent confirm an admission or visa outcome?</summary><p>No. It can help organize research or preparation, but the relevant institution or authority makes the decision.</p></details>
+<details><summary>Should I submit an AI-written statement as-is?</summary><p>No. Verify every detail and revise it so the applicant’s own experience and voice are accurate.</p></details>
+""",
+    "mbbs-abroad.htm": """
+<h2>Build an MBBS shortlist around verifiable checks</h2>
+<p>For medicine, a country comparison is only a first screen. Start with the student’s NEET and academic position, intended intake and long-term plan to practise. Then verify the current eligibility and recognition information that applies to the exact institution and program. The <a href="neet-exam.htm">NEET guide</a> and <a href="fmge.htm">FMGE guide</a> help frame questions for Indian applicants; neither replaces checking current official notices or university documents.</p>
+<p>Ask each institution or provider for a year-wise tuition schedule and a written list of other charges. Keep hostel, food, insurance, visa, travel, currency conversion and any service fees separate. Compare like with like: the same program length, same currency date and same expense categories. The <a href="study-in-georgia.htm">Georgia destination page</a> and <a href="mbbs-fees-in-georgia-for-indian-students.htm">Georgia fee guide</a> are examples of pages to use as starting points for that country-level review, not guarantees of current fees.</p>
+<p>Before any deposit, ask how instruction and clinical training are organized, what the admission documents and refund conditions say, and how the student will prepare for the next licensing step after graduation. Keep a second country or an India pathway in view until the facts are confirmed. For budget planning, review <a href="education-loan-for-mbbs.htm">MBBS loan considerations</a> and bring unresolved items to a counsellor.</p>
+<ul><li>Verify eligibility, recognition and language details for the specific program.</li><li>Request a line-item cost sheet, not only a package total.</li><li>Read deposit, refund and deferral conditions before paying.</li><li>Plan for licensing preparation as a separate stage from university admission.</li></ul>
+<h3>MBBS questions</h3>
+<details><summary>Does a low tuition figure show the full cost?</summary><p>No. Add living, travel, insurance, visa, currency and other applicable charges before comparing options.</p></details>
+<details><summary>Can an “admission without NEET” claim settle eligibility?</summary><p>No. Check current Indian rules and the exact institution’s requirements before relying on such a claim.</p></details>
+""",
+    "book-counselling.htm": """
+<h2>Prepare for a focused counselling conversation</h2>
+<p>A first conversation is easier to use when the student and parent agree on the basic facts beforehand. Note the target course, study level, preferred intake, current academic record, tests already taken, destinations under consideration and a budget range the family is prepared to discuss. The page offers contact by WhatsApp or phone; it states that a counsellor can respond within one business day. That response is a starting point for discussion, not a promise of an admission result.</p>
+<p>Bring the questions that affect the next decision rather than asking for a general list of every possible university. For example: which prerequisites still need checking, what documents are missing, whether the family should compare another destination, or which costs need a written quote. The <a href="profile-evaluation.htm">profile evaluation</a> describes a 15-minute diagnostic; the <a href="courses.htm">course index</a> and <a href="compare-countries.htm">country comparison guide</a> can help you prepare a focused shortlist.</p>
+<p>After the discussion, write down the agreed action, its owner and the date it is needed. Confirm any service scope, fee, refund term or university requirement in writing with the relevant provider. If your need is specific, follow the link to the matching <a href="services.htm">admissions service</a> and ask how that service fits your timeline. Keeping the conversation tied to facts makes follow-up more useful for everyone involved.</p>
+<ul><li>Share the student’s real academic and test details.</li><li>State a budget range and a target intake, including any flexibility.</li><li>List two or three decisions that are currently blocked.</li><li>End with written next actions rather than relying on memory.</li></ul>
+<h3>Counselling questions</h3>
+<details><summary>What should I share in my first message?</summary><p>Start with the course, target year, scores or current grade, budget range and the question you need help answering.</p></details>
+<details><summary>Does counselling guarantee an offer?</summary><p>No. It helps clarify choices and next steps; universities make admission decisions.</p></details>
+""",
+    "profile-evaluation.htm": """
+<h2>What to bring to a profile evaluation</h2>
+<p>The page describes this as a 15-minute diagnostic of admit chances and next actions. To make that time concrete, prepare the student’s latest marks or transcripts, completed and planned tests, intended course and study level, target intake, destinations being considered, and the budget boundaries that matter. If a document is not available yet, mark it as pending rather than guessing a score or completion date.</p>
+<p>Use the discussion to identify what is known, what remains uncertain and which check should happen next. Questions may include whether a prerequisite appears incomplete, which official requirements need confirmation, whether the budget should be tested against another destination, or what application deadline needs attention. The <a href="ai-profile-matcher.htm">Profile Matcher</a> page describes an AI aid for organizing profile considerations; use it as preparation, not as a substitute for reviewing actual university requirements.</p>
+<p>A useful outcome is a short action list with an owner and a follow-up point: student documents to gather, a course or country page to compare, and any question to confirm directly with a university or authority. For a deeper option comparison, continue to <a href="university-shortlisting.htm">university shortlisting</a>; for an actual conversation, use <a href="book-counselling.htm">book counselling</a>. Keep the original documents and any written advice so later decisions can be checked against the same facts.</p>
+<ul><li>Bring the student’s own scores and dates, not estimates.</li><li>Describe the intended program and intake before discussing fit.</li><li>Separate a confirmed requirement from a question still to verify.</li><li>Record practical next steps after the diagnostic.</li></ul>
+<h3>Profile evaluation questions</h3>
+<details><summary>Is an evaluation an admission prediction?</summary><p>No. It is a first-pass diagnostic; only institutions can decide whether an application meets their requirements.</p></details>
+<details><summary>Do I need every document before booking?</summary><p>No, but note which records are missing so the discussion does not treat an estimate as a confirmed fact.</p></details>
+""",
+    "university-shortlisting.htm": """
+<h2>Make the shortlist explain its own logic</h2>
+<p>A useful shortlist is more than a set of university names. It should show why each option belongs there for this applicant, which published requirement has been checked, and what uncertainty remains. The service describes a dream/target/safe framework matched to budget, scores and career goals. Treat those labels as planning categories rather than admission probabilities: selection standards, available seats and applicant pools can change.</p>
+<p>For every candidate, record the exact course and campus, required subjects and tests, language evidence, intake, application deadline, tuition period and other expenses. Note where the information came from and when it was checked. If an entry depends on a waiver or an interpretation of a rule, flag it for confirmation with the institution. Comparing options in one table also reveals when two names are not equivalent because the course, duration or cost basis differs.</p>
+<p>Use the <a href="compare-courses.htm">course comparison guide</a> to distinguish program choices and the <a href="compare-countries.htm">country comparison guide</a> to organize location trade-offs. Where the student is still deciding the overall direction, start with the <a href="profile-evaluation.htm">profile evaluation</a>; for application-specific next steps, ask about <a href="application-support.htm">application support</a>. Keep a parallel option until the important facts are verified, and revisit the list whenever a score, budget or deadline changes.</p>
+<ul><li>Define reach, target and safer options using stated criteria.</li><li>Check each program’s current requirements at the institution.</li><li>Compare costs on the same program-length and currency basis.</li><li>Record a reason and an unresolved question for every choice.</li></ul>
+<h3>Shortlisting questions</h3>
+<details><summary>Does “safe” mean admission is guaranteed?</summary><p>No. It describes a relative planning category, not a promise from a university.</p></details>
+<details><summary>When should I revise a shortlist?</summary><p>Recheck it when scores, budget, program preference, intake or published requirements change.</p></details>
+""",
+    "education-loan-abroad.htm": """
+<h2>Plan financing from the complete cost and timeline</h2>
+<p>The education-loan service page focuses on comparing bank and non-bank lender options, collateral versus non-collateral routes, and disbursal timelines. Begin with the student’s written cost plan rather than an advertised monthly payment: include tuition by year, accommodation, insurance, visa, travel and other charges that apply. Record which amounts are confirmed by an institution and which are still estimates. The <a href="cost-of-studying-abroad.htm">study-cost guide</a> can help organize those categories.</p>
+<p>Next, map when each expense is due against the application, deposit, visa and enrolment calendar. Ask a lender what documents it needs, how it assesses the applicant and co-applicant, whether collateral is required, what costs or conditions apply, and when funds can actually be disbursed. Do not treat a preliminary EMI calculation or a general eligibility explanation as an approval, final interest rate or loan offer; those terms come from the lender after its review.</p>
+<p>Compare offers using the same principal amount and repayment assumptions, then read the full sanction and disbursal terms before making a commitment. Families considering medicine can also review <a href="education-loan-for-mbbs.htm">MBBS loan planning</a>; those managing currency payments can consult <a href="forex-and-remittance.htm">forex and remittance guidance</a>. Bring unclear timing or cost questions to <a href="admission-counselling.htm">admission counselling</a> while keeping lender-specific decisions with the lender.</p>
+<ul><li>Build a full, itemized education budget first.</li><li>Match expected disbursal dates to actual payment deadlines.</li><li>Compare collateral, co-applicant and document requirements in writing.</li><li>Review the final sanction terms before relying on a loan.</li></ul>
+<h3>Loan questions</h3>
+<details><summary>Does an EMI estimate mean a loan is approved?</summary><p>No. Approval, rate and disbursal depend on the lender’s assessment and final written terms.</p></details>
+<details><summary>Should I borrow only the tuition amount?</summary><p>Plan for all applicable education and living costs, then confirm eligible expenses with the lender.</p></details>
+""",
+}
 
 
 def build() -> None:
@@ -1665,11 +1842,19 @@ def build() -> None:
         </div>
         """
         if country:
+            country_page_slug = country_aliases.get(country, country)
+            if country in country_aliases and country_page_slug is None:
+                country_page_slug = "georgia"
+            country_page = (
+                f"study-in-{country_page_slug}.htm"
+                if country_page_slug in country_masters
+                else "mbbs-abroad.htm"
+            )
             extra += f"""
             <h2>Country angle — {esc(country_label)}</h2>
             <p>When evaluating {esc(country_label)}, separate tuition from hostel and living costs; confirm English-medium instruction
             for lectures vs clinics; and map FMGE/NExT preparation if you intend to practise in India. Indicative destination page:
-            <a href="study-in-{esc(country_aliases.get(country, country) or 'georgia')}.htm">Study in {esc(country_label)}</a>
+            <a href="{esc(country_page)}">Study in {esc(country_label)}</a>
             (falls back via master if a dedicated page is not live).</p>
             <div class="table-wrap"><table class="data">
               <thead><tr><th>Cost head</th><th>Ask for</th></tr></thead>
@@ -1744,10 +1929,6 @@ def build() -> None:
 
     pages.update(alias_pages)
 
-    # Write pages
-    for name, content in pages.items():
-        (ROOT / name).write_text(content, encoding="utf-8")
-
     # Sitemap: ONLY self-canonical masters (exclude legacy aliases)
     master_urls = []
     for n in sorted(pages):
@@ -1758,9 +1939,116 @@ def build() -> None:
             continue
         master_urls.append(n)
 
+    daily_dir = ROOT / "sitegen" / "data" / "published_guides.json"
+    daily_items = []
+    if daily_dir.exists():
+        try:
+            daily_items = json.loads(daily_dir.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            daily_items = []
+    daily_urls = [
+        f"{item.get('slug', '')}.htm"
+        for item in daily_items
+        if item.get("slug")
+        and (ROOT / f"{item['slug']}.htm").exists()
+        and f"{item['slug']}.htm" not in master_urls
+    ]
+
+    grouped_directory: dict[str, list[tuple[str, str]]] = {
+        "Start here": [("/", "LAUNCHPAD home")],
+        "Admissions & services": [],
+        "AI tools": [],
+        "Consultants & partners": [],
+        "Programs & courses": [],
+        "Medicine & NEET": [],
+        "Destinations": [],
+        "Exams & preparation": [],
+        "Funding, visas & arrival": [],
+        "Guides & organization": [],
+    }
+    for name in [*master_urls, *daily_urls]:
+        rendered = pages.get(name)
+        if rendered is None:
+            file_path = ROOT / name
+            rendered = file_path.read_text(encoding="utf-8") if file_path.exists() else ""
+        group = directory_group(name.removesuffix(".htm"))
+        grouped_directory.setdefault(group, []).append((name, page_heading(name.removesuffix(".htm"), rendered)))
+
+    directory_links = "".join(
+        f'<section><h3>{esc(group)}</h3><ul>'
+        + "".join(
+            f'<li><a href="{esc(href)}">{esc(title)}</a></li>'
+            for href, title in links
+        )
+        + "</ul></section>"
+        for group, links in grouped_directory.items()
+        if links
+    )
+    resources_directory = f"""
+<section class="section"><div class="container prose">
+<h2>Browse the complete LAUNCHPAD directory</h2>
+<p>This index brings the public pages together by the decision they support. Start with <a href="admissions-marketplace.htm">the admissions marketplace</a> if you are deciding what kind of help to explore; use <a href="courses.htm">courses and programs</a> to begin with a subject, or <a href="study-abroad.htm">destinations</a> to compare places. The directory below links to every page listed in the XML sitemap, including the home page, so a reader can move from a broad question to a relevant detail page without relying on a search result.</p>
+<p>Use the program and destination groups to create a small shortlist, then compare the same factors for each choice: entry requirements, intake timing, tuition period, living expenses and documents that still need confirmation. The medicine group collects MBBS, NEET and related material; exam pages are separated so test planning does not get mixed up with course requirements. Funding, visa and arrival pages cover practical steps that often depend on the chosen institution and destination.</p>
+<p>When a research page leaves a personal question unresolved, the <a href="services.htm">services index</a> shows the types of support described on this site and <a href="book-counselling.htm">counselling</a> provides a route to discuss next steps. Check current institutional and authority instructions before making a payment or relying on a general guide. Pages are grouped for navigation, not ranked by suitability, and a link is not a guarantee of admission, funding or a visa.</p>
+<p>To keep the research actionable, make a note for each page you open: when it was checked, what still needs official confirmation, and the next step that belongs to the student or family. The directory does not imply that every listed route fits every applicant. It is broad so a reader can find relevant material from a shared index, while the final shortlist should reflect the actual course, academic record, budget and timeline. Revisit time-sensitive requirements directly with the institution or authority before making a decision.</p>
+{directory_links}
+</div></section>
+"""
+    pages["resources.htm"] = insert_before(
+        pages["resources.htm"],
+        '<section class="section"><div class="container prose">',
+        resources_directory,
+    )
+
+    hub_enrichments = {
+        "admissions-marketplace.htm",
+        "study-abroad.htm",
+        "courses.htm",
+        "services.htm",
+        "ai-agents.htm",
+    }
+    for name, content in PAGE_ENRICHMENTS.items():
+        if name in hub_enrichments:
+            section = f'<section class="section"><div class="container prose">{content}</div></section>'
+            pages[name] = insert_before(
+                pages[name],
+                '<section class="section"><div class="container prose">',
+                section,
+            )
+        else:
+            pages[name] = insert_before(
+                pages[name],
+                "<h2>Frequently asked questions</h2>",
+                content,
+            )
+
+    # Preserve unchanged generated pages and their review dates across routine builds.
+    changed_paths = set(
+        subprocess.run(
+            ["git", "diff", "--name-only", "HEAD"],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        ).stdout.splitlines()
+    )
+    changed_pages = set()
+    for name, content in pages.items():
+        output_path = ROOT / name
+        existing = output_path.read_text(encoding="utf-8") if output_path.exists() else None
+        if existing is None or normalize_review_dates(content) != normalize_review_dates(existing):
+            changed_pages.add(name)
+        if name in changed_paths:
+            changed_pages.add(name)
+        if existing is None or content != existing and name in changed_pages:
+            output_path.write_text(content, encoding="utf-8")
+
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    def sitemap_lastmod(path: str) -> str:
+        return BUILD_DATE if path in changed_pages else git_lastmod(path)
+
     sm.append(
-        f"  <url><loc>{CANONICAL}/</loc><lastmod>{BUILD_DATE}</lastmod>"
+        f"  <url><loc>{CANONICAL}/</loc><lastmod>{sitemap_lastmod('index.html')}</lastmod>"
         f"<changefreq>daily</changefreq><priority>1.0</priority></url>"
     )
     for u in master_urls:
@@ -1771,23 +2059,15 @@ def build() -> None:
         else:
             pri, freq = "0.7", "weekly"
         sm.append(
-            f"  <url><loc>{CANONICAL}/{u}</loc><lastmod>{BUILD_DATE}</lastmod>"
+            f"  <url><loc>{CANONICAL}/{u}</loc><lastmod>{sitemap_lastmod(u)}</lastmod>"
             f"<changefreq>{freq}</changefreq><priority>{pri}</priority></url>"
         )
     # Include daily-published guides registry if present
-    daily_dir = ROOT / "sitegen" / "data" / "published_guides.json"
-    if daily_dir.exists():
-        try:
-            for item in json.loads(daily_dir.read_text(encoding="utf-8")):
-                slug = item.get("slug", "")
-                if slug and (ROOT / f"{slug}.htm").exists() and f"{slug}.htm" not in master_urls:
-                    lm = item.get("date", BUILD_DATE)
-                    sm.append(
-                        f"  <url><loc>{CANONICAL}/{slug}.htm</loc><lastmod>{lm}</lastmod>"
-                        f"<changefreq>weekly</changefreq><priority>0.8</priority></url>"
-                    )
-        except json.JSONDecodeError:
-            pass
+    for name in daily_urls:
+        sm.append(
+            f"  <url><loc>{CANONICAL}/{name}</loc><lastmod>{sitemap_lastmod(name)}</lastmod>"
+            f"<changefreq>weekly</changefreq><priority>0.8</priority></url>"
+        )
     sm.append("</urlset>")
     (ROOT / "sitemap.xml").write_text("\n".join(sm) + "\n", encoding="utf-8")
 
@@ -1846,6 +2126,7 @@ http://www.launchpadi.com/* https://www.launchpadi.com/:splat 301
 
     print(f"Generated {len(pages)} page files ({len(alias_pages)} legacy aliases)")
     print(f"Sitemap master URLs: {len(master_urls)}")
+    print(f"Content-modified pages: {len(changed_pages)}")
     print(f"Priority self-canonical fee pages: {len(PRIORITY_FEE_PAGES)}")
     print(f"Redirects: index.html + apex→www host rules; HSTS enabled in _headers")
 
