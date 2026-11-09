@@ -32,6 +32,83 @@ BRAND = "LAUNCHPAD"
 TAGLINE = "Admissions Intelligence Marketplace"
 BUILD_DATE = date.today().isoformat()
 
+# Slim public surface: keep a small canonical set. Everything else 301s here.
+# Google treated the old thin/duplicate cluster as "Discovered – currently not indexed".
+KEEP_CANONICAL = {
+    "index.htm",
+    "index.html",
+    "about.htm",
+    "contact-us.htm",
+    "how-it-works.htm",
+    "study-abroad.htm",
+    "mbbs-abroad.htm",
+    "courses.htm",
+    "admissions-marketplace.htm",
+    "book-counselling.htm",
+    "find-consultants.htm",
+    "privacy-policy.htm",
+    "terms.htm",
+    "faq.htm",
+    "ai-agents.htm",
+    "exams.htm",
+    "services.htm",
+    "for-consultants.htm",
+    "for-universities.htm",
+    "study-in-georgia.htm",
+    "mbbs-fees-in-georgia-for-indian-students.htm",
+    "mbbs-fees-in-albania-for-indian-students.htm",
+    "LAUNCHPADi-Q-MCQ-quiz-web-application.htm",
+    "resources.htm",
+}
+
+EXAM_HINTS = (
+    "neet",
+    "ielts",
+    "toefl",
+    "pte",
+    "gre",
+    "gmat",
+    "sat",
+    "cat-exam",
+    "cuet",
+    "duolingo",
+    "fmge",
+    "aps.htm",
+)
+
+
+def redirect_target(name: str) -> str:
+    """Map a retired/thin URL to the closest kept hub (one hop)."""
+    base = name.rsplit("/", 1)[-1]
+    if name in KEEP_CANONICAL or base in KEEP_CANONICAL:
+        return name if name in KEEP_CANONICAL else base
+    if name.startswith("mcq/") or name.startswith("/mcq/"):
+        return "LAUNCHPADi-Q-MCQ-quiz-web-application.htm"
+    if base.startswith("admission-consultants-") or "consultant" in base:
+        return "find-consultants.htm"
+    if base.startswith("ai-"):
+        return "ai-agents.htm"
+    if (
+        base.startswith("mbbs-")
+        or "medical-college" in base
+        or "without-neet" in base
+        or base.startswith("study-mbbs")
+    ):
+        return "mbbs-abroad.htm"
+    if any(h in base for h in EXAM_HINTS):
+        return "exams.htm"
+    if base.startswith("study-in-") or base.startswith("study-abroad"):
+        return "study-abroad.htm"
+    if base.endswith("-abroad.htm") or base in {
+        "ms-in-cs-guide.htm",
+        "compare-courses.htm",
+        "compare-countries.htm",
+    }:
+        return "courses.htm"
+    if base in {"careers.htm", "partner-with-us.htm", "offers.htm", "pricing.htm"}:
+        return "about.htm"
+    return "index.htm"
+
 # High-impression fee URLs: self-canonical masters (not soft-canonical aliases).
 # Titles stay <60 chars before " | LAUNCHPAD"; metas target GSC query clusters.
 PRIORITY_FEE_PAGES: dict[str, dict] = {
@@ -1928,14 +2005,15 @@ def build() -> None:
         )
 
     pages.update(alias_pages)
+    all_generated_names = sorted(pages)
 
-    # Sitemap: ONLY self-canonical masters (exclude legacy aliases)
+    # Drop thin/duplicate generated pages from the public surface. Keep hubs only.
+    pages = {name: content for name, content in pages.items() if name in KEEP_CANONICAL}
+
+    # Sitemap: kept canonical hubs only
     master_urls = []
     for n in sorted(pages):
         if not n.endswith(".htm") or n == "index.htm":
-            continue
-        # detect alias via canonical mismatch in file is heavy; use alias_pages set
-        if n in alias_pages:
             continue
         master_urls.append(n)
 
@@ -1950,7 +2028,7 @@ def build() -> None:
         f"{item.get('slug', '')}.htm"
         for item in daily_items
         if item.get("slug")
-        and (ROOT / f"{item['slug']}.htm").exists()
+        and f"{item['slug']}.htm" in KEEP_CANONICAL
         and f"{item['slug']}.htm" not in master_urls
     ]
 
@@ -1987,18 +2065,19 @@ def build() -> None:
     resources_directory = f"""
 <section class="section"><div class="container prose">
 <h2>Browse the complete LAUNCHPAD directory</h2>
-<p>This index brings the public pages together by the decision they support. Start with <a href="admissions-marketplace.htm">the admissions marketplace</a> if you are deciding what kind of help to explore; use <a href="courses.htm">courses and programs</a> to begin with a subject, or <a href="study-abroad.htm">destinations</a> to compare places. The directory below links to every page listed in the XML sitemap, including the home page, so a reader can move from a broad question to a relevant detail page without relying on a search result.</p>
+<p>This index lists the live LAUNCHPAD hubs. Retired fee, country, and exam doorway pages redirect here in one hop. Start with <a href="admissions-marketplace.htm">the admissions marketplace</a>, <a href="courses.htm">courses</a>, or <a href="study-abroad.htm">destinations</a>.</p>
 <p>Use the program and destination groups to create a small shortlist, then compare the same factors for each choice: entry requirements, intake timing, tuition period, living expenses and documents that still need confirmation. The medicine group collects MBBS, NEET and related material; exam pages are separated so test planning does not get mixed up with course requirements. Funding, visa and arrival pages cover practical steps that often depend on the chosen institution and destination.</p>
 <p>When a research page leaves a personal question unresolved, the <a href="services.htm">services index</a> shows the types of support described on this site and <a href="book-counselling.htm">counselling</a> provides a route to discuss next steps. Check current institutional and authority instructions before making a payment or relying on a general guide. Pages are grouped for navigation, not ranked by suitability, and a link is not a guarantee of admission, funding or a visa.</p>
 <p>To keep the research actionable, make a note for each page you open: when it was checked, what still needs official confirmation, and the next step that belongs to the student or family. The directory does not imply that every listed route fits every applicant. It is broad so a reader can find relevant material from a shared index, while the final shortlist should reflect the actual course, academic record, budget and timeline. Revisit time-sensitive requirements directly with the institution or authority before making a decision.</p>
 {directory_links}
 </div></section>
 """
-    pages["resources.htm"] = insert_before(
-        pages["resources.htm"],
-        '<section class="section"><div class="container prose">',
-        resources_directory,
-    )
+    if "resources.htm" in pages:
+        pages["resources.htm"] = insert_before(
+            pages["resources.htm"],
+            '<section class="section"><div class="container prose">',
+            resources_directory,
+        )
 
     hub_enrichments = {
         "admissions-marketplace.htm",
@@ -2008,6 +2087,8 @@ def build() -> None:
         "ai-agents.htm",
     }
     for name, content in PAGE_ENRICHMENTS.items():
+        if name not in pages:
+            continue
         if name in hub_enrichments:
             section = f'<section class="section"><div class="container prose">{content}</div></section>'
             pages[name] = insert_before(
@@ -2042,6 +2123,36 @@ def build() -> None:
             changed_pages.add(name)
         if existing is None or content != existing and name in changed_pages:
             output_path.write_text(content, encoding="utf-8")
+
+    # Remove retired .htm files so Pages _redirects can 301 them (static files win otherwise).
+    retired_redirects: list[tuple[str, str]] = []
+    keep_files = set(KEEP_CANONICAL)
+    for name in all_generated_names:
+        if name in keep_files:
+            continue
+        dest = redirect_target(name)
+        retired_redirects.append((f"/{name}", f"/{dest}" if dest != "index.htm" else "/"))
+        stale = ROOT / name
+        if stale.exists() and stale.is_file():
+            stale.unlink()
+    for extra in ROOT.glob("*.htm"):
+        if extra.name not in keep_files:
+            dest = redirect_target(extra.name)
+            retired_redirects.append((f"/{extra.name}", f"/{dest}" if dest != "index.htm" else "/"))
+            extra.unlink()
+    mcq_dir = ROOT / "mcq"
+    if mcq_dir.is_dir():
+        for extra in mcq_dir.glob("*.html"):
+            retired_redirects.append((f"/mcq/{extra.name}", "/LAUNCHPADi-Q-MCQ-quiz-web-application.htm"))
+            extra.unlink()
+
+    seen_from = set()
+    unique_redirects = []
+    for src, dest in retired_redirects:
+        if src in seen_from or src.rstrip("/") == dest.rstrip("/"):
+            continue
+        seen_from.add(src)
+        unique_redirects.append((src, dest))
 
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     def sitemap_lastmod(path: str) -> str:
@@ -2080,20 +2191,38 @@ Sitemap: {CANONICAL}/sitemap.xml
         encoding="utf-8",
     )
 
-    # No 301s for restored legacy URLs — keep index.html normalize + apex→www host redirects
-    (ROOT / "_redirects").write_text(
-        """# Cloudflare Pages redirects
-# Legacy URLs are restored as live pages with rel=canonical → master guides.
-# Do not 301 those paths or Google never sees the updated HTML + canonical.
+    redirect_lines = [
+        "# Cloudflare Pages redirects",
+        "# Thin/duplicate legacy URLs 301 to a small set of live hubs.",
+        "",
+        "/index.html / 301",
+        "",
+        "# Path-preserving host redirects when both apex and www are custom domains.",
+        "https://launchpadi.com/* https://www.launchpadi.com/:splat 301",
+        "http://launchpadi.com/* https://www.launchpadi.com/:splat 301",
+        "http://www.launchpadi.com/* https://www.launchpadi.com/:splat 301",
+        "",
+        "# Retired thin pages (one hop)",
+    ]
+    for src, dest in unique_redirects:
+        redirect_lines.append(f"{src} {dest} 301")
+    redirect_lines.append("")
+    (ROOT / "_redirects").write_text("\n".join(redirect_lines), encoding="utf-8")
 
-/index.html / 301
-
-# Path-preserving host redirects when both apex and www are custom domains on this Pages project.
-# Prefer Bulk Redirects / Redirect Rules if apex is served outside Pages; these still help unify host.
-https://launchpadi.com/* https://www.launchpadi.com/:splat 301
-http://launchpadi.com/* https://www.launchpadi.com/:splat 301
-http://www.launchpadi.com/* https://www.launchpadi.com/:splat 301
-""",
+    exact = {"/index.html": "/"}
+    for src, dest in unique_redirects:
+        exact[src] = dest
+    lib_dir = ROOT / "functions" / "_lib"
+    lib_dir.mkdir(parents=True, exist_ok=True)
+    pairs = ",\n".join(
+        f'  {json.dumps(src)}: {json.dumps(dest)}' for src, dest in sorted(exact.items())
+    )
+    (lib_dir / "retired-redirects.js").write_text(
+        "/**\n"
+        " * Retired thin-page 301 map. _middleware is a catch-all Function, so _redirects may not run.\n"
+        " * Regenerated by sitegen/build.py.\n"
+        " */\n"
+        f"export const RETIRED_REDIRECTS = {{\n{pairs}\n}};\n",
         encoding="utf-8",
     )
 
@@ -2124,11 +2253,11 @@ http://www.launchpadi.com/* https://www.launchpadi.com/:splat 301
         encoding="utf-8",
     )
 
-    print(f"Generated {len(pages)} page files ({len(alias_pages)} legacy aliases)")
+    print(f"Generated {len(pages)} kept page files; {len(unique_redirects)} retired 301s")
     print(f"Sitemap master URLs: {len(master_urls)}")
     print(f"Content-modified pages: {len(changed_pages)}")
     print(f"Priority self-canonical fee pages: {len(PRIORITY_FEE_PAGES)}")
-    print(f"Redirects: index.html + apex→www host rules; HSTS enabled in _headers")
+    print("Redirects: kept hubs + retired 301s + apex→www; HSTS enabled in _headers")
 
 
 if __name__ == "__main__":
