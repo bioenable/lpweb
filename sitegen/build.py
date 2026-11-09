@@ -2197,10 +2197,9 @@ Sitemap: {CANONICAL}/sitemap.xml
         "",
         "/index.html / 301",
         "",
-        "# Path-preserving host redirects when both apex and www are custom domains.",
-        "https://launchpadi.com/* https://www.launchpadi.com/:splat 301",
-        "http://launchpadi.com/* https://www.launchpadi.com/:splat 301",
-        "http://www.launchpadi.com/* https://www.launchpadi.com/:splat 301",
+        "# Apex host redirect lives in functions/_middleware.js so /robots.txt can",
+        "# return a real body. A host splat here 301s robots.txt and Cloudflare",
+        "# then serves a managed policy page on the apex.",
         "",
         "# Retired thin pages (one hop)",
     ]
